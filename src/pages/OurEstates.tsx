@@ -43,6 +43,21 @@ const OurEstates = () => {
         <>
             <Helmet>
                 <title>Our Estates | Adonai Estate Limited</title>
+                <meta name="description" content="Explore our premium estates across the Volta Region - Airport Golf City, UHAS Florida City, Volta Safari City, and Leaders City." />
+
+                {/* Open Graph / Facebook */}
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://adonaiestateltd.com/estates" />
+                <meta property="og:title" content="Our Estates | Adonai Estate Limited" />
+                <meta property="og:description" content="Explore our premium estates across the Volta Region - Airport Golf City, UHAS Florida City, Volta Safari City, and Leaders City." />
+                <meta property="og:image" content="https://adonaiestateltd.com/airport_golf_city_main.jpg" />
+                <meta property="og:site_name" content="Adonai Estate Limited" />
+
+                {/* Twitter */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Our Estates | Adonai Estate Limited" />
+                <meta name="twitter:description" content="Explore our premium estates across the Volta Region - Airport Golf City, UHAS Florida City, Volta Safari City, and Leaders City." />
+                <meta name="twitter:image" content="https://adonaiestateltd.com/airport_golf_city_main.jpg" />
             </Helmet>
 
             <div className="bg-slate-50 min-h-screen">

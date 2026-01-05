@@ -48,6 +48,21 @@ const Home = () => {
             <Helmet>
                 <title>Adonai Estate Limited | Ultra Modern Real Estate in Ghana</title>
                 <meta name="description" content="Helping solve Ghana's housing deficit realistically. Own litigation-free land and homes in Airport Golf City, UHAS Florida City, and more." />
+
+                {/* Open Graph / Facebook */}
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://adonaiestateltd.com/" />
+                <meta property="og:title" content="Adonai Estate Limited | Ultra Modern Real Estate in Ghana" />
+                <meta property="og:description" content="Helping solve Ghana's housing deficit realistically. Own litigation-free land and homes in Airport Golf City, UHAS Florida City, and more." />
+                <meta property="og:image" content="https://adonaiestateltd.com/airport_golf_city_main.jpg" />
+                <meta property="og:site_name" content="Adonai Estate Limited" />
+
+                {/* Twitter */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:url" content="https://adonaiestateltd.com/" />
+                <meta name="twitter:title" content="Adonai Estate Limited | Ultra Modern Real Estate in Ghana" />
+                <meta name="twitter:description" content="Helping solve Ghana's housing deficit realistically. Own litigation-free land and homes in Airport Golf City, UHAS Florida City, and more." />
+                <meta name="twitter:image" content="https://adonaiestateltd.com/airport_golf_city_main.jpg" />
             </Helmet>
 
             {/* Hero Section */}

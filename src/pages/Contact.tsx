@@ -9,6 +9,20 @@ const Contact = () => {
             <Helmet>
                 <title>Contact Us | Adonai Estate Limited</title>
                 <meta name="description" content="Get in touch with Adonai Estate Limited. We are ready to help you own your litigation-free land today." />
+
+                {/* Open Graph / Facebook */}
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://adonaiestateltd.com/contact" />
+                <meta property="og:title" content="Contact Us | Adonai Estate Limited" />
+                <meta property="og:description" content="Get in touch with Adonai Estate Limited. We are ready to help you own your litigation-free land today." />
+                <meta property="og:image" content="https://adonaiestateltd.com/logo.jpg" />
+                <meta property="og:site_name" content="Adonai Estate Limited" />
+
+                {/* Twitter */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Contact Us | Adonai Estate Limited" />
+                <meta name="twitter:description" content="Get in touch with Adonai Estate Limited. We are ready to help you own your litigation-free land today." />
+                <meta name="twitter:image" content="https://adonaiestateltd.com/logo.jpg" />
             </Helmet>
 
             {/* Premium Hero Section */}

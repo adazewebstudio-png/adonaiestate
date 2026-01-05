@@ -16,11 +16,30 @@ interface EstatePageProps {
 }
 
 const EstateLayout: React.FC<EstatePageProps> = ({ title, location, description, features, priceInfo, imagePlaceholder, images, heroImage, children }) => {
+    const pageUrl = `https://adonaiestateltd.com/estates/${title.toLowerCase().replace(/\s+/g, '-')}`;
+    const ogImage = heroImage ? `https://adonaiestateltd.com${heroImage}` : (images && images[0] ? `https://adonaiestateltd.com${images[0]}` : 'https://adonaiestateltd.com/airport_golf_city_main.jpg');
+    const fullDescription = `Explore ${title} in ${location}. ${description}`;
+
     return (
         <div className="pt-24 pb-20 bg-white min-h-screen">
             <Helmet>
                 <title>{title} | Adonai Estate Limited</title>
-                <meta name="description" content={`Explore ${title} in ${location}. ${description}`} />
+                <meta name="description" content={fullDescription} />
+
+                {/* Open Graph / Facebook */}
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content={pageUrl} />
+                <meta property="og:title" content={`${title} | Adonai Estate Limited`} />
+                <meta property="og:description" content={fullDescription} />
+                <meta property="og:image" content={ogImage} />
+                <meta property="og:site_name" content="Adonai Estate Limited" />
+
+                {/* Twitter */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:url" content={pageUrl} />
+                <meta name="twitter:title" content={`${title} | Adonai Estate Limited`} />
+                <meta name="twitter:description" content={fullDescription} />
+                <meta name="twitter:image" content={ogImage} />
             </Helmet>
 
             <div className="container mx-auto px-4">

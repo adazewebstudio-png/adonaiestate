@@ -17,6 +17,20 @@ const AboutUs = () => {
             <Helmet>
                 <title>About Us | Adonai Estate Limited</title>
                 <meta name="description" content="Learn about Adonai Estate Limited, our mission, vision, and commitment to affordable housing in Ghana." />
+
+                {/* Open Graph / Facebook */}
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://adonaiestateltd.com/about-us" />
+                <meta property="og:title" content="About Us | Adonai Estate Limited" />
+                <meta property="og:description" content="Learn about Adonai Estate Limited, our mission, vision, and commitment to affordable housing in Ghana." />
+                <meta property="og:image" content="https://adonaiestateltd.com/ceo_bright_adonai.jpg" />
+                <meta property="og:site_name" content="Adonai Estate Limited" />
+
+                {/* Twitter */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="About Us | Adonai Estate Limited" />
+                <meta name="twitter:description" content="Learn about Adonai Estate Limited, our mission, vision, and commitment to affordable housing in Ghana." />
+                <meta name="twitter:image" content="https://adonaiestateltd.com/ceo_bright_adonai.jpg" />
             </Helmet>
 
             <div className="pt-24 pb-20 bg-white min-h-screen">
