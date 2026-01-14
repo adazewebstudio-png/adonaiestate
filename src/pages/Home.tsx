@@ -323,7 +323,7 @@ const Home = () => {
 
             {/* Services Section */}
             <section className="py-24 bg-slate-50 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('/bg-pattern.png')] opacity-5"></div>
+                <div className="absolute inset-0 bg-slate-100 opacity-5"></div>
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="text-center mb-16">
                         <span className="text-gold font-bold tracking-widest uppercase mb-2 block">What We Do</span>
@@ -462,7 +462,7 @@ const Home = () => {
             </section>
             {/* CTA */}
             <section className="py-24 relative overflow-hidden bg-primary">
-                <div className="absolute inset-0 bg-[url('/estate_uhas.png')] bg-cover bg-fixed opacity-10 mix-blend-overlay"></div>
+                <div className="absolute inset-0 bg-[url('/hero_home_main.jpg')] bg-cover bg-fixed opacity-10 mix-blend-overlay"></div>
                 <div className="container mx-auto text-center relative z-10">
                     <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Ready to Own Your Dream Land?</h2>
                     <p className="text-xl text-blue-50 mb-10 max-w-2xl mx-auto">

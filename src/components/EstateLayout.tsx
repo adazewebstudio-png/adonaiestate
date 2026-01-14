@@ -1,7 +1,24 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { MapPin, CheckCircle, ArrowRight } from 'lucide-react';
+import { MapPin, CheckCircle, ArrowRight, ShieldCheck, Hotel, Map, Zap, TreePine, GraduationCap, Mountain, School, Car, Layout, Utensils, Wifi, Activity } from 'lucide-react';
+
+const getFeatureIcon = (text: string) => {
+    const t = text.toLowerCase();
+    if (t.includes('security') || t.includes('safe')) return <ShieldCheck size={24} />;
+    if (t.includes('hotel') || t.includes('restaurant')) return <Hotel size={24} />;
+    if (t.includes('golf') || t.includes('sport') || t.includes('gym')) return <Activity size={24} />;
+    if (t.includes('school') || t.includes('university') || t.includes('education')) return <GraduationCap size={24} />;
+    if (t.includes('water') || t.includes('light') || t.includes('power') || t.includes('electr')) return <Zap size={24} />;
+    if (t.includes('green') || t.includes('nature') || t.includes('park') || t.includes('garden')) return <TreePine size={24} />;
+    if (t.includes('mountain') || t.includes('view') || t.includes('scener')) return <Mountain size={24} />;
+    if (t.includes('road') || t.includes('access') || t.includes('transport')) return <Car size={24} />;
+    if (t.includes('layout') || t.includes('demarcated')) return <Layout size={24} />;
+    if (t.includes('plot') || t.includes('land')) return <Map size={24} />;
+    if (t.includes('wifi') || t.includes('internet')) return <Wifi size={24} />;
+    if (t.includes('food') || t.includes('dining')) return <Utensils size={24} />;
+    return <CheckCircle size={24} />;
+};
 
 interface EstatePageProps {
     title: string;
@@ -93,9 +110,11 @@ const EstateLayout: React.FC<EstatePageProps> = ({ title, location, description,
                             <h2 className="text-2xl font-bold text-gray-900 mb-6">Key Features & Amenities</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {features.map((feature, index) => (
-                                    <div key={index} className="flex items-center gap-3 p-4 rounded-xl border border-gray-100 bg-slate-50">
-                                        <CheckCircle className="text-gold" size={20} />
-                                        <span className="text-gray-700 font-medium">{feature}</span>
+                                    <div key={index} className="flex items-start gap-4 p-5 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
+                                        <div className="p-3 rounded-full bg-gold/10 text-gold shrink-0">
+                                            {getFeatureIcon(feature)}
+                                        </div>
+                                        <span className="text-gray-700 font-medium leading-relaxed pt-2">{feature}</span>
                                     </div>
                                 ))}
                             </div>
