@@ -40,11 +40,6 @@ const ExecutiveContactModal = ({ isOpen, onClose }: ExecutiveContactModalProps) 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (TEMPLATE_ID === 'YOUR_TEMPLATE_ID' || PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
-            setError("Configuration incomplete. Please add Template ID and Public Key.");
-            return;
-        }
-
         setIsSending(true);
         setError(null);
 

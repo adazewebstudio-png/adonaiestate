@@ -271,6 +271,8 @@ const BlogPost = () => {
         "description": post.excerpt || post.title
     };
 
+    const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+
     return (
         <div className="bg-white min-h-screen">
             <SEO
