@@ -1,29 +1,16 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Phone, Mail, MapPin, Facebook, Send, MessageSquare, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Send, MessageSquare, Clock, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import SEO from '../components/SEO';
 
 const Contact = () => {
     return (
         <>
-            <Helmet>
-                <title>Contact Us | Adonai Estate Limited</title>
-                <meta name="description" content="Get in touch with Adonai Estate Limited. We are ready to help you own your litigation-free land today." />
-
-                {/* Open Graph / Facebook */}
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://adonaiestateltd.com/contact" />
-                <meta property="og:title" content="Contact Us | Adonai Estate Limited" />
-                <meta property="og:description" content="Get in touch with Adonai Estate Limited. We are ready to help you own your litigation-free land today." />
-                <meta property="og:image" content="https://adonaiestateltd.com/logo.jpg" />
-                <meta property="og:site_name" content="Adonai Estate Limited" />
-
-                {/* Twitter */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="Contact Us | Adonai Estate Limited" />
-                <meta name="twitter:description" content="Get in touch with Adonai Estate Limited. We are ready to help you own your litigation-free land today." />
-                <meta name="twitter:image" content="https://adonaiestateltd.com/logo.jpg" />
-            </Helmet>
+            <SEO
+                title="Contact Us"
+                description="Get in touch with Adonai Estate Limited. We are ready to help you own your litigation-free land today in the Volta Region of Ghana."
+                pathname="/contact"
+            />
 
             {/* Premium Hero Section */}
             <div className="relative bg-primary pt-32 pb-48 overflow-hidden">
@@ -144,9 +131,14 @@ const Contact = () => {
                                 <div className="relative z-10">
                                     <h3 className="text-2xl font-bold mb-2">Connect with us</h3>
                                     <p className="text-white/70 mb-6">Follow our journey on social media.</p>
-                                    <a href="https://web.facebook.com/AdonaiEstateLtd" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-white text-primary px-6 py-3 rounded-xl font-bold hover:bg-gold hover:text-white transition-colors">
-                                        <Facebook size={20} /> Facebook Page
-                                    </a>
+                                    <div className="flex flex-wrap gap-3">
+                                        <a href="https://web.facebook.com/AdonaiEstateLtd" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-white text-primary px-6 py-3 rounded-xl font-bold hover:bg-gold hover:text-white transition-colors text-sm">
+                                            <Facebook size={18} /> Facebook
+                                        </a>
+                                        <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-xl font-bold hover:bg-white hover:text-[#25D366] transition-colors text-sm">
+                                            <MessageCircle size={18} /> WhatsApp
+                                        </a>
+                                    </div>
                                 </div>
                                 <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
                                 <MessageSquare size={120} className="absolute -right-8 -bottom-8 text-white/10" />
@@ -198,36 +190,7 @@ const Contact = () => {
                         </motion.div>
                     </div>
 
-                    {/* Branch Offices Section */}
-                    <div className="mt-24">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-gray-900">Our Branch Offices</h2>
-                            <div className="w-16 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {[
-                                { name: "Hohoe", location: "Main Street, Hohoe", phone: "+233 XX XXX XXXX" },
-                                { name: "Sogakope", location: "River View Road", phone: "+233 XX XXX XXXX" },
-                                { name: "Denu", location: "Border Road Area", phone: "+233 XX XXX XXXX" },
-                                { name: "East Legon", location: "Accra, Greater Accra", phone: "+233 XX XXX XXXX" }
-                            ].map((office, idx) => (
-                                <motion.div
-                                    key={idx}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: idx * 0.1 }}
-                                    className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all text-center"
-                                >
-                                    <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
-                                        <MapPin size={20} />
-                                    </div>
-                                    <h3 className="font-bold text-lg text-gray-900 mb-2">{office.name}</h3>
-                                    <p className="text-sm text-gray-500 mb-1">{office.location}</p>
-                                    <p className="text-sm text-primary font-medium">{office.phone}</p>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </>

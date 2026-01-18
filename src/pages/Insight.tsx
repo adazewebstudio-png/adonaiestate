@@ -1,47 +1,68 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import React, { useEffect, useState } from 'react';
+import SEO from '../components/SEO';
 import { motion } from 'framer-motion';
 import { Calendar, User, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { client, urlFor } from '../lib/sanity';
+
+interface Post {
+    _id: string;
+    title: string;
+    excerpt: string;
+    mainImage: any;
+    _createdAt: string;
+    publishedAt?: string;
+    author?: {
+        name: string;
+    };
+    categories?: { title: string }[];
+    slug: {
+        current: string;
+    };
+}
+
+const BlogSkeleton = () => (
+    <div className="bg-white rounded-[2.5rem] overflow-hidden border border-gray-100 flex flex-col h-full animate-pulse">
+        <div className="h-64 bg-gray-200"></div>
+        <div className="p-8 space-y-4">
+            <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+            <div className="h-7 bg-gray-200 rounded w-full"></div>
+            <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+            <div className="h-4 bg-gray-200 rounded w-4/5"></div>
+        </div>
+    </div>
+);
 
 const Insight = () => {
-    // Placeholder blog data
-    const posts = [
-        {
-            id: 1,
-            title: "Investing in Ho: The Next Real Estate Hotspot",
-            excerpt: "Discover why the Volta Region's capital is attracting smart investors and how infrastructure developments are boosting property values.",
-            date: "Oct 15, 2025",
-            author: "Adonai Team",
-            image: "Blog Image 1"
-        },
-        {
-            id: 2,
-            title: "5 Things to Check Before Buying Land in Ghana",
-            excerpt: "A comprehensive guide to ensuring your land purchase is secure, litigation-free, and worth your hard-earned money.",
-            date: "Sep 28, 2025",
-            author: "Legal Dept",
-            image: "Blog Image 2"
-        },
-        {
-            id: 3,
-            title: "The Rise of Eco-Friendly Living in Sogakope",
-            excerpt: "Explore how Volta Safari City is setting a new standard for sustainable luxury living by the river.",
-            date: "Sep 10, 2025",
-            author: "Adonai Team",
-            image: "Blog Image 3"
-        }
-    ];
+    const [posts, setPosts] = useState<Post[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const query = `*[_type == "post" && defined(slug.current)] | order(coalesce(publishedAt, _createdAt) desc) {
+                    _id, title, excerpt, mainImage, _createdAt, publishedAt, author->{ name }, categories[]->{ title }, slug
+                }`;
+                const data = await client.fetch(query, {}, { useCdn: true });
+                setPosts(data || []);
+            } catch (error) {
+                console.error('Error fetching posts:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchPosts();
+    }, []);
 
     return (
         <>
-            <Helmet>
-                <title>Insights & News | Adonai Estate Limited</title>
-                <meta name="description" content="Latest news, real estate tips, and market insights from Adonai Estate Limited." />
-            </Helmet>
+            <SEO
+                title="Insights & News"
+                description="Latest news, real estate tips, and market insights from Adonai Estate Limited. Stay updated on the Ghanaian housing market."
+                pathname="/insight"
+            />
 
             <div className="bg-slate-50 min-h-screen">
-                {/* Hero Section */}
                 <div className="relative bg-primary pt-32 pb-32 overflow-hidden">
                     <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/5 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
                     <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/20 rounded-full blur-[100px] -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
@@ -61,53 +82,79 @@ const Insight = () => {
                     </div>
                 </div>
 
-                {/* Content Section */}
                 <div className="container mx-auto px-4 -mt-16 relative z-20 pb-20">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {posts.map((post, index) => (
-                            <motion.article
-                                key={post.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
-                                className="glass-card bg-white hover:shadow-2xl transition-all duration-300 overflow-hidden group border border-gray-100 rounded-3xl flex flex-col"
-                            >
-                                <div className="h-64 bg-slate-100 relative overflow-hidden">
-                                    {/* Placeholder image logic matching previous */}
-                                    <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-medium">
-                                        {post.image}
+                        {loading ? (
+                            <>
+                                <BlogSkeleton />
+                                <BlogSkeleton />
+                                <BlogSkeleton />
+                            </>
+                        ) : (
+                            posts.map((post, index) => (
+                                <motion.article
+                                    key={post._id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.1 }}
+                                    className="glass-card bg-white hover:shadow-2xl transition-all duration-300 overflow-hidden group border border-gray-100 rounded-3xl flex flex-col"
+                                >
+                                    <div className="h-64 bg-slate-100 relative overflow-hidden">
+                                        {post.mainImage ? (
+                                            <img
+                                                src={urlFor(post.mainImage).width(600).height(400).format('webp').url()}
+                                                alt={post.title}
+                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                                loading="lazy"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-gray-400 font-medium">No Image</div>
+                                        )}
+
+                                        {post.categories && post.categories.length > 0 && (
+                                            <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                                                {post.categories.map((cat, i) => (
+                                                    <span key={i} className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-black uppercase tracking-widest text-primary shadow-sm border border-gray-100">
+                                                        {cat.title}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
-                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
-                                </div>
 
-                                <div className="p-8 flex flex-col flex-grow">
-                                    <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-wider text-gray-500 mb-4">
-                                        <div className="flex items-center gap-1.5">
-                                            <Calendar size={14} className="text-gold" />
-                                            {post.date}
+                                    <div className="p-8 flex flex-col flex-grow">
+                                        <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-wider text-gray-500 mb-4">
+                                            <div className="flex items-center gap-1.5">
+                                                <Calendar size={14} className="text-gold" />
+                                                {new Date(post.publishedAt || post._createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                                            </div>
+                                            {post.author && (
+                                                <>
+                                                    <div className="w-1 h-1 bg-gray-300 rounded-full"></div>
+                                                    <div className="flex items-center gap-1.5">
+                                                        <User size={14} className="text-gold" />
+                                                        {post.author.name}
+                                                    </div>
+                                                </>
+                                            )}
                                         </div>
-                                        <div className="w-1 h-1 bg-gray-300 rounded-full"></div>
-                                        <div className="flex items-center gap-1.5">
-                                            <User size={14} className="text-gold" />
-                                            {post.author}
-                                        </div>
+
+                                        <h2 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors font-serif leading-tight">
+                                            <Link to={`/insight/${post.slug?.current || post._id}`}>{post.title}</Link>
+                                        </h2>
+
+                                        <p className="text-gray-600 text-sm mb-6 line-clamp-3 leading-relaxed flex-grow">
+                                            {post.excerpt}
+                                        </p>
+
+                                        <Link to={`/insight/${post.slug?.current || post._id}`} className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-gold transition-colors mt-auto uppercase tracking-wide">
+                                            Read Article <ArrowRight size={16} />
+                                        </Link>
                                     </div>
-
-                                    <h2 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors font-serif leading-tight">
-                                        <Link to="#">{post.title}</Link>
-                                    </h2>
-
-                                    <p className="text-gray-600 text-sm mb-6 line-clamp-3 leading-relaxed flex-grow">
-                                        {post.excerpt}
-                                    </p>
-
-                                    <Link to="#" className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-gold transition-colors mt-auto uppercase tracking-wide">
-                                        Read Article <ArrowRight size={16} />
-                                    </Link>
-                                </div>
-                            </motion.article>
-                        ))}
+                                </motion.article>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>

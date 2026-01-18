@@ -1,38 +1,122 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Shield, CheckCircle, Clock, Home as HomeIcon, Eye, Target } from 'lucide-react';
+import {
+    ArrowRight,
+    Shield,
+    CheckCircle,
+    Clock,
+    Home as HomeIcon,
+    Eye,
+    Target,
+    Tag,
+    Maximize,
+    Calendar,
+    User,
+    Search,
+    Loader2,
+    Mail,
+    MapPin
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import { client, urlFor } from '../lib/sanity';
+import SEO from '../components/SEO';
 
 const Home = () => {
+    const [featuredProperties, setFeaturedProperties] = useState([]);
+    const [featuredPosts, setFeaturedPosts] = useState([]);
+    const [loadingData, setLoadingData] = useState(true);
+
+    // Skeleton Components
+    const PropertySkeleton = () => (
+        <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full animate-pulse">
+            <div className="h-64 bg-gray-200"></div>
+            <div className="p-6 space-y-3">
+                <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+                <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                <div className="h-10 bg-gray-200 rounded mt-4"></div>
+            </div>
+        </div>
+    );
+
+    const BlogSkeleton = () => (
+        <div className="bg-white rounded-[2.5rem] overflow-hidden border border-gray-100 flex flex-col h-full animate-pulse">
+            <div className="h-64 bg-gray-200"></div>
+            <div className="p-8 space-y-4">
+                <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+                <div className="h-7 bg-gray-200 rounded w-full"></div>
+                <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                <div className="h-4 bg-gray-200 rounded w-4/5"></div>
+            </div>
+        </div>
+    );
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const propQuery = `*[_type == "property"] | order(isFeatured desc, _createdAt desc)[0..5] {
+                    _id, title, location, price, size, type, category, mainImage, tag
+                }`;
+                const postQuery = `*[_type == "post" && defined(slug.current)] | order(coalesce(publishedAt, _createdAt) desc)[0..2] {
+                    _id, title, excerpt, mainImage, _createdAt, publishedAt, author->{ name }, slug
+                }`;
+
+                const [props, posts] = await Promise.all([
+                    client.fetch(propQuery, {}, { useCdn: true }),
+                    client.fetch(postQuery, {}, { useCdn: true })
+                ]);
+
+                setFeaturedProperties(props || []);
+                setFeaturedPosts(posts || []);
+            } catch (error) {
+                console.error('Error fetching home data:', error);
+            } finally {
+                setLoadingData(false);
+            }
+        };
+        fetchData();
+    }, []);
+
     const estates = [
         {
             name: 'Airport Golf City',
             location: 'Ho',
             image: '/airport_golf_city_main.jpg',
             description: 'Our biggest site featuring a 98-acre golf course, secure gated community, and premium amenities.',
-            link: '/estates/airport-golf-city'
+            link: '/estates/airport-golf-city',
+            status: 'Selling Fast'
+        },
+        {
+            name: 'Millennium City',
+            location: 'Kpetoe',
+            image: '/images/estates/millennium-city/hero.jpg',
+            description: 'Bringing you back to your roots with cultural heritage and modern living at Kpetoe.',
+            link: '/estates/millennium-city',
+            status: 'Upcoming'
         },
         {
             name: 'UHAS Florida City',
             location: 'Ho',
-            image: '/uhas_florida_city_main.jpg',
+            image: '/images/estates/florida-city/hero.jpg',
             description: 'A vibrant community designed for modern lifestyles.',
-            link: '/estates/uhas-florida-city'
+            link: '/estates/uhas-florida-city',
+            status: 'Upcoming'
         },
         {
             name: 'Volta Safari City',
             location: 'Sogakope',
-            image: '/volta_safari_city_main.jpg',
+            image: '/images/estates/volta-safari-city/safari2.jpg',
             description: 'Eco-friendly riverside lodges and homes.',
-            link: '/estates/volta-safari-city'
+            link: '/estates/volta-safari-city',
+            status: 'Upcoming'
         },
         {
             name: 'Leaders City',
             location: 'Ho',
-            image: '/leaders_city_main.jpg',
+            image: '/images/estates/leaders-city/home_thumb.jpg',
             description: 'The heart of commercial and residential excellence.',
-            link: '/estates/leaders-city'
+            link: '/estates/leaders-city',
+            status: 'Upcoming'
         }
     ];
 
@@ -45,25 +129,11 @@ const Home = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Adonai Estate Limited | Ultra Modern Real Estate in Ghana</title>
-                <meta name="description" content="Helping solve Ghana's housing deficit realistically. Own litigation-free land and homes in Airport Golf City, UHAS Florida City, and more." />
-
-                {/* Open Graph / Facebook */}
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://adonaiestateltd.com/" />
-                <meta property="og:title" content="Adonai Estate Limited | Ultra Modern Real Estate in Ghana" />
-                <meta property="og:description" content="Helping solve Ghana's housing deficit realistically. Own litigation-free land and homes in Airport Golf City, UHAS Florida City, and more." />
-                <meta property="og:image" content="https://adonaiestateltd.com/airport_golf_city_main.jpg" />
-                <meta property="og:site_name" content="Adonai Estate Limited" />
-
-                {/* Twitter */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:url" content="https://adonaiestateltd.com/" />
-                <meta name="twitter:title" content="Adonai Estate Limited | Ultra Modern Real Estate in Ghana" />
-                <meta name="twitter:description" content="Helping solve Ghana's housing deficit realistically. Own litigation-free land and homes in Airport Golf City, UHAS Florida City, and more." />
-                <meta name="twitter:image" content="https://adonaiestateltd.com/airport_golf_city_main.jpg" />
-            </Helmet>
+            <SEO
+                title="Adonai Estate Limited | Ultra Modern Real Estate in Ghana"
+                description="Helping solve Ghana's housing deficit realistically. Own litigation-free land and homes in Airport Golf City, UHAS Florida City, and more in the Volta Region."
+                pathname="/"
+            />
 
             {/* Hero Section */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -218,6 +288,90 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* Featured Listings Section - Added before Estates */}
+            <section className="py-24 bg-white relative overflow-hidden">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                        <div className="max-w-xl">
+                            <span className="text-gold font-bold tracking-widest uppercase mb-3 block text-sm">Official Listings</span>
+                            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 font-serif mb-4 italic">Featured Properties</h2>
+                            <p className="text-gray-600 text-lg leading-relaxed">
+                                Explore our latest litigation-free land offerings and premium residential developments across strategic growth zones.
+                            </p>
+                        </div>
+                        <Link to="/listings" className="flex items-center gap-3 text-primary font-bold hover:gap-5 transition-all group border-b-2 border-primary/20 pb-2">
+                            View All Listings <ArrowRight size={20} className="group-hover:text-gold" />
+                        </Link>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {loadingData ? (
+                            <>
+                                <PropertySkeleton />
+                                <PropertySkeleton />
+                                <PropertySkeleton />
+                            </>
+                        ) : (
+                            featuredProperties.map((prop: any, index: number) => (
+                                <motion.div
+                                    key={prop._id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.1 }}
+                                    className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group border border-gray-100 flex flex-col h-full"
+                                >
+                                    <div className="relative h-64 overflow-hidden">
+                                        {prop.mainImage ? (
+                                            <img
+                                                src={urlFor(prop.mainImage).width(600).height(400).format('webp').url()}
+                                                alt={prop.title}
+                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                                loading="lazy"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full bg-slate-100 flex items-center justify-center text-gray-400">No Image</div>
+                                        )}
+                                        <div className="absolute top-4 left-4 flex flex-col gap-2">
+                                            {prop.tag && (
+                                                <div className="bg-white/95 backdrop-blur-sm px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-full text-primary shadow-sm">
+                                                    {prop.tag}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="absolute bottom-4 left-4 bg-primary/95 backdrop-blur-sm px-4 py-2 text-sm font-black rounded-xl text-white shadow-lg">
+                                            {prop.price}
+                                        </div>
+                                    </div>
+                                    <div className="p-6 flex flex-col flex-1">
+                                        <div className="mb-4">
+                                            <div className="flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider mb-2">
+                                                <Tag size={12} /> {prop.type}
+                                            </div>
+                                            <Link to={`/listings`}>
+                                                <h3 className="text-xl font-bold text-gray-900 mb-2 hover:text-primary transition-colors">{prop.title}</h3>
+                                            </Link>
+                                            <p className="text-gray-500 text-sm flex items-center gap-1.5 font-medium">
+                                                <MapPin size={14} className="text-primary font-bold" /> {prop.location}
+                                            </p>
+                                        </div>
+                                        <div className="flex items-center gap-4 py-4 border-t border-gray-50 mt-auto">
+                                            <div className="flex items-center gap-2 text-gray-600">
+                                                <Maximize size={16} className="text-gold" />
+                                                <span className="text-xs font-bold tracking-tight">{prop.size}</span>
+                                            </div>
+                                            <Link to={`/listings`} className="ml-auto text-primary font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">
+                                                Details <ArrowRight size={14} />
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))
+                        )}
+                    </div>
+                </div>
+            </section>
+
             {/* Featured Estates */}
             <section className="section-padding bg-slate-50">
                 <div className="container mx-auto">
@@ -231,7 +385,7 @@ const Home = () => {
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {estates.map((estate, index) => (
                             <motion.div
                                 key={index}
@@ -246,8 +400,14 @@ const Home = () => {
                                         src={estate.image}
                                         alt={estate.name}
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        loading="lazy"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                                    <div className="absolute top-4 right-4">
+                                        <span className={`text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wider text-white ${estate.status === 'Upcoming' ? 'bg-gold' : 'bg-primary'}`}>
+                                            {estate.status}
+                                        </span>
+                                    </div>
                                     <div className="absolute bottom-4 left-4">
                                         <span className="text-gold text-xs font-bold uppercase tracking-wider mb-1 block">{estate.location}</span>
                                         <h3 className="text-white text-xl font-bold">{estate.name}</h3>
@@ -314,7 +474,7 @@ const Home = () => {
 
                         <div className="relative">
                             <div className="glass-card p-2 rotate-3 hover:rotate-0 transition-transform duration-500 bg-white">
-                                <img src="/home_who_we_are.jpg" alt="About Adonai Estate" className="rounded-xl w-full h-auto shadow-2xl object-cover" />
+                                <img src="/home_who_we_are.jpg" alt="About Adonai Estate" className="rounded-xl w-full h-auto shadow-2xl object-cover" loading="lazy" />
                             </div>
                         </div>
                     </div>
@@ -385,6 +545,82 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* Latest Insights Section - Added after Services */}
+            <section className="py-24 bg-white">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                        <div>
+                            <span className="text-gold font-bold tracking-widest uppercase mb-2 block text-sm">Market Intelligence</span>
+                            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 font-serif italic">Latest Insights</h2>
+                        </div>
+                        <Link to="/insight" className="flex items-center gap-3 text-primary font-bold hover:gap-5 transition-all group border-b-2 border-primary/20 pb-2 uppercase tracking-widest text-xs">
+                            Explore All Insights <ArrowRight size={18} />
+                        </Link>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {loadingData ? (
+                            <>
+                                <BlogSkeleton />
+                                <BlogSkeleton />
+                                <BlogSkeleton />
+                            </>
+                        ) : (
+                            featuredPosts.map((post: any, index: number) => (
+                                <motion.article
+                                    key={post._id}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.1 }}
+                                    className="bg-white hover:shadow-2xl transition-all duration-500 overflow-hidden group border border-gray-100 rounded-[2.5rem] flex flex-col shadow-sm"
+                                >
+                                    <div className="h-64 bg-slate-100 relative overflow-hidden">
+                                        {post.mainImage ? (
+                                            <img
+                                                src={urlFor(post.mainImage).width(600).height(400).format('webp').url()}
+                                                alt={post.title}
+                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                                loading="lazy"
+                                            />
+                                        ) : (
+                                            <div className="absolute inset-0 flex items-center justify-center text-gray-400">No Image</div>
+                                        )}
+                                    </div>
+
+                                    <div className="p-8 flex flex-col flex-grow">
+                                        <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-4">
+                                            <div className="flex items-center gap-1.5">
+                                                <Calendar size={14} className="text-gold" />
+                                                {new Date(post.publishedAt || post._createdAt).toLocaleDateString()}
+                                            </div>
+                                            {post.author && (
+                                                <div className="flex items-center gap-1.5 border-l border-gray-200 pl-4">
+                                                    <User size={14} className="text-gold" />
+                                                    {post.author.name}
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors font-serif leading-tight">
+                                            <Link to={`/insight/${post.slug?.current || post._id}`}>{post.title}</Link>
+                                        </h3>
+
+                                        <p className="text-gray-600 text-sm mb-6 line-clamp-2 leading-relaxed flex-grow">
+                                            {post.excerpt}
+                                        </p>
+
+                                        <Link to={`/insight/${post.slug?.current || post._id}`} className="inline-flex items-center gap-2 text-xs font-black text-primary hover:text-gold transition-colors mt-auto uppercase tracking-widest border-b border-primary/10 pb-1 w-fit">
+                                            Read More <ArrowRight size={14} />
+                                        </Link>
+                                    </div>
+                                </motion.article>
+                            ))
+                        )}
+                    </div>
+                </div>
+            </section>
+
             {/* CEO Message Section */}
             <section className="py-20 bg-white border-y border-gray-100">
                 <div className="container mx-auto px-4">
@@ -397,6 +633,7 @@ const Home = () => {
                                     src="/ceo_bright_adonai.jpg"
                                     alt="Rev. Dr. Bright Adonai"
                                     className="relative z-10 w-full max-w-[350px] rounded-3xl shadow-xl border border-gray-100 mx-auto object-cover"
+                                    loading="lazy"
                                 />
                             </div>
                             <div className="mt-6 text-center lg:text-left pl-2">
@@ -468,9 +705,14 @@ const Home = () => {
                     <p className="text-xl text-blue-50 mb-10 max-w-2xl mx-auto">
                         Take the first step towards litigation-free land ownership and quality living today.
                     </p>
-                    <Link to="/contact" className="btn btn-primary text-lg px-8 py-4">
-                        Get in Touch with Adonai
-                    </Link>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn btn-primary text-lg px-8 py-4">
+                            Get in Touch with Adonai
+                        </a>
+                        <a href="mailto:richardadaaze@gmail.com" className="btn btn-outline border-white text-white hover:bg-white hover:text-primary text-lg px-8 py-4 flex items-center justify-center gap-2">
+                            <Mail size={20} /> Send Email
+                        </a>
+                    </div>
                 </div>
             </section>
         </>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import EstateLayout from '../../components/EstateLayout';
-import { Tag, ShoppingCart, Lock, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Tag, ShoppingCart, Lock, CheckCircle2, ArrowRight, MapPin, ShieldCheck, Layout, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import BookingModal from '../../components/BookingModal';
+import SEO from '../../components/SEO';
 
 const AirportGolfCity = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,24 +28,186 @@ const AirportGolfCity = () => {
         setIsModalOpen(true);
     };
 
+    const CustomHero = (
+        <section className="relative h-[95vh] min-h-[750px] w-full flex items-center justify-center overflow-hidden">
+            {/* Background Layer with Ken Burns Animation */}
+            <div className="absolute inset-0 z-0">
+                <motion.img
+                    initial={{ scale: 1.15 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 20, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
+                    src="/airport_golf_city_main.jpg"
+                    alt="Airport Golf City"
+                    className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-primary/30 to-transparent"></div>
+                <div className="absolute inset-0 bg-black/30"></div>
+            </div>
+
+            <div className="container mx-auto px-4 relative z-10 text-center pt-32 md:pt-40">
+                <motion.div
+                    initial={{ opacity: 0, y: 60 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                    className="max-w-5xl mx-auto"
+                >
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.3 }}
+                        className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-gold/25 border border-gold/50 backdrop-blur-2xl mb-12 mt-12 md:mt-16 shadow-2xl shadow-gold/10"
+                    >
+                        <MapPin size={16} className="text-gold" />
+                        <span className="text-gold font-black uppercase tracking-[0.4em] text-[10px] md:text-xs">
+                            Airport Golf City · Ho, Volta Region
+                        </span>
+                    </motion.div>
+
+                    <h1 className="text-5xl md:text-9xl font-bold text-white mb-8 font-serif italic tracking-tighter drop-shadow-2xl leading-[0.9]">
+                        Experience <br />
+                        <span className="text-gold drop-shadow-[0_0_30px_rgba(201,161,64,0.3)]">Luxury</span> Living.
+                    </h1>
+
+                    <div className="bg-black/40 backdrop-blur-2xl p-8 md:p-10 rounded-[2.5rem] max-w-2xl mx-auto mb-16 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all hover:bg-black/50 hover:scale-[1.02] duration-500">
+                        <p className="text-base md:text-xl text-white/95 leading-relaxed font-light drop-shadow-sm italic">
+                            Discover the pinnacle of Voltarian excellence. A meticulously planned 98-acre golf course community where heritage meets modern architectural luxury.
+                        </p>
+                    </div>
+
+                    <div className="flex flex-wrap justify-center gap-6">
+                        {[
+                            { icon: ShieldCheck, label: "Litigation Free" },
+                            { icon: Layout, label: "Premium Layout" },
+                            { icon: Star, label: "98-Acre Golf" }
+                        ].map((badge, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.5 + idx * 0.1 }}
+                                whileHover={{ y: -5, backgroundColor: 'rgba(255,255,255,0.15)' }}
+                                className="flex items-center gap-3 bg-white/10 backdrop-blur-xl px-8 py-4 rounded-2xl border border-white/20 text-white font-bold text-sm uppercase tracking-widest shadow-xl transition-all"
+                            >
+                                <badge.icon size={22} className="text-gold" />
+                                <span>{badge.label}</span>
+                            </motion.div>
+                        ))}
+                    </div>
+                </motion.div>
+            </div>
+
+            {/* Premium Scroll Indicator */}
+            <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 hidden md:block">
+                <motion.div
+                    animate={{ y: [0, 15, 0] }}
+                    transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                    className="flex flex-col items-center gap-4"
+                >
+                    <span className="text-white/30 uppercase tracking-[0.6em] text-[9px] font-black">Begin Journey</span>
+                    <div className="w-[1px] h-20 bg-gradient-to-b from-gold via-gold/40 to-transparent"></div>
+                </motion.div>
+            </div>
+        </section>
+    );
+
     return (
         <>
+            <SEO
+                title="Airport Golf City | 98-Acre Golf Experience in Ho"
+                description="Secure a plot in Ghana's premier golf community. Airport Golf City in Ho, Volta Region offers litigation-free lands, 24-hour security, and a vibrant golfing social life."
+                pathname="/estates/airport-golf-city"
+                schema={{
+                    "@context": "https://schema.org/",
+                    "@type": "Product",
+                    "name": "Airport Golf City Estate Plot",
+                    "image": "https://adonaiestateltd.com/airport_golf_city_main.jpg",
+                    "description": "Standard plot size (100 x 70 ft) in a gated community with a 98-acre functional golf course in Ho, Volta Region.",
+                    "brand": {
+                        "@type": "Brand",
+                        "name": "Adonai Estate"
+                    },
+                    "offers": {
+                        "@type": "AggregateOffer",
+                        "priceCurrency": "GHS",
+                        "lowPrice": "7000",
+                        "highPrice": "30000",
+                        "offerCount": "11"
+                    }
+                }}
+            />
             <EstateLayout
                 title="Airport Golf City"
                 location="Ho, Volta Region"
-                description="Adonai Estate Airport Golf City is our biggest site, meticulously designed to offer a premium living experience. It features a proper layout, well-demarcated plots, and a host of amenities including a 98-acre golf course. All these features and more are expected to be provided at our other sites."
+                customHero={CustomHero}
+                contentPadding="pt-12 md:pt-20 pb-24"
+                aboutContent={
+                    <div className="space-y-8 text-gray-600 leading-relaxed text-lg">
+                        <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-gold first-letter:mr-3 first-letter:float-left">
+                            Airport Golf City stands as the crown jewel of Adonai Estate Limited's developments.
+                            This isn't just a housing project; it is a meticulously engineered masterpiece where
+                            modern luxury converges with the serene landscapes of the Volta Region.
+                        </p>
+                        <p>
+                            Designed around an expansive 98-acre international standard golf course, the community
+                            already boasts a <strong>vibrant, active golfing community</strong>. Beyond just a
+                            planned amenity, our course is operational and hosts regular players, professional
+                            tournaments, and community events on its lush greens daily.
+                        </p>
+                        <div className="p-8 bg-primary/5 border-l-4 border-gold italic rounded-r-[2rem] shadow-sm">
+                            <Star className="text-gold mb-4" />
+                            "The 98-acre course is fully functional and ready for your first tee-off. Experience
+                            Hole 4 Par 4 and join a growing legacy of elite residents who value sport, community, and leisure."
+                        </div>
+
+                        {/* Live From the Course Gallery */}
+                        <div className="pt-8">
+                            <h3 className="text-sm font-black uppercase tracking-[0.2em] text-gold mb-6 flex items-center gap-2">
+                                <div className="w-8 h-[1px] bg-gold"></div>
+                                Live from the Course
+                            </h3>
+                            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+                                {[
+                                    '/images/golf-course/golf1.jpg',
+                                    '/images/golf-course/golf2.jpg',
+                                    '/images/golf-course/golf3.jpg',
+                                    '/images/golf-course/golf4.jpg',
+                                    '/images/golf-course/golf5.jpg',
+                                    '/images/golf-course/golf6.jpg',
+                                    '/images/golf-course/golf7.jpg',
+                                    '/images/golf-course/golf8.jpg'
+                                ].map((img, idx) => (
+                                    <motion.div
+                                        key={idx}
+                                        whileHover={{ scale: 1.02 }}
+                                        className={`relative rounded-2xl overflow-hidden shadow-lg cursor-pointer ${idx === 0 ? 'lg:col-span-2 lg:row-span-2' : ''}`}
+                                    >
+                                        <img
+                                            src={img}
+                                            alt={`Golfing at Airport Golf City ${idx + 1}`}
+                                            className={`w-full h-full object-cover ${idx === 0 ? 'aspect-video lg:h-[400px]' : 'aspect-square lg:aspect-video lg:h-[200px]'}`}
+                                            loading="lazy"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                }
+                description="Adonai Estate Airport Golf City is our biggest site, featuring an active 98-acre golf course where people play and connect daily."
                 features={[
+                    'Active Golfing Community',
+                    '98-Acre Operational Golf Course',
                     'Proper layout & Well demarcated',
                     'Litigation free lands',
                     'Residential and commercial plots',
                     'Plot size – 100 x 70 feet',
                     '24-hour security',
                     'Free documentation',
-                    '98 acres Golf course',
-                    'Tourist sites – Kokovena Mountain, 100% Answered prayer rock',
-                    'Proper sewage, drainage, water and lighting systems',
-                    'Worship center, Sports Complex, School, Police Station',
-                    'Hotel & Restaurant (currently operating)',
+                    'Tourist sites – Kokovena Mountain',
+                    'Proper sewage, drainage & lighting',
+                    'Sports Complex & Police Station',
+                    'Restaurant (currently operating)',
                     'Social amenities & Green spaces'
                 ]}
                 imagePlaceholder="Airport Golf City Image"

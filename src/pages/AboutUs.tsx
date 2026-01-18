@@ -1,8 +1,8 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
+import { Briefcase, Users, ShieldCheck, Handshake, CheckCircle2, Target, Eye, Rocket } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Target, Eye, Briefcase, Handshake, ShieldCheck, Gem, Users, CheckCircle2, TrendingUp, Building2, Lock } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const AboutUs = () => {
     const fadeIn = {
@@ -14,24 +14,12 @@ const AboutUs = () => {
 
     return (
         <>
-            <Helmet>
-                <title>About Us | Adonai Estate Limited</title>
-                <meta name="description" content="Learn about Adonai Estate Limited, our mission, vision, and commitment to affordable housing in Ghana." />
-
-                {/* Open Graph / Facebook */}
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://adonaiestateltd.com/about-us" />
-                <meta property="og:title" content="About Us | Adonai Estate Limited" />
-                <meta property="og:description" content="Learn about Adonai Estate Limited, our mission, vision, and commitment to affordable housing in Ghana." />
-                <meta property="og:image" content="https://adonaiestateltd.com/ceo_bright_adonai.jpg" />
-                <meta property="og:site_name" content="Adonai Estate Limited" />
-
-                {/* Twitter */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="About Us | Adonai Estate Limited" />
-                <meta name="twitter:description" content="Learn about Adonai Estate Limited, our mission, vision, and commitment to affordable housing in Ghana." />
-                <meta name="twitter:image" content="https://adonaiestateltd.com/ceo_bright_adonai.jpg" />
-            </Helmet>
+            <SEO
+                title="About Us"
+                description="Learn about Adonai Estate Limited, our mission, vision, and commitment to affordable housing in Ghana since 2014. We focus on secure, litigation-free land."
+                pathname="/about"
+                image="/ceo_bright_adonai.jpg"
+            />
 
             <div className="pt-24 pb-20 bg-white min-h-screen">
 
@@ -56,103 +44,100 @@ const AboutUs = () => {
                             viewport={{ once: true }}
                             className="bg-slate-100 rounded-[3rem] h-[400px] md:h-[500px] w-full flex items-center justify-center relative overflow-hidden shadow-2xl"
                         >
-                            {/* Placeholder for Team/Office Image */}
-                            <div className="absolute inset-0 bg-slate-200"></div>
-                            <span className="relative z-10 text-gray-400 font-bold text-xl">About Us Image Placeholder</span>
-
-                            {/* Decor elements */}
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+                            <img
+                                src="/about_development.jpg"
+                                alt="Adonai Estate Development"
+                                className="w-full h-full object-cover"
+                            />
                         </motion.div>
                     </div>
-
-                    {/* Key Stats */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="grid grid-cols-1 md:grid-cols-3 gap-8"
-                    >
-                        <div className="bg-slate-50 p-8 rounded-3xl border border-gray-100 text-center hover:shadow-lg transition-transform hover:-translate-y-1 duration-300">
-                            <h3 className="text-5xl font-bold text-primary mb-2">11+</h3>
-                            <p className="text-gray-900 font-bold mb-1">Years Experience</p>
-                            <p className="text-sm text-gray-500">Since 2014</p>
-                        </div>
-                        <div className="bg-slate-50 p-8 rounded-3xl border border-gray-100 text-center hover:shadow-lg transition-transform hover:-translate-y-1 duration-300">
-                            <h3 className="text-5xl font-bold text-gold mb-2">3k+</h3>
-                            <p className="text-gray-900 font-bold mb-1">Happy Clients</p>
-                            <p className="text-sm text-gray-500">Trusting us with their future</p>
-                        </div>
-                        <div className="bg-slate-50 p-8 rounded-3xl border border-gray-100 text-center hover:shadow-lg transition-transform hover:-translate-y-1 duration-300">
-                            <h3 className="text-5xl font-bold text-primary mb-2">4.5k+</h3>
-                            <p className="text-gray-900 font-bold mb-1">Plots Sold</p>
-                            <p className="text-sm text-gray-500">Across the Volta Region & beyond</p>
-                        </div>
-                    </motion.div>
-                </div>
-
-                <div className="container mx-auto px-4">
 
                     {/* Vision & Mission */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-24">
-                        <motion.div
-                            {...fadeIn}
-                            className="bg-white p-10 rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
-                        >
-                            <div className="p-4 bg-gold/10 rounded-2xl inline-flex mb-6 text-gold group-hover:scale-110 transition-transform">
-                                <Eye size={32} />
-                            </div>
-                            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Vision</h2>
-                            <p className="text-gray-600 text-lg leading-relaxed">
-                                To help solve Ghana’s housing deficit realistically and inspire confidence in land and home ownership across the country.
-                            </p>
-                        </motion.div>
-
-                        <motion.div
-                            {...fadeIn}
-                            transition={{ delay: 0.2 }}
-                            className="bg-white p-10 rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
-                        >
-                            <div className="p-4 bg-primary/10 rounded-2xl inline-flex mb-6 text-primary group-hover:scale-110 transition-transform">
-                                <Target size={32} />
-                            </div>
-                            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Mission</h2>
-                            <p className="text-gray-600 text-lg leading-relaxed">
-                                To make land and home ownership affordable, flexible, and litigation-free to the average Ghanaian by adhering to the highest quality standards.
-                            </p>
-                        </motion.div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        {[
+                            { title: 'Our Vision', text: 'To become the leading provider of affordable and secure estate developments in Ghana, creating spaces where every individual can build a legacy.', icon: Eye },
+                            { title: 'Our Mission', text: 'To simplify property ownership through transparency, litigation-free land, and professionally planned communities that deliver lasting value.', icon: Rocket },
+                        ].map((item, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
+                                className="p-10 rounded-[2.5rem] bg-slate-50 border border-gray-100 hover:shadow-xl transition-all h-full group"
+                            >
+                                <div className="w-14 h-14 bg-gold/10 rounded-2xl flex items-center justify-center text-gold mb-6 group-hover:bg-gold group-hover:text-white transition-colors duration-300">
+                                    <item.icon size={30} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-gray-900 mb-4">{item.title}</h3>
+                                <p className="text-gray-600 leading-relaxed text-lg">{item.text}</p>
+                            </motion.div>
+                        ))}
                     </div>
 
-                    {/* Objectives */}
-                    <div className="mb-24">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-gray-900">Our Objectives</h2>
-                            <div className="w-24 h-1.5 bg-gold mx-auto mt-4 rounded-full"></div>
+                    {/* Core Values Section */}
+                    <div className="text-center mb-12 mt-20">
+                        <span className="text-gold font-bold tracking-widest uppercase mb-4 block text-xs">Our Foundation</span>
+                        <h2 className="text-3xl font-bold text-gray-900 font-serif">Core Values</h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[
+                            { title: 'Integrity', text: 'We build trust through honest communication and litigation-free land documentation.', icon: ShieldCheck },
+                            { title: 'Transparency', text: 'Ensuring every step of the land acquisition process is clear, recorded, and understandable.', icon: Target },
+                            { title: 'Community', text: 'We believe in developing neighborhoods that foster growth, security, and shared progress.', icon: Users },
+                        ].map((item, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.1 }}
+                                className="p-8 rounded-[2.5rem] bg-white border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 text-center flex flex-col items-center"
+                            >
+                                <div className="w-16 h-16 bg-primary/5 rounded-full flex items-center justify-center text-primary mb-6">
+                                    <item.icon size={32} />
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 mb-4">{item.title}</h3>
+                                <p className="text-gray-600 leading-relaxed text-sm">{item.text}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Core Objectives */}
+                <div className="bg-slate-50 py-24 mb-24">
+                    <div className="container mx-auto px-4">
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">Our Core Objectives</h2>
+                            <p className="text-gray-600 max-w-2xl mx-auto text-lg italic">
+                                Built on three strong pillars that define our success and your security.
+                            </p>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                             {[
-                                { text: "Design real estate products that meet the needs of a growing and diverse population seeking affordable options.", icon: Users },
-                                { text: "Develop well-planned communities for residential, commercial, business, and everyday living purposes.", icon: Building2 },
-                                { text: "Provide quality homes and safe communities with strong emphasis on planning, infrastructure, and security.", icon: Lock },
-                                { text: "Create opportunities for individuals and families to own dream homes and achieve investment goals.", icon: TrendingUp },
-                                { text: "Contribute to Ghana’s economic development and support sustainable urbanization.", icon: Gem },
-                            ].map((obj, i) => (
+                                { title: 'Land Ownership Security', text: 'We prevent litigation and ownership disputes by ensuring all our lands are properly registered and documented before sale.' },
+                                { title: 'Community Planning', text: 'We do not just sell plots; we build environments with proper layouts, road access, and utility planning.' },
+                                { title: 'Financial Achievement', text: 'We make land and home ownership achievable for middle and low-income earners through flexible payment plans and fair pricing.' },
+                            ].map((obj, index) => (
                                 <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: i * 0.1 }}
-                                    className="bg-slate-50 p-8 rounded-2xl border border-gray-100 hover:border-gold/30 hover:bg-white hover:shadow-lg transition-all"
+                                    key={index}
+                                    whileHover={{ scale: 1.02 }}
+                                    className="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100 flex flex-col items-center text-center"
                                 >
-                                    <obj.icon className="text-primary mb-4" size={28} />
-                                    <p className="text-gray-700 leading-relaxed font-medium">{obj.text}</p>
+                                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-6">
+                                        <CheckCircle2 size={24} />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-4">{obj.title}</h3>
+                                    <p className="text-gray-600 leading-relaxed font-normal">{obj.text}</p>
                                 </motion.div>
                             ))}
                         </div>
                     </div>
+                </div>
 
+                <div className="container mx-auto px-4">
                     {/* What We Do */}
                     <div className="mb-24 bg-slate-900 rounded-[3rem] p-10 md:p-20 relative overflow-hidden">
                         {/* Background accents */}
@@ -189,13 +174,76 @@ const AboutUs = () => {
                         </div>
                     </div>
 
+                    {/* Our Team */}
+                    <div className="mb-24">
+                        <div className="text-center mb-16">
+                            <span className="text-gold font-bold tracking-widest uppercase mb-4 block text-sm">Leadership</span>
+                            <h2 className="text-3xl md:text-5xl font-bold text-gray-900">Our Team</h2>
+                            <div className="w-24 h-1.5 bg-gold mx-auto mt-4 rounded-full"></div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                            {[
+                                {
+                                    name: "Rev. Dr. Bright Adonai",
+                                    role: "Founder and CEO",
+                                    image: "/ceo_bright_adonai.jpg",
+                                },
+                                {
+                                    name: "Mr. Francis Lanyo",
+                                    role: "Managing Director",
+                                    image: "/francis_lanyo.jpg",
+                                },
+                                {
+                                    name: "Richard Adaze",
+                                    role: "Head of Marketing and PRO",
+                                    image: "/richard_adaze.jpg",
+                                }
+                            ].map((member, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: index * 0.2 }}
+                                    className="group"
+                                >
+                                    <div className="relative mb-6 overflow-hidden rounded-[2.5rem] bg-slate-100 aspect-[4/5] shadow-xl border border-gray-100">
+                                        {member.image ? (
+                                            <img
+                                                src={member.image}
+                                                alt={member.name}
+                                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-gray-300">
+                                                <Users size={80} strokeWidth={1} />
+                                            </div>
+                                        )}
+                                        <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            <div className="flex gap-4 justify-center">
+                                                {/* Social placeholders if needed */}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="text-center">
+                                        <h3 className="text-2xl font-bold text-gray-900 mb-1">{member.name}</h3>
+                                        <p className="text-gold font-bold uppercase tracking-widest text-xs">{member.role}</p>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+
                     {/* Approach & Commitment */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
                         <motion.div {...fadeIn}>
                             <div className="bg-slate-100 rounded-3xl h-64 md:h-96 w-full mb-8 relative overflow-hidden">
-                                {/* Placeholder Approach Image */}
-                                <div className="absolute inset-0 bg-slate-200"></div>
-                                <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-bold">Approach Image</div>
+                                <img
+                                    src="/our_approach.jpg"
+                                    alt="Adonai Estate Approach and Vision"
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                             <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Approach</h2>
                             <div className="prose prose-lg text-gray-600">

@@ -6,8 +6,8 @@ const AirportGolfCitySchool = () => {
     return (
         <>
             <Helmet>
-                <title>Airport Golf City School | Adonai Estate Subsidiary</title>
-                <meta name="description" content="Airport Golf City School, providing quality education as a subsidiary of Adonai Estate Ltd." />
+                <title>AIRPORT GOLFCITY INTERNATIONAL SCHOOL | Adonai Estate Subsidiary</title>
+                <meta name="description" content="AIRPORT GOLFCITY INTERNATIONAL SCHOOL, providing quality education as a subsidiary of Adonai Estate Ltd." />
             </Helmet>
 
             <div className="pt-24 pb-20 bg-white min-h-screen">
@@ -17,12 +17,12 @@ const AirportGolfCitySchool = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="max-w-4xl mx-auto text-center"
                     >
-                        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Airport Golf City School</h1>
-                        <div className="w-full h-64 bg-slate-100 rounded-2xl mb-8 flex items-center justify-center text-gray-400">
-                            (Logo/Image Details Coming Soon)
+                        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">AIRPORT GOLFCITY INTERNATIONAL SCHOOL</h1>
+                        <div className="w-48 h-48 mx-auto mb-10 overflow-hidden rounded-full border-4 border-primary shadow-2xl">
+                            <img src="/agis_logo.jpg" alt="AIRPORT GOLFCITY INTERNATIONAL SCHOOL Logo" className="w-full h-full object-cover" />
                         </div>
                         <p className="text-xl text-gray-600">
-                            Details about Airport Golf City School will be updated soon.
+                            Details about AIRPORT GOLFCITY INTERNATIONAL SCHOOL will be updated soon.
                         </p>
                     </motion.div>
                 </div>

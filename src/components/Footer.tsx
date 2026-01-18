@@ -77,7 +77,7 @@ const Footer = () => {
                         <li className="flex items-center gap-3 text-gray-400 text-sm">
                             <Phone size={18} className="text-gold shrink-0" />
                             <div className="flex flex-col">
-                                <a href="tel:+233599007786" className="hover:text-white transition-colors">+233 599 007 786</a>
+                                <a href="tel:+233248629946" className="hover:text-white transition-colors">+233 24 862 9946</a>
                                 <a href="tel:+233362000350" className="hover:text-white transition-colors">+233 362 000 350</a>
                             </div>
                         </li>
@@ -89,10 +89,20 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className="border-t border-gray-800 pt-8 text-center">
-                <p className="text-gray-500 text-sm">
-                    &copy; {new Date().getFullYear()} Adonai Estate Limited. All rights reserved.
-                </p>
+            <div className="border-t border-gray-800 pt-8">
+                <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p className="text-gray-500 text-sm">
+                        &copy; {new Date().getFullYear()} Adonai Estate Limited. All rights reserved.
+                        <span className="mx-2 text-gray-700">|</span>
+                        Built by <a href="https://adazewebstudio.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gold transition-colors">Adaze Web Studio</a>
+                    </p>
+                    <div className="flex flex-wrap justify-center gap-6">
+                        <Link to="/privacy-policy" className="text-gray-500 hover:text-gold text-xs transition-colors">Privacy Policy</Link>
+                        <Link to="/terms-of-use" className="text-gray-500 hover:text-gold text-xs transition-colors">Terms of Use</Link>
+                        <Link to="/cookie-policy" className="text-gray-500 hover:text-gold text-xs transition-colors">Cookie Policy</Link>
+                        <Link to="/aml-kyc-policy" className="text-gray-500 hover:text-gold text-xs transition-colors">AML & KYC Policy</Link>
+                    </div>
+                </div>
             </div>
         </footer>
     );

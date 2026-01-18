@@ -1,8 +1,8 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { Building, ExternalLink, ArrowRight, Utensils, TreeDeciduous, GraduationCap, HardHat, BookOpen } from 'lucide-react';
+import { ExternalLink, ArrowRight, Utensils, TreeDeciduous, GraduationCap, HardHat, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const Subsidiaries = () => {
     const subsidiaries = [
@@ -11,21 +11,24 @@ const Subsidiaries = () => {
             link: "/subsidiaries/golf-city-view-restaurant",
             isExternal: false,
             description: "Fine dining and relaxation at the heart of our community.",
-            icon: Utensils
+            icon: Utensils,
+            image: "/gcvr_aucre_logo.jpg"
         },
         {
             name: "GCVR/AUCRE GARDENS",
             link: "/subsidiaries/gcvr-aucre-gardens",
             isExternal: false,
             description: "A scenic garden restaurant and event centre perfect for dining and social gatherings.",
-            icon: TreeDeciduous
+            icon: TreeDeciduous,
+            image: "/gcvr_aucre_logo.jpg"
         },
         {
-            name: "Airport Golf City School",
+            name: "AIRPORT GOLFCITY INTERNATIONAL SCHOOL",
             link: "/subsidiaries/airport-golf-city-school",
             isExternal: false,
             description: "Nurturing future leaders with quality education.",
-            icon: GraduationCap
+            icon: GraduationCap,
+            image: "/agis_logo.jpg"
         },
         {
             name: "Adonai Engineering & Construction Limited",
@@ -47,10 +50,11 @@ const Subsidiaries = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Our Subsidiaries | Adonai Estate Limited</title>
-                <meta name="description" content="Discover the subsidiaries of Adonai Estate Limited, extending our impact across various sectors." />
-            </Helmet>
+            <SEO
+                title="Our Subsidiaries"
+                description="Discover the subsidiaries of Adonai Estate Limited, extending our impact across various sectors including hospitality, education, and construction."
+                pathname="/subsidiaries"
+            />
 
             <div className="bg-slate-50 min-h-screen">
                 {/* Hero Section */}

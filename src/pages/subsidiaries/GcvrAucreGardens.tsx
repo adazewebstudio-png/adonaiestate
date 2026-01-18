@@ -18,8 +18,8 @@ const GcvrAucreGardens = () => {
                         className="max-w-4xl mx-auto text-center"
                     >
                         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">GCVR/AUCRE GARDENS</h1>
-                        <div className="w-full h-64 bg-slate-100 rounded-2xl mb-8 flex items-center justify-center text-gray-400">
-                            (Logo/Image Details Coming Soon)
+                        <div className="w-48 h-48 mx-auto mb-10 overflow-hidden rounded-full border-4 border-gold shadow-2xl">
+                            <img src="/gcvr_aucre_logo.jpg" alt="GCVR/AUCRE GARDENS Logo" className="w-full h-full object-cover" />
                         </div>
                         <p className="text-xl text-gray-600">
                             Details about GCVR/AUCRE GARDENS will be updated soon.
