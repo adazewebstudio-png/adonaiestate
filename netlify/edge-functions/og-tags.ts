@@ -1,11 +1,6 @@
-import { createClient } from "@sanity/client";
-
-const client = createClient({
-    projectId: "p1fxf3j0",
-    dataset: "production",
-    apiVersion: "2024-01-01",
-    useCdn: true,
-});
+const SANITY_PROJECT_ID = "p1fxf3j0";
+const SANITY_DATASET = "production";
+const SANITY_API_VERSION = "2024-01-01";
 
 const BASE_URL = "https://adonaiestatelimited.com";
 const DEFAULT_IMAGE = `${BASE_URL}/logo.jpg`;
@@ -37,6 +32,26 @@ const staticPages: Record<string, { title: string; description: string; image?: 
         description: "Discover Airport Golf City, our flagship 98-acre gated community featuring a world-class golf course in Ho, Volta Region.",
         image: "/airport_golf_city_main.jpg",
     },
+    "/estates/millennium-city": {
+        title: "Millennium City | Adonai Estate Limited",
+        description: "Bringing you back to your roots with cultural heritage and modern living at Kpetoe.",
+        image: "/images/estates/millennium-city/hero.jpg",
+    },
+    "/estates/uhas-florida-city": {
+        title: "UHAS Florida City | Adonai Estate Limited",
+        description: "A vibrant community designed for modern lifestyles near UHAS.",
+        image: "/images/estates/florida-city/hero.jpg",
+    },
+    "/estates/volta-safari-city": {
+        title: "Volta Safari City | Adonai Estate Limited",
+        description: "Eco-friendly riverside lodges and homes in Sogakope.",
+        image: "/images/estates/volta-safari-city/safari2.jpg",
+    },
+    "/estates/leaders-city": {
+        title: "Leaders City | Adonai Estate Limited",
+        description: "The heart of commercial and residential excellence in Ho.",
+        image: "/images/estates/leaders-city/home_thumb.jpg",
+    },
     "/listings": {
         title: "Property Listings | Adonai Estate Limited",
         description: "Browse our available litigation-free land and property listings across the Volta Region.",
@@ -53,36 +68,82 @@ const staticPages: Record<string, { title: string; description: string; image?: 
         title: "Our Services | Adonai Estate Limited",
         description: "Explore our comprehensive real estate services including land sales, consultancy, property management, and brokerage.",
     },
+    "/why-invest": {
+        title: "Why Invest With Adonai? | Adonai Estate Limited",
+        description: "Discover why investing with Adonai Estate Limited is a smart choice for your future.",
+    },
+    "/gallery": {
+        title: "Gallery | Adonai Estate Limited",
+        description: "View our photo gallery showcasing our estates, developments, and community events.",
+    },
 };
 
+// Fetch blog post from Sanity using native fetch
+async function fetchBlogPost(slug: string) {
+    const query = encodeURIComponent(`*[_type == "post" && slug.current == "${slug}"][0]{
+    title,
+    excerpt,
+    "image": mainImage.asset->url
+  }`);
+
+    const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            console.error("Sanity API error:", response.status);
+            return null;
+        }
+        const data = await response.json();
+        return data.result;
+    } catch (error) {
+        console.error("Error fetching from Sanity:", error);
+        return null;
+    }
+}
+
+function escapeHtml(str: string): string {
+    return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 function generateHTML(meta: { title: string; description: string; image: string; url: string }) {
+    const safeTitle = escapeHtml(meta.title);
+    const safeDescription = escapeHtml(meta.description);
+
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${meta.title}</title>
-  <meta name="description" content="${meta.description}">
+  <title>${safeTitle}</title>
+  <meta name="description" content="${safeDescription}">
   
   <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
   <meta property="og:url" content="${meta.url}">
-  <meta property="og:title" content="${meta.title}">
-  <meta property="og:description" content="${meta.description}">
+  <meta property="og:title" content="${safeTitle}">
+  <meta property="og:description" content="${safeDescription}">
   <meta property="og:image" content="${meta.image}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="Adonai Estate Limited">
   
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="${meta.url}">
-  <meta name="twitter:title" content="${meta.title}">
-  <meta name="twitter:description" content="${meta.description}">
+  <meta name="twitter:title" content="${safeTitle}">
+  <meta name="twitter:description" content="${safeDescription}">
   <meta name="twitter:image" content="${meta.image}">
   
   <meta http-equiv="refresh" content="0;url=${meta.url}">
 </head>
 <body>
-  <p>Redirecting to <a href="${meta.url}">${meta.title}</a>...</p>
+  <p>Redirecting to <a href="${meta.url}">${safeTitle}</a>...</p>
 </body>
 </html>`;
 }
@@ -100,12 +161,13 @@ export default async (request: Request) => {
         "WhatsApp",
         "Slackbot",
         "TelegramBot",
-        "Discord",
+        "Discordbot",
         "Pinterest",
         "Google-InspectionTool",
+        "Googlebot",
     ];
 
-    const isCrawler = crawlerPatterns.some(pattern =>
+    const isCrawler = crawlerPatterns.some((pattern) =>
         userAgent.toLowerCase().includes(pattern.toLowerCase())
     );
 
@@ -131,32 +193,23 @@ export default async (request: Request) => {
     }
     // Check for dynamic blog post
     else if (pathname.startsWith("/insight/")) {
-        const slug = pathname.replace("/insight/", "");
-        try {
-            const post = await client.fetch(
-                `*[_type == "post" && slug.current == $slug][0]{
-          title,
-          excerpt,
-          "image": mainImage.asset->url
-        }`,
-                { slug }
-            );
+        const slug = pathname.replace("/insight/", "").replace(/\/$/, ""); // Remove trailing slash
+
+        if (slug && slug.length > 0) {
+            const post = await fetchBlogPost(slug);
 
             if (post) {
                 meta.title = `${post.title} | Adonai Estate Limited`;
                 meta.description = post.excerpt || post.title;
                 meta.image = post.image || DEFAULT_IMAGE;
             }
-        } catch (error) {
-            console.error("Error fetching blog post:", error);
         }
     }
-    // Check for estates
+    // Check for estates (handle any estate slug)
     else if (pathname.startsWith("/estates/")) {
-        const estateSlug = pathname.replace("/estates/", "");
-        const estateKey = `/estates/${estateSlug}`;
-        if (staticPages[estateKey]) {
-            const page = staticPages[estateKey];
+        const estateSlug = pathname.replace(/\/$/, ""); // Remove trailing slash
+        if (staticPages[estateSlug]) {
+            const page = staticPages[estateSlug];
             meta.title = page.title;
             meta.description = page.description;
             meta.image = page.image ? `${BASE_URL}${page.image}` : DEFAULT_IMAGE;
@@ -166,6 +219,7 @@ export default async (request: Request) => {
     return new Response(generateHTML(meta), {
         headers: {
             "content-type": "text/html;charset=UTF-8",
+            "cache-control": "public, max-age=3600", // Cache for 1 hour
         },
     });
 };
