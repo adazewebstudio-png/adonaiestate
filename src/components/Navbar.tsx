@@ -244,7 +244,11 @@ const Navbar = () => {
                     ) : (
                       <div className="space-y-1">
                         <button
-                          onClick={() => toggleMobileDropdown(link.name)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            toggleMobileDropdown(link.name);
+                          }}
                           className={`w-full flex items-center justify-between px-4 py-3.5 rounded-2xl text-[17px] font-bold transition-all duration-200 ${mobileActiveDropdown === link.name
                             ? 'bg-primary/5 text-primary'
                             : 'text-primary hover:bg-primary/5 active:scale-95'
@@ -257,35 +261,28 @@ const Navbar = () => {
                           />
                         </button>
 
-                        <AnimatePresence>
-                          {mobileActiveDropdown === link.name && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0, y: -10 }}
-                              animate={{ height: 'auto', opacity: 1, y: 0 }}
-                              exit={{ height: 0, opacity: 0, y: -10 }}
-                              transition={{ duration: 0.3, ease: 'easeOut' }}
-                              className="overflow-hidden"
-                            >
-                              <div className="ml-4 pl-4 border-l-2 border-gold space-y-1 mt-1 pb-2">
-                                {link.children.map((child) => (
-                                  <NavLink
-                                    key={child.name}
-                                    to={child.name === 'Who We Are' ? '/about/ceo' : child.path}
-                                    onClick={() => setIsOpen(false)}
-                                    className={({ isActive }) =>
-                                      `block px-4 py-3 rounded-xl text-sm font-bold transition-all ${isActive
-                                        ? 'text-gold bg-gold/5'
-                                        : 'text-gray-600 hover:text-primary hover:bg-primary/5'
-                                      }`
-                                    }
-                                  >
-                                    {child.name}
-                                  </NavLink>
-                                ))}
-                              </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+                        {mobileActiveDropdown === link.name && (
+                          <div className="ml-4 pl-4 border-l-2 border-gold space-y-1 mt-1 pb-2">
+                            {link.children.map((child) => (
+                              <NavLink
+                                key={child.name}
+                                to={child.path}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setIsOpen(false);
+                                }}
+                                className={({ isActive }) =>
+                                  `block px-4 py-3 rounded-xl text-sm font-bold transition-all touch-manipulation ${isActive
+                                    ? 'text-gold bg-gold/5'
+                                    : 'text-gray-600 hover:text-primary hover:bg-primary/5'
+                                  }`
+                                }
+                              >
+                                {child.name}
+                              </NavLink>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
