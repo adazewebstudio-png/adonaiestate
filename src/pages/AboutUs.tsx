@@ -203,6 +203,11 @@ const AboutUs = () => {
                                     name: "Delali Prince Agbati",
                                     role: "Monitoring and Evaluation Officer",
                                     image: "/delali_agbati.jpg",
+                                },
+                                {
+                                    name: "Edward k Akakpo Ashiadey",
+                                    role: "ADMINISTRATOR/HR",
+                                    image: "/edward_akakpo.jpg",
                                 }
                             ].map((member, index) => (
                                 <motion.div
