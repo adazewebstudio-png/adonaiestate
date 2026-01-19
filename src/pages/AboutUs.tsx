@@ -182,66 +182,97 @@ const AboutUs = () => {
                             <div className="w-24 h-1.5 bg-gold mx-auto mt-4 rounded-full"></div>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                            {[
-                                {
-                                    name: "Rev. Dr. Bright Adonai",
-                                    role: "Founder and CEO",
-                                    image: "/ceo_bright_adonai.jpg",
-                                },
-                                {
-                                    name: "Mr. Francis Lanyo",
-                                    role: "Managing Director",
-                                    image: "/francis_lanyo.jpg",
-                                },
-                                {
-                                    name: "Richard Adaze",
-                                    role: "Head of Marketing and PRO",
-                                    image: "/richard_adaze.jpg",
-                                },
-                                {
-                                    name: "Delali Prince Agbati",
-                                    role: "Monitoring and Evaluation Officer",
-                                    image: "/delali_agbati.jpg",
-                                },
-                                {
-                                    name: "Edward k Akakpo Ashiadey",
-                                    role: "ADMINISTRATOR/HR",
-                                    image: "/edward_akakpo.jpg",
-                                }
-                            ].map((member, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.2 }}
-                                    className="group"
-                                >
-                                    <div className="relative mb-6 overflow-hidden rounded-[2.5rem] bg-slate-100 aspect-[4/5] shadow-xl border border-gray-100">
-                                        {member.image ? (
-                                            <img
-                                                src={member.image}
-                                                alt={member.name}
-                                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-gray-300">
-                                                <Users size={80} strokeWidth={1} />
-                                            </div>
-                                        )}
-                                        <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                            <div className="flex gap-4 justify-center">
-                                                {/* Social placeholders if needed */}
-                                            </div>
+                        <div className="space-y-12">
+                            {/* Top Management - 2 Columns */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                                {[
+                                    {
+                                        name: "Rev. Dr. Bright Adonai",
+                                        role: "Founder and CEO",
+                                        image: "/ceo_bright_adonai.jpg",
+                                    },
+                                    {
+                                        name: "Mr. Francis Lanyo",
+                                        role: "Managing Director",
+                                        image: "/francis_lanyo.jpg",
+                                    }
+                                ].map((member, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: index * 0.2 }}
+                                        className="group"
+                                    >
+                                        <div className="relative mb-6 overflow-hidden rounded-[2.5rem] bg-slate-100 aspect-[4/5] shadow-xl border border-gray-100">
+                                            {member.image ? (
+                                                <img
+                                                    src={member.image}
+                                                    alt={member.name}
+                                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center text-gray-300">
+                                                    <Users size={80} strokeWidth={1} />
+                                                </div>
+                                            )}
                                         </div>
-                                    </div>
-                                    <div className="text-center">
-                                        <h3 className="text-2xl font-bold text-gray-900 mb-1">{member.name}</h3>
-                                        <p className="text-gold font-bold uppercase tracking-widest text-xs">{member.role}</p>
-                                    </div>
-                                </motion.div>
-                            ))}
+                                        <div className="text-center">
+                                            <h3 className="text-2xl font-bold text-gray-900 mb-1">{member.name}</h3>
+                                            <p className="text-gold font-bold uppercase tracking-widest text-xs">{member.role}</p>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+
+                            {/* Officers - 3 Columns */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {[
+                                    {
+                                        name: "Richard Adaze",
+                                        role: "Head of Marketing and PRO",
+                                        image: "/richard_adaze.jpg",
+                                    },
+                                    {
+                                        name: "Delali Prince Agbati",
+                                        role: "Monitoring and Evaluation Officer",
+                                        image: "/delali_agbati.jpg",
+                                    },
+                                    {
+                                        name: "Edward k Akakpo Ashiadey",
+                                        role: "ADMINISTRATOR/HR",
+                                        image: "/edward_akakpo.jpg",
+                                    }
+                                ].map((member, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: 0.4 + (index * 0.2) }}
+                                        className="group"
+                                    >
+                                        <div className="relative mb-6 overflow-hidden rounded-[2.5rem] bg-slate-100 aspect-[4/5] shadow-xl border border-gray-100">
+                                            {member.image ? (
+                                                <img
+                                                    src={member.image}
+                                                    alt={member.name}
+                                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center text-gray-300">
+                                                    <Users size={80} strokeWidth={1} />
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="text-center">
+                                            <h3 className="text-2xl font-bold text-gray-900 mb-1">{member.name}</h3>
+                                            <p className="text-gold font-bold uppercase tracking-widest text-xs">{member.role}</p>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
