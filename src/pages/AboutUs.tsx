@@ -182,7 +182,7 @@ const AboutUs = () => {
                             <div className="w-24 h-1.5 bg-gold mx-auto mt-4 rounded-full"></div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                             {[
                                 {
                                     name: "Rev. Dr. Bright Adonai",
@@ -198,6 +198,11 @@ const AboutUs = () => {
                                     name: "Richard Adaze",
                                     role: "Head of Marketing and PRO",
                                     image: "/richard_adaze.jpg",
+                                },
+                                {
+                                    name: "Delali Prince Agbati",
+                                    role: "Monitoring and Evaluation Officer",
+                                    image: "/delali_agbati.jpg",
                                 }
                             ].map((member, index) => (
                                 <motion.div
