@@ -455,7 +455,7 @@ const Home = () => {
                                         </div>
                                         <div>
                                             <h4 className="text-gray-900 font-bold text-xl mb-3 font-serif">Our Vision</h4>
-                                            <p className="text-gray-600 leading-relaxed">Helping solve Ghana's Housing deficit realistically and inspire confidence in land and home ownership.</p>
+                                            <p className="text-gray-600 leading-relaxed">To realistically help solve Ghana’s housing deficit and restore confidence in land and home ownership in our country.</p>
                                         </div>
                                     </div>
 
@@ -465,7 +465,7 @@ const Home = () => {
                                         </div>
                                         <div>
                                             <h4 className="text-gray-900 font-bold text-xl mb-3 font-serif">Our Mission</h4>
-                                            <p className="text-gray-600 leading-relaxed">To provide quality homes and safe communities with maximum security for residential and commercial purposes.</p>
+                                            <p className="text-gray-600 leading-relaxed">To make land and home ownership affordable, flexible, and litigation-free for the average Ghanaian, while adhering to the highest standards of quality.</p>
                                         </div>
                                     </div>
                                 </div>

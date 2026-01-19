@@ -55,8 +55,8 @@ const AboutUs = () => {
                     {/* Vision & Mission */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                         {[
-                            { title: 'Our Vision', text: 'To become the leading provider of affordable and secure estate developments in Ghana, creating spaces where every individual can build a legacy.', icon: Eye },
-                            { title: 'Our Mission', text: 'To simplify property ownership through transparency, litigation-free land, and professionally planned communities that deliver lasting value.', icon: Rocket },
+                            { title: 'Our Vision', text: 'To realistically help solve Ghana’s housing deficit and restore confidence in land and home ownership in our country.', icon: Eye },
+                            { title: 'Our Mission', text: 'To make land and home ownership affordable, flexible, and litigation-free for the average Ghanaian, while adhering to the highest standards of quality.', icon: Rocket },
                         ].map((item, index) => (
                             <motion.div
                                 key={index}
