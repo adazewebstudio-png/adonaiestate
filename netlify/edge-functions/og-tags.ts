@@ -86,10 +86,10 @@ async function fetchBlogPost(slug: string) {
     "image": mainImage.asset->url
   }`);
 
-    const url = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
+    const apiUrl = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(apiUrl);
         if (!response.ok) {
             console.error("Sanity API error:", response.status);
             return null;
@@ -103,6 +103,7 @@ async function fetchBlogPost(slug: string) {
 }
 
 function escapeHtml(str: string): string {
+    if (!str) return "";
     return str
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
@@ -148,79 +149,86 @@ function generateHTML(meta: { title: string; description: string; image: string;
 </html>`;
 }
 
-export default async (request: Request) => {
-    const url = new URL(request.url);
-    const userAgent = request.headers.get("user-agent") || "";
+export default async (request: Request, context: any) => {
+    try {
+        const url = new URL(request.url);
+        const userAgent = request.headers.get("user-agent") || "";
 
-    // Check if request is from a social media crawler
-    // NOTE: Do NOT include Googlebot here - it needs to see the full SPA to index content
-    const crawlerPatterns = [
-        "facebookexternalhit",
-        "Facebot",
-        "Twitterbot",
-        "LinkedInBot",
-        "WhatsApp",
-        "Slackbot",
-        "TelegramBot",
-        "Discordbot",
-        "Pinterest",
-    ];
+        // Check if request is from a social media crawler
+        // NOTE: Do NOT include Googlebot here - it needs to see the full SPA to index content
+        const crawlerPatterns = [
+            "facebookexternalhit",
+            "Facebot",
+            "Twitterbot",
+            "LinkedInBot",
+            "WhatsApp",
+            "Slackbot",
+            "TelegramBot",
+            "Discordbot",
+            "Pinterest",
+        ];
 
-    const isCrawler = crawlerPatterns.some((pattern) =>
-        userAgent.toLowerCase().includes(pattern.toLowerCase())
-    );
+        const isCrawler = crawlerPatterns.some((pattern) =>
+            userAgent.toLowerCase().includes(pattern.toLowerCase())
+        );
 
-    // If not a crawler, pass through to the SPA
-    if (!isCrawler) {
-        return;
-    }
-
-    const pathname = url.pathname;
-    let meta = {
-        title: staticPages["/"].title,
-        description: staticPages["/"].description,
-        image: DEFAULT_IMAGE,
-        url: `${BASE_URL}${pathname}`,
-    };
-
-    // Check for static page metadata
-    if (staticPages[pathname]) {
-        const page = staticPages[pathname];
-        meta.title = page.title;
-        meta.description = page.description;
-        meta.image = page.image ? `${BASE_URL}${page.image}` : DEFAULT_IMAGE;
-    }
-    // Check for dynamic blog post
-    else if (pathname.startsWith("/insight/")) {
-        const slug = pathname.replace("/insight/", "").replace(/\/$/, ""); // Remove trailing slash
-
-        if (slug && slug.length > 0) {
-            const post = await fetchBlogPost(slug);
-
-            if (post) {
-                meta.title = `${post.title} | Adonai Estate Limited`;
-                meta.description = post.excerpt || post.title;
-                meta.image = post.image || DEFAULT_IMAGE;
-            }
+        // If not a crawler, pass through to the SPA
+        if (!isCrawler) {
+            return context.next();
         }
-    }
-    // Check for estates (handle any estate slug)
-    else if (pathname.startsWith("/estates/")) {
-        const estateSlug = pathname.replace(/\/$/, ""); // Remove trailing slash
-        if (staticPages[estateSlug]) {
-            const page = staticPages[estateSlug];
+
+        const pathname = url.pathname;
+        let meta = {
+            title: staticPages["/"].title,
+            description: staticPages["/"].description,
+            image: DEFAULT_IMAGE,
+            url: `${BASE_URL}${pathname}`,
+        };
+
+        // Check for static page metadata
+        if (staticPages[pathname]) {
+            const page = staticPages[pathname];
             meta.title = page.title;
             meta.description = page.description;
             meta.image = page.image ? `${BASE_URL}${page.image}` : DEFAULT_IMAGE;
         }
-    }
+        // Check for dynamic blog post
+        else if (pathname.startsWith("/insight/")) {
+            const slug = pathname.replace("/insight/", "").replace(/\/$/, ""); // Remove trailing slash
 
-    return new Response(generateHTML(meta), {
-        headers: {
-            "content-type": "text/html;charset=UTF-8",
-            "cache-control": "public, max-age=3600", // Cache for 1 hour
-        },
-    });
+            if (slug && slug.length > 0) {
+                const post = await fetchBlogPost(slug);
+
+                if (post) {
+                    meta.title = `${post.title} | Adonai Estate Limited`;
+                    meta.description = post.excerpt || post.title;
+                    meta.image = post.image || DEFAULT_IMAGE;
+                }
+            }
+        }
+        // Check for estates (handle any estate slug)
+        else if (pathname.startsWith("/estates/")) {
+            const estateSlug = pathname.replace(/\/$/, ""); // Remove trailing slash
+            if (staticPages[estateSlug]) {
+                const page = staticPages[estateSlug];
+                meta.title = page.title;
+                meta.description = page.description;
+                meta.image = page.image ? `${BASE_URL}${page.image}` : DEFAULT_IMAGE;
+            }
+        }
+
+        return new Response(generateHTML(meta), {
+            status: 200,
+            headers: {
+                "content-type": "text/html;charset=UTF-8",
+                "cache-control": "public, max-age=3600",
+            },
+        });
+    } catch (error) {
+        console.error("Edge Function Error:", error);
+        // On any error, pass through to the SPA
+        return context.next();
+    }
 };
 
 export const config = {
