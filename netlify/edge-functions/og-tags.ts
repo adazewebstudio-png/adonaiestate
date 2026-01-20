@@ -1,6 +1,6 @@
-const SANITY_PROJECT_ID = "p1fxf3j0";
+const SANITY_PROJECT_ID = "w50u4jfs";
 const SANITY_DATASET = "production";
-const SANITY_API_VERSION = "2024-01-01";
+const SANITY_API_VERSION = "2023-05-03";
 
 const BASE_URL = "https://adonaiestatelimited.com";
 const DEFAULT_IMAGE = `${BASE_URL}/logo.jpg`;
