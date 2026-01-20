@@ -153,6 +153,7 @@ export default async (request: Request) => {
     const userAgent = request.headers.get("user-agent") || "";
 
     // Check if request is from a social media crawler
+    // NOTE: Do NOT include Googlebot here - it needs to see the full SPA to index content
     const crawlerPatterns = [
         "facebookexternalhit",
         "Facebot",
@@ -163,8 +164,6 @@ export default async (request: Request) => {
         "TelegramBot",
         "Discordbot",
         "Pinterest",
-        "Google-InspectionTool",
-        "Googlebot",
     ];
 
     const isCrawler = crawlerPatterns.some((pattern) =>
