@@ -348,7 +348,7 @@ const Home = () => {
                                             <div className="flex items-center gap-2 text-gold font-bold text-xs uppercase tracking-wider mb-2">
                                                 <Tag size={12} /> {prop.type}
                                             </div>
-                                            <Link to={`/listings`}>
+                                            <Link to={`/listings/${prop._id}`}>
                                                 <h3 className="text-xl font-bold text-gray-900 mb-2 hover:text-primary transition-colors">{prop.title}</h3>
                                             </Link>
                                             <p className="text-gray-500 text-sm flex items-center gap-1.5 font-medium">
@@ -360,7 +360,7 @@ const Home = () => {
                                                 <Maximize size={16} className="text-gold" />
                                                 <span className="text-xs font-bold tracking-tight">{prop.size}</span>
                                             </div>
-                                            <Link to={`/listings`} className="ml-auto text-primary font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">
+                                            <Link to={`/listings/${prop._id}`} className="ml-auto text-primary font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">
                                                 Details <ArrowRight size={14} />
                                             </Link>
                                         </div>

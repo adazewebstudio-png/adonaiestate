@@ -264,7 +264,7 @@ const BlogPost = () => {
             "name": "Adonai Estate Limited",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://adonaiestatelimited.com/logo.jpg"
+                "url": "https://adonaiestateltd.com/logo.jpg"
             }
         },
         "datePublished": post.publishedAt || post._createdAt,

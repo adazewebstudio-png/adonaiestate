@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Linkedin, Globe, Star, MessageSquare, Award, Clock, Users, ShieldCheck, Loader2, Mail } from 'lucide-react';
@@ -32,6 +32,8 @@ const AgentProfile = () => {
     const [agent, setAgent] = useState<Agent | null>(null);
     const [reviews, setReviews] = useState<Review[]>([]);
     const [loading, setLoading] = useState(true);
+    const [submitting, setSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
 
     // Form states
     const [rating, setRating] = useState(0);
@@ -43,14 +45,16 @@ const AgentProfile = () => {
         const fetchAgentData = async () => {
             try {
                 // Fetch Agent (Richard)
-                const agentQuery = `*[_type == "agent" && name == "Richard Adaze"][0]`;
+                const agentQuery = `*[_type == "agent" && (slug.current == "richard-adaze" || name match "Richard Adaze*")][0]`;
                 const agentData = await client.fetch(agentQuery);
                 setAgent(agentData);
 
-                // Fetch Reviews for this agent
-                const reviewsQuery = `*[_type == "review" && references(^._id)] | order(_createdAt desc)`;
-                const reviewsData = await client.fetch(reviewsQuery);
-                setReviews(reviewsData);
+                if (agentData) {
+                    // Fetch Reviews for this agent
+                    const reviewsQuery = `*[_type == "review" && references($id)] | order(_createdAt desc)`;
+                    const reviewsData = await client.fetch(reviewsQuery, { id: agentData._id });
+                    setReviews(reviewsData);
+                }
             } catch (error) {
                 console.error('Error fetching agent data:', error);
             } finally {
@@ -64,21 +68,32 @@ const AgentProfile = () => {
     const handleSubmitReview = async (e: React.FormEvent) => {
         e.preventDefault();
         if (rating === 0) return alert('Please select a rating');
+        if (!agent) return;
 
-        // This would normally be a Sanity mutation, but requires a token.
-        // For now, we'll simulate adding it to the UI.
-        const newReview: Review = {
-            _id: Date.now().toString(),
-            name: reviewerName || 'Verified Client',
-            text: comment || 'Excellent service!',
-            rating: rating,
-            _createdAt: new Date().toISOString()
-        };
-        setReviews([newReview, ...reviews]);
-        setComment('');
-        setReviewerName('');
-        setRating(0);
-        alert('Thank you for your review!');
+        setSubmitting(true);
+        try {
+            await client.create({
+                _type: 'review',
+                agent: {
+                    _type: 'reference',
+                    _ref: agent._id,
+                },
+                name: reviewerName || 'Verified Client',
+                text: comment || 'Excellent service!',
+                rating: rating,
+                approved: false, // Default to false for moderation
+            });
+
+            setSubmitted(true);
+            setComment('');
+            setReviewerName('');
+            setRating(0);
+        } catch (error) {
+            console.error('Error submitting review:', error);
+            alert('Failed to submit review. Please try again.');
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     if (loading) {
@@ -105,13 +120,12 @@ const AgentProfile = () => {
 
     return (
         <div className="pt-24 pb-20 bg-slate-50 min-h-screen">
-            <Helmet>
-                <title>Richard Adaze - Head of Marketing | Adonai Estate Limited</title>
-                <meta name="description" content="Meet Richard Adaze, the Head of Marketing at Adonai Estate Limited with over 4 years of experience in real estate marketing." />
-                <meta property="og:title" content="Richard Adaze - Head of Marketing | Adonai Estate Limited" />
-                <meta property="og:description" content="Expert real estate marketer with 4+ years experience helping clients secure premium litigation-free lands." />
-                <meta property="og:image" content="https://adonaiestateltd.com/richard_adaze.jpg" />
-            </Helmet>
+            <SEO
+                title="Richard Adaze - Head of Marketing"
+                description="Meet Richard Adaze, the Head of Marketing at Adonai Estate Limited with over 4 years of experience in real estate marketing."
+                image={agent.profileImage ? urlFor(agent.profileImage).url() : "/richard_adaze.jpg"}
+                pathname="/agent/richard-adaze"
+            />
 
             <div className="container mx-auto px-4">
                 {/* Profile Header Card */}

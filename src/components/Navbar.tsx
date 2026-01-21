@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useHeaderStyle } from '../contexts/HeaderContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,12 +10,14 @@ const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileActiveDropdown, setMobileActiveDropdown] = useState<string | null>(null);
 
+  const { isTransparent } = useHeaderStyle();
+
   const location = useLocation();
   const currentPath = location.pathname.replace(/\/$/, '') || '/';
 
   // Determine if we should use dark text (white background)
   const transparentNavPaths = ['/', '/contact', '/estates', '/insight', '/why-invest', '/subsidiaries', '/agent/richard-adaze'];
-  const isTransparentNav = transparentNavPaths.some(p => currentPath === p || currentPath.startsWith(p + '/'));
+  const isTransparentNav = isTransparent || transparentNavPaths.some(p => currentPath === p || currentPath.startsWith(p + '/'));
   const isDarkText = scrolled || !isTransparentNav;
 
   useEffect(() => {

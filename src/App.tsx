@@ -27,6 +27,7 @@ const Services = lazy(() => import('./pages/Services'));
 const AgentProfile = lazy(() => import('./pages/AgentProfile'));
 const Listings = lazy(() => import('./pages/Listings'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
+const PropertyDetails = lazy(() => import('./pages/PropertyDetails'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const CEO = lazy(() => import('./pages/CEO'));
 const PrivacyPolicy = lazy(() => import('./pages/legal/PrivacyPolicy'));
@@ -67,6 +68,7 @@ function App() {
           {/* Agent & Listings */}
           <Route path="/agent/richard-adaze" element={<AgentProfile />} />
           <Route path="/listings" element={<Listings />} />
+          <Route path="/listings/:id" element={<PropertyDetails />} />
           <Route path="/insight/:slug" element={<BlogPost />} />
           <Route path="/gallery" element={<Gallery />} />
 

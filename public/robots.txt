@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://adonaiestatelimited.com/sitemap.xml
+Sitemap: https://adonaiestateltd.com/sitemap.xml
 
 # LLM Crawler instructions (AEO)
 User-agent: GPTBot

@@ -13,14 +13,14 @@ interface SEOProps {
 const SEO = ({ title, description, image, article, pathname, schema }: SEOProps) => {
     const defaultTitle = 'Adonai Estate Limited | Ultra Modern Living in Ho, Volta Region';
     const defaultDescription = 'Adonai Estate Limited offers litigation-free lands, property management, and ultra-modern estate living in Ho, Volta Region, Ghana. Join our golf city community.';
-    const siteUrl = 'https://adonaiestatelimited.com';
+    const siteUrl = 'https://adonaiestateltd.com';
     const defaultImage = '/logo.jpg';
     const twitterUsername = '@adonaiestate';
 
     const seo = {
         title: title ? `${title} | Adonai Estate Limited` : defaultTitle,
         description: description || defaultDescription,
-        image: `${siteUrl}${image || defaultImage}`,
+        image: image?.startsWith('http') ? image : `${siteUrl}${image || defaultImage}`,
         url: `${siteUrl}${pathname || ''}`,
     };
 

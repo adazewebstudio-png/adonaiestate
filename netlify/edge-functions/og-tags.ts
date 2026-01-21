@@ -2,7 +2,7 @@ const SANITY_PROJECT_ID = "w50u4jfs";
 const SANITY_DATASET = "production";
 const SANITY_API_VERSION = "2023-05-03";
 
-const BASE_URL = "https://adonaiestatelimited.com";
+const BASE_URL = "https://adonaiestateltd.com";
 const DEFAULT_IMAGE = `${BASE_URL}/logo.jpg`;
 
 // Page metadata for static pages
@@ -55,26 +55,79 @@ const staticPages: Record<string, { title: string; description: string; image?: 
     "/listings": {
         title: "Property Listings | Adonai Estate Limited",
         description: "Browse our available litigation-free land and property listings across the Volta Region.",
+        image: "/home_who_we_are.jpg",
     },
     "/insight": {
         title: "Insights | Real Estate News & Tips",
         description: "Stay informed with the latest real estate news, investment tips, and market insights from Adonai Estate Limited.",
+        image: "/about_development.jpg",
     },
     "/contact": {
         title: "Contact Us | Adonai Estate Limited",
         description: "Get in touch with Adonai Estate Limited for inquiries about land purchases, consultancy, and property management.",
+        image: "/logo.jpg",
     },
-    "/services": {
-        title: "Our Services | Adonai Estate Limited",
-        description: "Explore our comprehensive real estate services including land sales, consultancy, property management, and brokerage.",
+    "/gallery": {
+        title: "Gallery | Adonai Estate Limited",
+        description: "Take a visual tour of our estates and community developments.",
+        image: "/airport_golf_city_main.jpg",
     },
     "/why-invest": {
         title: "Why Invest With Adonai? | Adonai Estate Limited",
         description: "Discover why investing with Adonai Estate Limited is a smart choice for your future.",
+        image: "/why_invest_hero_aerial.jpg",
     },
-    "/gallery": {
-        title: "Gallery | Adonai Estate Limited",
-        description: "View our photo gallery showcasing our estates, developments, and community events.",
+    // Services
+    "/services": {
+        title: "Our Services | Adonai Estate Limited",
+        description: "Explore our comprehensive real estate services including land sales, consultancy, property management, and brokerage.",
+        image: "/about_development.jpg",
+    },
+    "/services/land-sales": {
+        title: "Land Sales | Secure & Litigation-Free",
+        description: "Buy land with confidence. We provide authentic documentation and planned communities in the best locations.",
+        image: "/land_dispute_avoidance.png",
+    },
+    "/services/consultancy": {
+        title: "Real Estate Consultancy | Adonai Estate Limited",
+        description: "Professional advice on land acquisition, development planning, and real estate investment in Ghana.",
+        image: "/logo.jpg",
+    },
+    "/services/property-management": {
+        title: "Property Management | Adonai Estate Limited",
+        description: "Let us help you protect and grow the value of your real estate assets through professional management.",
+        image: "/logo.jpg",
+    },
+    "/services/brokerage": {
+        title: "Real Estate Brokerage | Adonai Estate Limited",
+        description: "Transparent and secure facilitation of property transactions between buyers and sellers.",
+        image: "/logo.jpg",
+    },
+    // Subsidiaries
+    "/subsidiaries": {
+        title: "Our Subsidiaries | Adonai Group of Companies",
+        description: "Discover our diverse group of companies covering education, hospitality, agriculture, and real estate services.",
+        image: "/logo.jpg",
+    },
+    "/subsidiaries/golf-city-view-restaurant": {
+        title: "Golf City View Restaurant | Dining with a View",
+        description: "The best continental and local dishes in Ho with a stunning view of the Airport Golf City course.",
+        image: "/gcvr_aucre_logo.jpg",
+    },
+    "/subsidiaries/gcvr-aucre-gardens": {
+        title: "Aucre Gardens | Premium Event Venue",
+        description: "The perfect venue for weddings, corporate events, and celebrations in a serene, luxury environment.",
+        image: "/gcvr_aucre_logo.jpg",
+    },
+    "/subsidiaries/airport-golf-city-school": {
+        title: "Adonai Global International School | Nurturing Leaders",
+        description: "Providing world-class education for the leaders of tomorrow at Airport Golf City.",
+        image: "/agis_logo.jpg",
+    },
+    "/grolip": {
+        title: "GROLIP | Greater Returns On Land Investment",
+        description: "Earn 4% monthly appreciation with our unique land investment package at Airport Golf City.",
+        image: "/land_dispute_avoidance.png",
     },
 };
 
@@ -125,7 +178,7 @@ function generateHTML(meta: { title: string; description: string; image: string;
   <meta name="description" content="${safeDescription}">
   
   <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="article">
+  <meta property="og:type" content="website">
   <meta property="og:url" content="${meta.url}">
   <meta property="og:title" content="${safeTitle}">
   <meta property="og:description" content="${safeDescription}">
@@ -155,7 +208,6 @@ export default async (request: Request, context: any) => {
         const userAgent = request.headers.get("user-agent") || "";
 
         // Check if request is from a social media crawler
-        // NOTE: Do NOT include Googlebot here - it needs to see the full SPA to index content
         const crawlerPatterns = [
             "facebookexternalhit",
             "Facebot",
@@ -172,33 +224,34 @@ export default async (request: Request, context: any) => {
             userAgent.toLowerCase().includes(pattern.toLowerCase())
         );
 
-        // If not a crawler, pass through to the SPA
         if (!isCrawler) {
             return context.next();
         }
 
-        const pathname = url.pathname;
+        // Normalize path: lowercase and no trailing slash (but keep / for root)
+        const rawPath = url.pathname;
+        const lookupPath = rawPath === "/" ? "/" : rawPath.replace(/\/$/, "").toLowerCase();
+
+        // Default meta
         let meta = {
             title: staticPages["/"].title,
             description: staticPages["/"].description,
             image: DEFAULT_IMAGE,
-            url: `${BASE_URL}${pathname}`,
+            url: `${BASE_URL}${rawPath}`,
         };
 
-        // Check for static page metadata
-        if (staticPages[pathname]) {
-            const page = staticPages[pathname];
+        // 1. Check for specific static page
+        if (staticPages[lookupPath]) {
+            const page = staticPages[lookupPath];
             meta.title = page.title;
             meta.description = page.description;
-            meta.image = page.image ? `${BASE_URL}${page.image}` : DEFAULT_IMAGE;
+            meta.image = page.image ? (page.image.startsWith("http") ? page.image : `${BASE_URL}${page.image}`) : DEFAULT_IMAGE;
         }
-        // Check for dynamic blog post
-        else if (pathname.startsWith("/insight/")) {
-            const slug = pathname.replace("/insight/", "").replace(/\/$/, ""); // Remove trailing slash
-
-            if (slug && slug.length > 0) {
+        // 2. Check for dynamic blog post
+        else if (lookupPath.startsWith("/insight/")) {
+            const slug = lookupPath.replace("/insight/", "");
+            if (slug) {
                 const post = await fetchBlogPost(slug);
-
                 if (post) {
                     meta.title = `${post.title} | Adonai Estate Limited`;
                     meta.description = post.excerpt || post.title;
@@ -206,15 +259,40 @@ export default async (request: Request, context: any) => {
                 }
             }
         }
-        // Check for estates (handle any estate slug)
-        else if (pathname.startsWith("/estates/")) {
-            const estateSlug = pathname.replace(/\/$/, ""); // Remove trailing slash
-            if (staticPages[estateSlug]) {
-                const page = staticPages[estateSlug];
-                meta.title = page.title;
-                meta.description = page.description;
-                meta.image = page.image ? `${BASE_URL}${page.image}` : DEFAULT_IMAGE;
+        // 3. Check for dynamic property listings
+        else if (lookupPath.startsWith("/listings/")) {
+            const id = lookupPath.replace("/listings/", "");
+            if (id) {
+                // We use the same fetch logic but for 'property' type
+                const query = encodeURIComponent(`*[_type == "property" && _id == "${id}"][0]{
+                    title,
+                    location,
+                    price,
+                    "image": mainImage.asset->url
+                }`);
+                const apiUrl = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
+
+                try {
+                    const response = await fetch(apiUrl);
+                    if (response.ok) {
+                        const data = await response.json();
+                        const prop = data.result;
+                        if (prop) {
+                            meta.title = `${prop.title} | ${prop.location}`;
+                            meta.description = `View details for this property in ${prop.location}. Pricing: ${prop.price}. Litigation-free and secure land from Adonai Estate Limited.`;
+                            meta.image = prop.image || DEFAULT_IMAGE;
+                        }
+                    }
+                } catch (e) {
+                    console.error("Error fetching prop in edge function:", e);
+                }
             }
+        }
+        // 4. Check for any nested estates that might not be in staticPages list (fallback)
+        else if (lookupPath.startsWith("/estates/")) {
+            // This is already covered by staticPages lookup if we keep them updated,
+            // but we could add a generic title if missing.
+            meta.title = "Our Estate Communities | Adonai Estate Limited";
         }
 
         return new Response(generateHTML(meta), {
@@ -226,7 +304,6 @@ export default async (request: Request, context: any) => {
         });
     } catch (error) {
         console.error("Edge Function Error:", error);
-        // On any error, pass through to the SPA
         return context.next();
     }
 };

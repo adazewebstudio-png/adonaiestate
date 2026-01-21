@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { HeaderProvider } from '../contexts/HeaderContext';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     const location = useLocation();
@@ -12,13 +12,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     }, [location]);
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-grow">
-                {children}
-            </main>
-            <Footer />
-        </div>
+        <HeaderProvider>
+            <div className="flex flex-col min-h-screen">
+                <Navbar />
+                <main className="flex-grow">
+                    {children}
+                </main>
+                <Footer />
+            </div>
+        </HeaderProvider>
     );
 };
 
