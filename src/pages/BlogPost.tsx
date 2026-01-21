@@ -6,6 +6,7 @@ import { Calendar, User, ArrowLeft, Loader2, Share2, Facebook, Twitter, Linkedin
 import { PortableText } from '@portabletext/react';
 import { client, urlFor } from '../lib/sanity';
 import SEO from '../components/SEO';
+import { useHeaderStyle } from '../contexts/HeaderContext';
 
 interface Post {
     _id: string;
@@ -140,6 +141,13 @@ const BlogPost = () => {
     const [submitted, setSubmitted] = useState(false);
     const [commentData, setCommentData] = useState({ name: '', email: '', comment: '' });
     const { scrollYProgress } = useScroll();
+    const { setIsTransparent } = useHeaderStyle();
+
+    useEffect(() => {
+        setIsTransparent(true);
+        return () => setIsTransparent(false);
+    }, [setIsTransparent]);
+
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
         damping: 30,
@@ -431,7 +439,7 @@ const BlogPost = () => {
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 blur-3xl rounded-full group-hover:scale-150 transition-transform duration-1000"></div>
                                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-[2rem] overflow-hidden flex-shrink-0 shadow-xl border-4 border-white">
                                     {post.author.image ? (
-                                        <img src={urlFor(post.author.image).url()} alt={post.author.name} className="w-full h-full object-cover" />
+                                        <img src={urlFor(post.author.image).width(300).height(300).format('webp').url()} alt={post.author.name} className="w-full h-full object-cover" />
                                     ) : (
                                         <div className="w-full h-full bg-gold/10 flex items-center justify-center text-gold">
                                             <User size={48} />

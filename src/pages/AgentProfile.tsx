@@ -123,7 +123,7 @@ const AgentProfile = () => {
             <SEO
                 title="Richard Adaze - Head of Marketing"
                 description="Meet Richard Adaze, the Head of Marketing at Adonai Estate Limited with over 4 years of experience in real estate marketing."
-                image={agent.profileImage ? urlFor(agent.profileImage).url() : "/richard_adaze.jpg"}
+                image={agent.profileImage ? urlFor(agent.profileImage).width(1200).height(630).url() : "/richard_adaze.jpg"}
                 pathname="/agent/richard-adaze"
             />
 
@@ -134,7 +134,7 @@ const AgentProfile = () => {
                         {/* Image Section */}
                         <div className="md:w-1/3 h-[400px] md:h-auto overflow-hidden relative">
                             <img
-                                src={agent.profileImage ? urlFor(agent.profileImage).url() : "/richard_adaze.jpg"}
+                                src={agent.profileImage ? urlFor(agent.profileImage).width(800).height(1000).format('webp').url() : "/richard_adaze.jpg"}
                                 alt={agent.name}
                                 className="w-full h-full object-cover"
                             />

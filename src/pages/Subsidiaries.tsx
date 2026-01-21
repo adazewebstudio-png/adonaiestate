@@ -3,8 +3,17 @@ import { motion } from 'framer-motion';
 import { ExternalLink, ArrowRight, Utensils, TreeDeciduous, GraduationCap, HardHat, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import { useEffect } from 'react';
+import { useHeaderStyle } from '../contexts/HeaderContext';
 
 const Subsidiaries = () => {
+    const { setIsTransparent } = useHeaderStyle();
+
+    useEffect(() => {
+        setIsTransparent(true);
+        return () => setIsTransparent(false);
+    }, [setIsTransparent]);
+
     const subsidiaries = [
         {
             name: "Golf City View Restaurant",

@@ -33,9 +33,17 @@ const BlogSkeleton = () => (
     </div>
 );
 
+import { useHeaderStyle } from '../contexts/HeaderContext';
+
 const Insight = () => {
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
+    const { setIsTransparent } = useHeaderStyle();
+
+    useEffect(() => {
+        setIsTransparent(true);
+        return () => setIsTransparent(false);
+    }, [setIsTransparent]);
 
     useEffect(() => {
         const fetchPosts = async () => {

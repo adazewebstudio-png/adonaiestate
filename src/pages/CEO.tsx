@@ -18,8 +18,17 @@ import {
 import SEO from '../components/SEO';
 import ExecutiveContactModal from '../components/ExecutiveContactModal';
 
+import { useEffect } from 'react';
+import { useHeaderStyle } from '../contexts/HeaderContext';
+
 const CEO = () => {
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+    const { setIsTransparent } = useHeaderStyle();
+
+    useEffect(() => {
+        setIsTransparent(false);
+        return () => setIsTransparent(false);
+    }, [setIsTransparent]);
 
     const personSchema = {
         "@context": "https://schema.org",

@@ -2,8 +2,17 @@ import React from 'react';
 import { Phone, Mail, MapPin, Facebook, Send, MessageSquare, Clock, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
+import { useEffect } from 'react';
+import { useHeaderStyle } from '../contexts/HeaderContext';
 
 const Contact = () => {
+    const { setIsTransparent } = useHeaderStyle();
+
+    useEffect(() => {
+        setIsTransparent(true);
+        return () => setIsTransparent(false);
+    }, [setIsTransparent]);
+
     return (
         <>
             <SEO

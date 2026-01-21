@@ -136,10 +136,10 @@ async function fetchBlogPost(slug: string) {
     const query = encodeURIComponent(`*[_type == "post" && slug.current == "${slug}"][0]{
     title,
     excerpt,
-    "image": mainImage.asset->url
+    "image": mainImage.asset->url + "?w=1200&h=630&auto=format"
   }`);
 
-    const apiUrl = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
+    const apiUrl = `https://${SANITY_PROJECT_ID}.apicdn.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
 
     try {
         const response = await fetch(apiUrl);
@@ -268,9 +268,9 @@ export default async (request: Request, context: any) => {
                     title,
                     location,
                     price,
-                    "image": mainImage.asset->url
+                    "image": mainImage.asset->url + "?w=1200&h=630&auto=format"
                 }`);
-                const apiUrl = `https://${SANITY_PROJECT_ID}.api.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
+                const apiUrl = `https://${SANITY_PROJECT_ID}.apicdn.sanity.io/v${SANITY_API_VERSION}/data/query/${SANITY_DATASET}?query=${query}`;
 
                 try {
                     const response = await fetch(apiUrl);

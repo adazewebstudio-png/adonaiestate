@@ -3,8 +3,17 @@ import { motion } from 'framer-motion';
 import { Briefcase, Users, ShieldCheck, Handshake, CheckCircle2, Target, Eye, Rocket } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import { useEffect } from 'react';
+import { useHeaderStyle } from '../contexts/HeaderContext';
 
 const AboutUs = () => {
+    const { setIsTransparent } = useHeaderStyle();
+
+    useEffect(() => {
+        setIsTransparent(false);
+        return () => setIsTransparent(false);
+    }, [setIsTransparent]);
+
     const fadeIn = {
         initial: { opacity: 0, y: 20 },
         whileInView: { opacity: 1, y: 0 },

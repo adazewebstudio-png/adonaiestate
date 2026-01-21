@@ -90,17 +90,20 @@ const Footer = () => {
             </div>
 
             <div className="border-t border-gray-800 pt-8">
-                <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-gray-500 text-sm">
-                        &copy; {new Date().getFullYear()} Adonai Estate Limited. All rights reserved.
-                        <span className="mx-2 text-gray-700">|</span>
-                        Built by <a href="https://adazewebstudio.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gold transition-colors">Adaze Web Studio</a>
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-6">
-                        <Link to="/privacy-policy" className="text-gray-500 hover:text-gold text-xs transition-colors">Privacy Policy</Link>
-                        <Link to="/terms-of-use" className="text-gray-500 hover:text-gold text-xs transition-colors">Terms of Use</Link>
-                        <Link to="/cookie-policy" className="text-gray-500 hover:text-gold text-xs transition-colors">Cookie Policy</Link>
-                        <Link to="/aml-kyc-policy" className="text-gray-500 hover:text-gold text-xs transition-colors">AML & KYC Policy</Link>
+                <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-4 text-center md:text-left">
+                    <div className="flex flex-col gap-2">
+                        <p className="text-gray-500 text-sm">
+                            &copy; {new Date().getFullYear()} Adonai Estate Limited. All rights reserved.
+                        </p>
+                        <p className="text-gray-500 text-xs">
+                            Built by <a href="https://adazewebstudio.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gold transition-colors font-bold">Adaze Web Studio</a>
+                        </p>
+                    </div>
+                    <div className="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-3">
+                        <Link to="/privacy-policy" className="text-gray-500 hover:text-gold text-xs transition-colors whitespace-nowrap">Privacy Policy</Link>
+                        <Link to="/terms-of-use" className="text-gray-500 hover:text-gold text-xs transition-colors whitespace-nowrap">Terms of Use</Link>
+                        <Link to="/cookie-policy" className="text-gray-500 hover:text-gold text-xs transition-colors whitespace-nowrap">Cookie Policy</Link>
+                        <Link to="/aml-kyc-policy" className="text-gray-500 hover:text-gold text-xs transition-colors whitespace-nowrap">AML & KYC Policy</Link>
                     </div>
                 </div>
             </div>

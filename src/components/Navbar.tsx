@@ -13,11 +13,10 @@ const Navbar = () => {
   const { isTransparent } = useHeaderStyle();
 
   const location = useLocation();
-  const currentPath = location.pathname.replace(/\/$/, '') || '/';
+  const currentPath = location.pathname;
 
-  // Determine if we should use dark text (white background)
-  const transparentNavPaths = ['/', '/contact', '/estates', '/insight', '/why-invest', '/subsidiaries', '/agent/richard-adaze'];
-  const isTransparentNav = isTransparent || transparentNavPaths.some(p => currentPath === p || currentPath.startsWith(p + '/'));
+  // Manual fallback for homepage if not explicitly set
+  const isTransparentNav = isTransparent || (currentPath === '/' && !scrolled);
   const isDarkText = scrolled || !isTransparentNav;
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

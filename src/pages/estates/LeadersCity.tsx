@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import EstateLayout from '../../components/EstateLayout';
-import { Landmark, Building2, Briefcase, CheckCircle2, TrendingUp, MapPin, ShoppingBag, Settings, Car, Trophy, Sparkles, X, FileText, ArrowRight, Loader2 } from 'lucide-react';
+import { Landmark, Building2, Briefcase, CheckCircle2, TrendingUp, MapPin, ShoppingBag, Settings, Car, Trophy, Sparkles, X, FileText, ArrowRight, Loader2, Layout } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface InterestFormData {
@@ -17,6 +17,7 @@ const propertyOptions: Record<string, string[]> = {
     'Heritage Park': ['Single-storey Two-bedroom House', 'Single-storey Three-bedroom House'],
     'Summit Gardens': ['Two-storey Two-Bedroom House', 'Two-storey Three-Bedroom House'],
     'Royal Crest': ['Two-storey Four-Bedroom House', 'Three-storey Five-bedroom House'],
+    'Horizon Enclave': ['Standard Serviced Plot (70x100ft)', 'Commercial Plot'],
 };
 
 const LeadersCity = () => {
@@ -95,6 +96,7 @@ const LeadersCity = () => {
         { name: 'Aspire Homes (Studios & 1-Bed Houses)', status: 'Upcoming' },
         { name: 'Heritage Park (2 & 3 Bedroom Single-Storey)', status: 'Upcoming' },
         { name: 'Summit Gardens (2 & 3 Bedroom Two-Storey)', status: 'Upcoming' },
+        { name: 'Horizon Enclave (Serviced Plots)', status: 'Upcoming' },
         { name: 'Royal Crest (4 & 5 Bedroom Mansions)', status: 'Upcoming' },
         { name: 'Commercial Business Plots', status: 'Upcoming' },
         { name: 'Automobile & Showroom Plots', status: 'Upcoming' },
@@ -118,6 +120,8 @@ const LeadersCity = () => {
                     'World-Class Event Center',
                     'Aspire Apartments (Modern Living)',
                     'Heritage Park (Executive Residences)',
+                    'Horizon Enclave (Serviced Plots)',
+                    'Strict "Hidden Roof" Architectural Code',
                     'Central Location in Ho Business District',
                     'Underground Drainage & Asphalted Roads',
                     '24/7 Professional Security & Smart Tech',
@@ -336,6 +340,50 @@ const LeadersCity = () => {
                                 <h4 className="text-2xl font-bold text-gray-900 mb-2">Summit Gardens</h4>
                                 <p className="text-gray-500">Architectural Renders Coming Soon</p>
                             </div>
+                        </motion.div>
+                    </div>
+                </div>
+
+                {/* Horizon Enclave Highlight */}
+                <div className="mt-32">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div className="order-2 lg:order-1 grid grid-cols-1 gap-4">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                className="rounded-[2.5rem] overflow-hidden shadow-xl aspect-[16/10] bg-gradient-to-br from-slate-100 to-white flex items-center justify-center border border-gray-100"
+                            >
+                                <img src="/images/estates/leaders-city/horizon_enclave.jpg" alt="Horizon Enclave Plots" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                            </motion.div>
+                        </div>
+                        <motion.div
+                            initial={{ opacity: 0, x: 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="order-1 lg:order-2"
+                        >
+                            <div className="flex items-center gap-3 text-gold mb-4">
+                                <Layout size={24} />
+                                <span className="font-bold tracking-widest uppercase text-sm">Serviced Plots</span>
+                            </div>
+                            <h3 className="text-4xl font-bold text-gray-900 mb-6 font-serif underline decoration-gold/30">Horizon Enclave</h3>
+                            <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                                Build your own masterpiece within Leaders City. <span className="text-primary font-bold">Horizon Enclave</span> offers fully serviced plots for those with a unique vision. To ensure a sleek, contemporary skyline, all constructions in this enclave must adhere to a strict <span className="text-primary font-bold">Hidden Roof</span> architectural style.
+                            </p>
+                            <ul className="space-y-4">
+                                {[
+                                    'Fully Serviced Plots (70x100ft)',
+                                    'Strict Modern "Hidden Roof" Policy',
+                                    'Ready-to-Build Infrastructure',
+                                    'Full Access to Estate Amenities'
+                                ].map((feature, i) => (
+                                    <li key={i} className="flex items-center gap-3 text-gray-800">
+                                        <CheckCircle2 size={20} className="text-gold" />
+                                        <span className="font-medium">{feature}</span>
+                                    </li>
+                                ))}
+                            </ul>
                         </motion.div>
                     </div>
                 </div>

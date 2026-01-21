@@ -20,8 +20,16 @@ import {
 import { Link } from 'react-router-dom';
 import { client, urlFor } from '../lib/sanity';
 import SEO from '../components/SEO';
+import { useHeaderStyle } from '../contexts/HeaderContext';
 
 const Home = () => {
+    const { setIsTransparent } = useHeaderStyle();
+
+    useEffect(() => {
+        setIsTransparent(true);
+        return () => setIsTransparent(false);
+    }, [setIsTransparent]);
+
     const [featuredProperties, setFeaturedProperties] = useState([]);
     const [featuredPosts, setFeaturedPosts] = useState([]);
     const [loadingData, setLoadingData] = useState(true);
@@ -137,10 +145,13 @@ const Home = () => {
 
             {/* Hero Section */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
-                <div
-                    className="absolute inset-0 bg-cover bg-center z-0"
-                    style={{ backgroundImage: 'url(/hero_home_main.jpg)' }}
-                >
+                <div className="absolute inset-0 z-0">
+                    <img
+                        src="/hero_home_main.jpg"
+                        alt="Adonai Estate Hero"
+                        className="w-full h-full object-cover"
+                        fetchpriority="high"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90"></div>
                 </div>
 

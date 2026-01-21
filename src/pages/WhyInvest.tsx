@@ -23,9 +23,17 @@ import {
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import ExecutiveContactModal from '../components/ExecutiveContactModal';
+import { useEffect } from 'react';
+import { useHeaderStyle } from '../contexts/HeaderContext';
 
 const WhyInvest = () => {
     const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+    const { setIsTransparent } = useHeaderStyle();
+
+    useEffect(() => {
+        setIsTransparent(true);
+        return () => setIsTransparent(false);
+    }, [setIsTransparent]);
 
     const fadeInUp = {
         initial: { opacity: 0, y: 30 },

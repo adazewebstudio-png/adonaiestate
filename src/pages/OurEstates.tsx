@@ -60,8 +60,17 @@ const upcomingEstates = [
     }
 ];
 
+import { useEffect } from 'react';
+import { useHeaderStyle } from '../contexts/HeaderContext';
+
 const OurEstates = () => {
     const [filter, setFilter] = useState('all');
+    const { setIsTransparent } = useHeaderStyle();
+
+    useEffect(() => {
+        setIsTransparent(true);
+        return () => setIsTransparent(false);
+    }, [setIsTransparent]);
 
     return (
         <div className="bg-[#fafafa] min-h-screen">
