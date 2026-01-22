@@ -94,10 +94,101 @@ export default {
             initialValue: false,
         },
         {
-            name: 'description',
+            name: 'fullDescription',
             title: 'Description',
             type: 'array',
             of: [{ type: 'block' }],
         },
+        {
+            name: 'propertyImages',
+            title: 'Property Images',
+            type: 'array',
+            of: [
+                {
+                    type: 'image',
+                    options: { hotspot: true },
+                    fields: [
+                        {
+                            name: 'caption',
+                            type: 'string',
+                            title: 'Caption',
+                            options: {
+                                isHighlighted: true // Makes the field easily accessible
+                            }
+                        },
+                        {
+                            name: 'alt',
+                            type: 'string',
+                            title: 'Alternative text',
+                            description: 'Important for SEO and accessiblity.',
+                            options: {
+                                isHighlighted: true
+                            }
+                        }
+                    ]
+                }
+            ],
+            options: {
+                layout: 'grid',
+            },
+            description: 'Upload up to 10 images for this property.',
+            validation: (Rule: any) => Rule.max(10).warning('Maximum 10 images allowed.'),
+        },
+        // --- Off-Plan Building Specific Fields ---
+        {
+            name: 'floorPlans',
+            title: 'Floor Plans',
+            type: 'array',
+            of: [
+                {
+                    type: 'image',
+                    title: 'Floor Plan',
+                    fields: [
+                        {
+                            name: 'caption',
+                            type: 'string',
+                            title: 'Caption',
+                            description: 'e.g., Ground Floor',
+                        }
+                    ]
+                }
+            ],
+            hidden: ({ document }: any) => document?.category !== 'Off Plan Building',
+            description: 'Upload architectural floor plans (visible only for Off-Plan Buildings).',
+        },
+        {
+            name: 'roomDimensions',
+            title: 'Room Dimensions',
+            type: 'array',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        { name: 'room', type: 'string', title: 'Room Name (e.g., Master Bedroom)' },
+                        { name: 'size', type: 'string', title: 'Dimensions (e.g., 14x14ft)' }
+                    ]
+                }
+            ],
+            hidden: ({ document }: any) => document?.category !== 'Off Plan Building',
+            description: 'List the dimensions for each room (visible only for Off-Plan Buildings).',
+        },
+        {
+            name: 'features',
+            title: 'Property Features',
+            type: 'array',
+            of: [{ type: 'string' }],
+            options: {
+                layout: 'tags'
+            },
+            hidden: ({ document }: any) => document?.category !== 'Off Plan Building',
+            description: 'Add key features like "En-suite", "Guest Washroom", "Porcelain Tiles" (visible only for Off-Plan Buildings).',
+        },
+        {
+            name: 'brochure',
+            title: 'Brochure / Documentation',
+            type: 'file',
+            hidden: ({ document }: any) => document?.category !== 'Off Plan Building',
+            description: 'Upload a PDF brochure or additional documentation if available.',
+        }
     ],
 }

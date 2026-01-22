@@ -146,6 +146,58 @@ const AboutUs = () => {
                     </div>
                 </div>
 
+                {/* Professional Affiliations */}
+                <div className="container mx-auto px-4 mb-24">
+                    <div className="text-center mb-16">
+                        <span className="text-gold font-bold tracking-widest uppercase mb-4 block text-sm">Accreditation</span>
+                        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">Professional Affiliations</h2>
+                        <div className="w-24 h-1.5 bg-gold mx-auto mt-4 rounded-full"></div>
+                        <p className="text-gray-600 max-w-2xl mx-auto mt-6 text-lg">
+                            We are proud members of Ghana's premier real estate associations, adhering to strict codes of ethics and professional standards.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        {[
+                            {
+                                name: 'Ghana Association of Real Estate Developers (GREDA)',
+                                logo: '/images/partners/greda-logo.jpg',
+                                description: 'As a member of GREDA, we are committed to providing quality housing and maintaining the highest standards of integrity in all our dealings.',
+                                link: 'http://gredaghana.org/'
+                            },
+                            {
+                                name: 'Volta Region Association of Real Estate Developers (VRARED)',
+                                logo: '/images/partners/vrared-logo.jpg',
+                                description: 'We actively contribute to the organized growth of the real estate sector in the Volta Region, ensuring sustainable and well-planned development.',
+                                link: 'https://vrared.org'
+                            }
+                        ].map((partner, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-lg hover:shadow-xl transition-shadow flex flex-col items-center text-center h-full"
+                            >
+                                <a
+                                    href={partner.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="h-32 w-full flex items-center justify-center mb-6 p-4 hover:scale-105 transition-transform"
+                                >
+                                    <img src={partner.logo} alt={partner.name} className="max-h-full w-auto object-contain" />
+                                </a>
+                                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                                    <a href={partner.link} target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors">
+                                        {partner.name}
+                                    </a>
+                                </h3>
+                                <p className="text-gray-600 leading-relaxed text-sm">{partner.description}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+
                 <div className="container mx-auto px-4">
                     {/* What We Do */}
                     <div className="mb-24 bg-slate-900 rounded-[3rem] p-10 md:p-20 relative overflow-hidden">

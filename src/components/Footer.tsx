@@ -27,6 +27,19 @@ const Footer = () => {
                             <Mail size={18} />
                         </a>
                     </div>
+
+                    {/* Accreditations */}
+                    <div className="mt-8">
+                        <span className="text-gray-500 text-xs uppercase tracking-widest font-bold mb-3 block">Member of:</span>
+                        <div className="flex items-center gap-3">
+                            <a href="http://gredaghana.org/" target="_blank" rel="noopener noreferrer" className="bg-white p-2 rounded-lg h-12 w-auto flex items-center justify-center hover:scale-105 transition-transform">
+                                <img src="/images/partners/greda-logo.jpg" alt="GREDA Member" className="h-full w-auto object-contain" />
+                            </a>
+                            <a href="https://vrared.org" target="_blank" rel="noopener noreferrer" className="bg-white p-2 rounded-lg h-12 w-auto flex items-center justify-center hover:scale-105 transition-transform">
+                                <img src="/images/partners/vrared-logo.jpg" alt="VRARED Member" className="h-full w-auto object-contain" />
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Quick Links */}
