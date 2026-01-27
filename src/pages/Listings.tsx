@@ -306,10 +306,23 @@ const Listings = () => {
                     )}
                 </div>
 
-                <div className="mt-16 bg-gold/5 rounded-3xl p-8 border border-gold/10 text-center">
-                    <div className="flex items-center justify-center gap-4 mb-4"><div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-gold shadow-sm"><User size={24} /></div></div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Want to list your property?</h3>
-                    <p className="text-gray-600 max-w-xl mx-auto">All property listings are managed by <strong>Richard Adaze</strong>. Contact him for verification.</p>
+                <div className="mt-16 bg-gradient-to-br from-primary to-primary/90 rounded-[3rem] p-12 text-center relative overflow-hidden shadow-2xl">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl -ml-32 -mb-32"></div>
+
+                    <div className="relative z-10 max-w-2xl mx-auto">
+                        <span className="text-gold font-bold tracking-[0.3em] uppercase mb-4 block text-sm">Resell or List with Confidence</span>
+                        <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-serif italic">Want to Sell Your Land?</h3>
+                        <p className="text-gray-300 mb-8 text-lg leading-relaxed">
+                            Whether you purchased your land from Adonai Estate or elsewhere, we help you find the right buyer or even buy it back from you.
+                        </p>
+                        <Link
+                            to="/sell-land"
+                            className="inline-flex items-center gap-3 px-10 py-4 bg-white text-primary font-bold rounded-2xl hover:bg-gold hover:text-white transition-all transform hover:-translate-y-1 shadow-xl"
+                        >
+                            Sell Your Land <ArrowRight size={20} />
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>

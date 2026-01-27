@@ -46,11 +46,19 @@ const Footer = () => {
                 <div>
                     <h4 className="text-white font-bold mb-6 text-lg">Quick Links</h4>
                     <ul className="space-y-4">
-                        {['Home', 'Our Estates', 'Insight', 'About Us', 'Contact'].map((item) => (
-                            <li key={item}>
-                                <Link to={item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`} className="text-gray-400 hover:text-gold transition-colors text-sm flex items-center gap-2">
+                        {[
+                            { name: 'Home', path: '/' },
+                            { name: 'Our Estates', path: '/estates' },
+                            { name: 'Listings', path: '/listings' },
+                            { name: 'Sell Your Land', path: '/sell-land' },
+                            { name: 'Insight', path: '/insight' },
+                            { name: 'About Us', path: '/about' },
+                            { name: 'Contact', path: '/contact' }
+                        ].map((item) => (
+                            <li key={item.name}>
+                                <Link to={item.path} className="text-gray-400 hover:text-gold transition-colors text-sm flex items-center gap-2">
                                     <ArrowRight size={12} className="text-gold" />
-                                    {item}
+                                    {item.name}
                                 </Link>
                             </li>
                         ))}

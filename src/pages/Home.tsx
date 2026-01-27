@@ -176,6 +176,9 @@ const Home = () => {
                             <Link to="/estates" className="btn btn-primary">
                                 Explore Our Estates
                             </Link>
+                            <Link to="/sell-land" className="btn bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white hover:text-primary">
+                                Sell Your Land
+                            </Link>
                             <Link to="/contact" className="btn btn-outline">
                                 Contact Us
                             </Link>

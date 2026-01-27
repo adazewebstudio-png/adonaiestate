@@ -34,6 +34,7 @@ const PrivacyPolicy = lazy(() => import('./pages/legal/PrivacyPolicy'));
 const TermsOfUse = lazy(() => import('./pages/legal/TermsOfUse'));
 const CookiePolicy = lazy(() => import('./pages/legal/CookiePolicy'));
 const AMLPolicy = lazy(() => import('./pages/legal/AMLPolicy'));
+const SellLand = lazy(() => import('./pages/SellLand'));
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function App() {
           <Route path="/terms-of-use" element={<TermsOfUse />} />
           <Route path="/cookie-policy" element={<CookiePolicy />} />
           <Route path="/aml-kyc-policy" element={<AMLPolicy />} />
+          <Route path="/sell-land" element={<SellLand />} />
         </Routes>
       </Suspense>
     </Layout>

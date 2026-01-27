@@ -275,11 +275,11 @@ const AirportGolfCity = () => {
                                             </div>
 
                                             <button
-                                                onClick={() => handleBuyClick(comm.name, comm.price || '')}
+                                                onClick={() => window.location.href = '/listings'}
                                                 className="w-full py-4 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:bg-primary/90 hover:shadow-primary/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group"
                                             >
-                                                <ShoppingCart size={18} />
-                                                Buy This Plot
+                                                <Layout size={18} />
+                                                View Details
                                                 <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                                             </button>
                                         </div>

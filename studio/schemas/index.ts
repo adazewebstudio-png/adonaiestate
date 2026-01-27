@@ -7,5 +7,6 @@ import post from './post'
 import comment from './comment'
 import review from './review'
 import gallery from './gallery'
+import sellRequest from './sellRequest'
 
-export const schemaTypes = [property, agent, author, category, keyword, post, comment, review, gallery]
+export const schemaTypes = [property, agent, author, category, keyword, post, comment, review, gallery, sellRequest]
