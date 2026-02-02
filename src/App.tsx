@@ -2,9 +2,9 @@ import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import LoadingFallback from './components/LoadingFallback';
+import Home from './pages/Home'; // Eagerly load Home for faster initial render
 
-// Lazy load all pages for better performance (Code Splitting)
-const Home = lazy(() => import('./pages/Home'));
+// Lazy load secondary pages for better performance (Code Splitting)
 const OurEstates = lazy(() => import('./pages/OurEstates'));
 const Insight = lazy(() => import('./pages/Insight'));
 const WhyInvest = lazy(() => import('./pages/WhyInvest'));
