@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, CheckCircle2, User, Mail, Phone, MessageSquare, Loader2 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { CONTACT_INFO } from '../constants/contact';
 
 interface ExecutiveContactModalProps {
     isOpen: boolean;
@@ -20,9 +21,10 @@ const ExecutiveContactModal = ({ isOpen, onClose }: ExecutiveContactModalProps) 
     const [error, setError] = useState<string | null>(null);
 
     // --- EMAILJS CONFIGURATION ---
+    // NOTE: Consider moving these to environment variables (import.meta.env.VITE_*)
     const SERVICE_ID = 'service_1wmna0x';
-    const TEMPLATE_ID = 'template_32wg3nh'; // <--- Found in 'Email Templates'
-    const PUBLIC_KEY = '3niJ8UvwCvJdVdoM1';    // <--- Found in 'Account' -> 'Public Key'
+    const TEMPLATE_ID = 'template_32wg3nh';
+    const PUBLIC_KEY = '3niJ8UvwCvJdVdoM1';
 
     useEffect(() => {
         if (isOpen) {
@@ -52,7 +54,7 @@ const ExecutiveContactModal = ({ isOpen, onClose }: ExecutiveContactModalProps) 
                     from_email: formData.email,
                     phone: formData.phone,
                     message: formData.reason,
-                    to_email: 'richardadaaze@gmail.com',
+                    to_email: CONTACT_INFO.email,
                 },
                 PUBLIC_KEY
             );

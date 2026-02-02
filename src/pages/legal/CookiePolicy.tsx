@@ -1,6 +1,7 @@
 import React from 'react';
 import SEO from '../../components/SEO';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Cookie, Info, Settings2, MousePointerClick, ShieldCheck, BarChart3, Target, CheckCircle2 } from 'lucide-react';
 
 const CookiePolicy = () => {
@@ -126,9 +127,9 @@ const CookiePolicy = () => {
                             <div className="p-12 bg-primary rounded-[2.5rem] text-center text-white relative overflow-hidden">
                                 <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/5 to-transparent"></div>
                                 <p className="text-blue-100/70 font-light mb-6">Need more information about our data practices?</p>
-                                <a href="/privacy-policy" className="inline-flex items-center gap-2 text-gold font-bold hover:text-white transition-colors text-lg underline decoration-gold/30 underline-offset-8">
+                                <Link to="/privacy-policy" className="inline-flex items-center gap-2 text-gold font-bold hover:text-white transition-colors text-lg underline decoration-gold/30 underline-offset-8">
                                     Review our Full Privacy Protocol
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </motion.div>

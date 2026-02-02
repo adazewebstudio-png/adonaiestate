@@ -1,9 +1,9 @@
-import React from 'react';
 import { Phone, Mail, MapPin, Facebook, Send, MessageSquare, Clock, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import { useEffect } from 'react';
 import { useHeaderStyle } from '../contexts/HeaderContext';
+import { CONTACT_INFO } from '../constants/contact';
 
 const Contact = () => {
     const { setIsTransparent } = useHeaderStyle();
@@ -55,14 +55,14 @@ const Contact = () => {
                             {
                                 icon: Phone,
                                 title: "Talk to Sales",
-                                info: ["+233 599 007 786", "+233 362 000 350"],
+                                info: [CONTACT_INFO.phone.primary, CONTACT_INFO.phone.secondary],
                                 sub: "Mon-Fri, 8am-5pm",
                                 color: "bg-blue-50 text-blue-600"
                             },
                             {
                                 icon: Mail,
                                 title: "Email Support",
-                                info: ["info@adonaiestateltd.com"],
+                                info: [CONTACT_INFO.email],
                                 sub: "We reply within 24hrs",
                                 color: "bg-orange-50 text-orange-600"
                             },
@@ -144,7 +144,7 @@ const Contact = () => {
                                         <a href="https://web.facebook.com/AdonaiEstateLtd" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-white text-primary px-6 py-3 rounded-xl font-bold hover:bg-gold hover:text-white transition-colors text-sm">
                                             <Facebook size={18} /> Facebook
                                         </a>
-                                        <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-xl font-bold hover:bg-white hover:text-[#25D366] transition-colors text-sm">
+                                        <a href={`https://wa.me/${CONTACT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-xl font-bold hover:bg-white hover:text-[#25D366] transition-colors text-sm">
                                             <MessageCircle size={18} /> WhatsApp
                                         </a>
                                     </div>

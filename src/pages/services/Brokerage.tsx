@@ -1,8 +1,9 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../../components/SEO';
 import { motion } from 'framer-motion';
 import { Handshake, Search, Scale, FileCheck, Building, Users, Phone, Globe, Mail, MessageCircle, CheckCircle2, ArrowRight, Building2, BadgeCheck, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { CONTACT_INFO, AGENT_INFO } from '../../constants/contact';
 
 const Brokerage = () => {
     const services = [
@@ -28,10 +29,11 @@ const Brokerage = () => {
 
     return (
         <div className="bg-white min-h-screen">
-            <Helmet>
-                <title>Brokerage Services | Adonai Estate Limited</title>
-                <meta name="description" content="Transparent real estate brokerage. We connect buyers and sellers with integrity, ensuring fair deals and smooth transactions." />
-            </Helmet>
+            <SEO
+                title="Brokerage Services | Adonai Estate Limited"
+                description="Transparent real estate brokerage. We connect buyers and sellers with integrity, ensuring fair deals and smooth transactions."
+                pathname="/services/brokerage"
+            />
 
             {/* Premium Hero Section */}
             <section className="relative bg-primary pt-32 pb-32 overflow-hidden">
@@ -57,7 +59,7 @@ const Brokerage = () => {
                             Bridging the gap between buyers and sellers with <span className="text-gold font-bold">transparency and trust</span>. We facilitate seamless property transactions across Ghana.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-10 py-4 shadow-2xl shadow-gold/30">
+                            <a href={`https://wa.me/${AGENT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-10 py-4 shadow-2xl shadow-gold/30">
                                 List Your Property
                             </a>
                             <Link to="/listings" className="btn bg-white/10 backdrop-blur text-white border border-white/20 hover:bg-white hover:text-primary font-bold px-10 py-4">
@@ -156,10 +158,10 @@ const Brokerage = () => {
                                 </div>
                             </div>
                             <div className="flex flex-wrap gap-4">
-                                <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-8 py-4">
+                                <a href={`https://wa.me/${AGENT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-8 py-4">
                                     <MessageCircle size={18} className="mr-2" /> WhatsApp
                                 </a>
-                                <a href="mailto:richardadaaze@gmail.com" className="btn bg-transparent border border-white/30 text-white hover:bg-white hover:text-primary font-bold px-8 py-4 flex items-center gap-2">
+                                <a href={`mailto:${AGENT_INFO.email}`} className="btn bg-transparent border border-white/30 text-white hover:bg-white hover:text-primary font-bold px-8 py-4 flex items-center gap-2">
                                     <Mail size={18} /> Email Us
                                 </a>
                             </div>
@@ -195,7 +197,7 @@ const Brokerage = () => {
                                 </div>
                             </div>
 
-                            <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn btn-primary w-full justify-center py-4">
+                            <a href={`https://wa.me/${AGENT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary w-full justify-center py-4">
                                 Contact Agent <ArrowRight size={18} className="ml-2" />
                             </a>
                         </motion.div>

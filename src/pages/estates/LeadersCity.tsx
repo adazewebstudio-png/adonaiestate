@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import EstateLayout from '../../components/EstateLayout';
 import { Landmark, Building2, Briefcase, CheckCircle2, TrendingUp, MapPin, ShoppingBag, Settings, Car, Trophy, Sparkles, X, FileText, ArrowRight, Loader2, Layout } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { CONTACT_INFO, AGENT_INFO } from '../../constants/contact';
 
 interface InterestFormData {
     fullName: string;
@@ -50,6 +51,7 @@ const LeadersCity = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
+                    // NOTE: Consider moving to environment variables (import.meta.env.VITE_WEB3FORMS_KEY)
                     access_key: 'b5034291-8a43-4923-a84a-1ed1a6c6028a',
                     subject: `Leaders City Interest: ${formData.propertyCategory} - ${formData.propertyType}`,
                     from_name: formData.fullName,
@@ -62,9 +64,9 @@ const LeadersCity = () => {
                     autoresponse: true,
                     autoresponse_from: 'Adonai Estate Limited',
                     autoresponse_sender: 'noreply@adonaiestateltd.com',
-                    autoresponse_replyto: 'richardadaaze@gmail.com',
+                    autoresponse_replyto: AGENT_INFO.email,
                     autoresponse_subject: 'Thank You for Your Interest in Leaders City!',
-                    autoresponse_message: `Dear ${formData.fullName},\n\nThank you for registering your interest in Leaders City - ${formData.propertyCategory} (${formData.propertyType})!\n\nWe are thrilled that you're considering joining our prestigious community in Ho, Volta Region. Your interest has been received and our team will be in touch with you shortly.\n\nWhat happens next:\n• Our sales team will review your inquiry\n• You'll receive priority information when off-building plans are released\n• Exclusive pricing and early-bird offers will be shared with you first\n\nIn the meantime, feel free to reach out to us:\n📞 Phone: +233 599 007 786\n📧 Email: richardadaaze@gmail.com\n🌐 Website: https://adonaiestateltd.com\n\nThank you for choosing Adonai Estate Limited - where your vision meets our excellence.\n\nWarm regards,\nThe Adonai Estate Team`,
+                    autoresponse_message: `Dear ${formData.fullName},\n\nThank you for registering your interest in Leaders City - ${formData.propertyCategory} (${formData.propertyType})!\n\nWe are thrilled that you're considering joining our prestigious community in Ho, Volta Region. Your interest has been received and our team will be in touch with you shortly.\n\nWhat happens next:\n• Our sales team will review your inquiry\n• You'll receive priority information when off-building plans are released\n• Exclusive pricing and early-bird offers will be shared with you first\n\nIn the meantime, feel free to reach out to us:\n📞 Phone: ${AGENT_INFO.phone.primary}\n📧 Email: ${AGENT_INFO.email}\n🌐 Website: ${CONTACT_INFO.website}\n\nThank you for choosing Adonai Estate Limited - where your vision meets our excellence.\n\nWarm regards,\nThe Adonai Estate Team`,
                 }),
             });
 
@@ -534,7 +536,7 @@ const LeadersCity = () => {
                                             onChange={handleInputChange}
                                             required
                                             className="w-full p-4 rounded-xl bg-slate-50 border border-gray-200 focus:border-gold outline-none transition-colors"
-                                            placeholder="John Doe"
+                                            placeholder="Your Full Name"
                                         />
                                     </div>
 

@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import EstateLayout from '../../components/EstateLayout';
-import { Tag, ShoppingCart, Lock, CheckCircle2, ArrowRight, MapPin, ShieldCheck, Layout, Star } from 'lucide-react';
+import { Tag, Lock, CheckCircle2, ArrowRight, MapPin, ShieldCheck, Layout, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
-import BookingModal from '../../components/BookingModal';
+
 import SEO from '../../components/SEO';
 
 const AirportGolfCity = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedPackage, setSelectedPackage] = useState({ name: '', price: '' });
+
 
     const communities = [
         { name: 'Community 1', status: 'Sold Out' },
@@ -23,10 +22,7 @@ const AirportGolfCity = () => {
         { name: 'Golf City Hills', price: 'GHS 20,000', status: 'Available' },
     ];
 
-    const handleBuyClick = (name: string, price: string) => {
-        setSelectedPackage({ name, price });
-        setIsModalOpen(true);
-    };
+
 
     const CustomHero = (
         <section className="relative h-[95vh] min-h-[750px] w-full flex items-center justify-center overflow-hidden">
@@ -293,12 +289,7 @@ const AirportGolfCity = () => {
                 </div>
             </EstateLayout>
 
-            <BookingModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                packageName={`Airport Golf City - ${selectedPackage.name}`}
-                packagePrice={selectedPackage.price}
-            />
+
         </>
     );
 };

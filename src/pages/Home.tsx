@@ -21,6 +21,7 @@ import { Link } from 'react-router-dom';
 import { client, urlFor } from '../lib/sanity';
 import SEO from '../components/SEO';
 import { useHeaderStyle } from '../contexts/HeaderContext';
+import { CONTACT_INFO } from '../constants/contact';
 
 const Home = () => {
     const { setIsTransparent } = useHeaderStyle();
@@ -720,10 +721,10 @@ const Home = () => {
                         Take the first step towards litigation-free land ownership and quality living today.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn btn-primary text-lg px-8 py-4">
+                        <a href={`https://wa.me/${CONTACT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary text-lg px-8 py-4">
                             Get in Touch with Adonai
                         </a>
-                        <a href="mailto:richardadaaze@gmail.com" className="btn btn-outline border-white text-white hover:bg-white hover:text-primary text-lg px-8 py-4 flex items-center justify-center gap-2">
+                        <a href={`mailto:${CONTACT_INFO.email}`} className="btn btn-outline border-white text-white hover:bg-white hover:text-primary text-lg px-8 py-4 flex items-center justify-center gap-2">
                             <Mail size={20} /> Send Email
                         </a>
                     </div>

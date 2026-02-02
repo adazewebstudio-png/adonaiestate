@@ -7,6 +7,7 @@ import { PortableText } from '@portabletext/react';
 import { client, urlFor } from '../lib/sanity';
 import SEO from '../components/SEO';
 import { useHeaderStyle } from '../contexts/HeaderContext';
+import { CONTACT_INFO } from '../constants/contact';
 
 interface Post {
     _id: string;
@@ -343,7 +344,7 @@ const BlogPost = () => {
                                 <div className="flex items-center gap-3">
                                     <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center border border-white/10 overflow-hidden">
                                         {post.author?.image ? (
-                                            <img src={urlFor(post.author.image).width(40).height(40).url()} alt="" />
+                                            <img src={urlFor(post.author.image).width(40).height(40).url()} alt={post.author.name || 'Author'} />
                                         ) : (
                                             <User size={20} className="text-gold" />
                                         )}
@@ -505,7 +506,7 @@ const BlogPost = () => {
                                                     required
                                                     value={commentData.name}
                                                     onChange={e => setCommentData({ ...commentData, name: e.target.value })}
-                                                    placeholder="e.g. John Doe"
+                                                    placeholder="Your Full Name"
                                                     className="w-full px-6 py-4 rounded-2xl bg-white border border-gray-200 focus:border-gold focus:ring-4 focus:ring-gold/5 outline-none transition-all font-medium"
                                                 />
                                             </div>
@@ -612,7 +613,7 @@ const BlogPost = () => {
                                                     {related.mainImage && (
                                                         <img
                                                             src={urlFor(related.mainImage).width(400).height(225).url()}
-                                                            alt=""
+                                                            alt={related.title}
                                                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                                         />
                                                     )}
@@ -642,7 +643,7 @@ const BlogPost = () => {
                                                 <div className="flex gap-4 items-center">
                                                     <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-slate-100">
                                                         {related.mainImage && (
-                                                            <img src={urlFor(related.mainImage).width(100).height(100).url()} alt="" className="w-full h-full object-cover" />
+                                                            <img src={urlFor(related.mainImage).width(100).height(100).url()} alt={related.title} className="w-full h-full object-cover" />
                                                         )}
                                                     </div>
                                                     <div>
@@ -668,8 +669,8 @@ const BlogPost = () => {
                         Join hundreds of satisfied clients who have secured their dream property through Adonai Estate Limited.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn btn-primary px-12 py-5 shadow-2xl shadow-primary/20 transition-transform hover:scale-105 active:scale-95">Talk to a Consultant</a>
-                        <a href="mailto:richardadaaze@gmail.com" className="btn btn-outline border-primary text-primary hover:bg-primary hover:text-white px-12 py-5 flex items-center justify-center gap-2 transition-transform hover:scale-105 active:scale-95">
+                        <a href={`https://wa.me/${CONTACT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary px-12 py-5 shadow-2xl shadow-primary/20 transition-transform hover:scale-105 active:scale-95">Talk to a Consultant</a>
+                        <a href={`mailto:${CONTACT_INFO.email}`} className="btn btn-outline border-primary text-primary hover:bg-primary hover:text-white px-12 py-5 flex items-center justify-center gap-2 transition-transform hover:scale-105 active:scale-95">
                             <Mail size={18} /> Send Email
                         </a>
                     </div>

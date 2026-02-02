@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
+import { CONTACT_INFO } from '../constants/contact';
 
 const Footer = () => {
     return (
@@ -23,7 +24,7 @@ const Footer = () => {
                         <a href="https://web.facebook.com/AdonaiEstateLtd" className="p-2 bg-gray-800 rounded-full hover:bg-gold hover:text-white transition-colors text-gray-300">
                             <Facebook size={18} />
                         </a>
-                        <a href="mailto:info@adonaiestateltd.com" className="p-2 bg-gray-800 rounded-full hover:bg-gold hover:text-white transition-colors text-gray-300">
+                        <a href={`mailto:${CONTACT_INFO.email}`} className="p-2 bg-gray-800 rounded-full hover:bg-gold hover:text-white transition-colors text-gray-300">
                             <Mail size={18} />
                         </a>
                     </div>
@@ -53,6 +54,7 @@ const Footer = () => {
                             { name: 'Sell Your Land', path: '/sell-land' },
                             { name: 'Insight', path: '/insight' },
                             { name: 'About Us', path: '/about' },
+                            { name: 'FAQ', path: '/faq' },
                             { name: 'Contact', path: '/contact' }
                         ].map((item) => (
                             <li key={item.name}>
@@ -98,13 +100,13 @@ const Footer = () => {
                         <li className="flex items-center gap-3 text-gray-400 text-sm">
                             <Phone size={18} className="text-gold shrink-0" />
                             <div className="flex flex-col">
-                                <a href="tel:+233248629946" className="hover:text-white transition-colors">+233 24 862 9946</a>
-                                <a href="tel:+233362000350" className="hover:text-white transition-colors">+233 362 000 350</a>
+                                <a href={`tel:${CONTACT_INFO.phone.primary.replace(/\s+/g, '')}`} className="hover:text-white transition-colors">{CONTACT_INFO.phone.primary}</a>
+                                <a href={`tel:${CONTACT_INFO.phone.secondary.replace(/\s+/g, '')}`} className="hover:text-white transition-colors">{CONTACT_INFO.phone.secondary}</a>
                             </div>
                         </li>
                         <li className="flex items-center gap-3 text-gray-400 text-sm">
                             <Mail size={18} className="text-gold shrink-0" />
-                            <a href="mailto:info@adonaiestateltd.com" className="hover:text-white transition-colors">info@adonaiestateltd.com</a>
+                            <a href={`mailto:${CONTACT_INFO.email}`} className="hover:text-white transition-colors">{CONTACT_INFO.email}</a>
                         </li>
                     </ul>
                 </div>

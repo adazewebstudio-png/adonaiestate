@@ -16,14 +16,6 @@ const Subsidiaries = () => {
 
     const subsidiaries = [
         {
-            name: "Golf City View Restaurant",
-            link: "/subsidiaries/golf-city-view-restaurant",
-            isExternal: false,
-            description: "Fine dining and relaxation at the heart of our community.",
-            icon: Utensils,
-            image: "/gcvr_aucre_logo.jpg"
-        },
-        {
             name: "GCVR/AUCRE GARDENS",
             link: "/subsidiaries/gcvr-aucre-gardens",
             isExternal: false,
@@ -67,7 +59,7 @@ const Subsidiaries = () => {
 
             <div className="bg-slate-50 min-h-screen">
                 {/* Hero Section */}
-                <div className="relative bg-primary pt-32 pb-32 overflow-hidden">
+                <div className="relative bg-primary pt-32 pb-20 overflow-hidden">
                     <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/5 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
                     <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gold/20 rounded-full blur-[100px] -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
 
@@ -87,12 +79,10 @@ const Subsidiaries = () => {
                 </div>
 
                 {/* Content Section */}
-                <div className="container mx-auto px-4 -mt-16 relative z-20 pb-20">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="container mx-auto px-4 pt-16 pb-24 md:pt-20 md:pb-32 lg:pt-24 lg:pb-40 relative z-20">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                         {subsidiaries.map((sub, index) => {
                             const Icon = sub.icon;
-                            // @ts-ignore
-                            const hasImage = sub.image;
 
                             return (
                                 <motion.div
@@ -106,9 +96,8 @@ const Subsidiaries = () => {
                                     <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-700"></div>
 
                                     <div className="relative z-10">
-                                        <div className={`w-20 h-20 bg-slate-50 rounded-2xl mb-8 flex items-center justify-center border border-gray-100 group-hover:border-gold/30 group-hover:bg-primary/5 transition-colors overflow-hidden ${hasImage ? 'p-1' : ''}`}>
-                                            {hasImage ? (
-                                                // @ts-ignore
+                                        <div className={`w-20 h-20 bg-slate-50 rounded-2xl mb-8 flex items-center justify-center border border-gray-100 group-hover:border-gold/30 group-hover:bg-primary/5 transition-colors overflow-hidden ${sub.image ? 'p-1' : ''}`}>
+                                            {sub.image ? (
                                                 <img src={sub.image} alt={sub.name} className="w-full h-full object-contain" />
                                             ) : (
                                                 <Icon size={40} className="text-gray-400 group-hover:text-gold transition-colors" />

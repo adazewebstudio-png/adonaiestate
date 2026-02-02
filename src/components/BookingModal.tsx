@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, Lock, CheckCircle2, ShoppingCart } from 'lucide-react';
+import { X, Send, CheckCircle2 } from 'lucide-react';
+import { CONTACT_INFO } from '../constants/contact';
 
 interface BookingModalProps {
     isOpen: boolean;
@@ -30,38 +31,29 @@ const BookingModal = ({ isOpen, onClose, packageName, packagePrice }: BookingMod
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitted(true);
 
-        const subject = encodeURIComponent('Airport Golf City Inquiry');
-        const body = encodeURIComponent(
-            `Name: ${formData.fullName}\n` +
-            `Email: ${formData.email}\n` +
-            `Phone: ${formData.phone}\n` +
-            `WhatsApp: ${formData.whatsapp}\n` +
-            `Interested Package: ${packageName}\n` +
-            `Price: ${packagePrice}`
-        );
-
-        // Construct mailto link (simulating "sending" for this MVP)
-        // In a real app, you'd use fetch() to send this data to a backend which then sends the email.
-        const mailtoLink = `mailto:placeholder@email.com?subject=${subject}&body=${body}`;
-
-        // We delay the opening of the mail client slightly to show the "Success" state first if desired,
-        // or we just open it. The user requested: "When he press send... It should come to my mail"
-        // Since we can't auto-send without backend, we'll open the mail client 
-        // OR simply display the success message as requested and log the data.
-
-        // For the sake of the specific request "It should come to my mail... use a placeholder",
-        // opening the mail client is the only client-side way to actually "send" it to a mail.
-        // However, the "popup" requirement suggests a purely UI flow first.
-
-        // Let's settle on: Show success UI.
-        // And maybe silently trigger window.open(mailto) or just imply it happened for the demo.
-        // Given the prompt "When he press send to send it to my email", I will open the mailto link.
-
-        window.location.href = mailtoLink;
+        try {
+            await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    access_key: 'b5034291-8a43-4923-a84a-1ed1a6c6028a',
+                    subject: `Booking Enquiry: ${packageName}`,
+                    from_name: formData.fullName,
+                    email: formData.email,
+                    phone: formData.phone,
+                    whatsapp: formData.whatsapp,
+                    package: packageName,
+                    price: packagePrice,
+                    to_email: CONTACT_INFO.email
+                }),
+            });
+        } catch (err) {
+            console.error('Submission error:', err);
+        }
     };
 
     if (!isOpen) return null;
@@ -110,7 +102,7 @@ const BookingModal = ({ isOpen, onClose, packageName, packagePrice }: BookingMod
                                         value={formData.fullName}
                                         onChange={handleChange}
                                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all bg-gray-50 focus:bg-white"
-                                        placeholder="John Doe"
+                                        placeholder="Your Full Name"
                                     />
                                 </div>
 
@@ -123,7 +115,7 @@ const BookingModal = ({ isOpen, onClose, packageName, packagePrice }: BookingMod
                                         value={formData.email}
                                         onChange={handleChange}
                                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all bg-gray-50 focus:bg-white"
-                                        placeholder="john@example.com"
+                                        placeholder="your@email.com"
                                     />
                                 </div>
 

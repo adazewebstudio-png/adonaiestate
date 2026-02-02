@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, CheckCircle, ArrowRight, ShieldCheck, Hotel, Map, Zap, TreePine, GraduationCap, Mountain, School, Car, Layout, Utensils, Wifi, Activity, X, Mail, MessageCircle } from 'lucide-react';
+import { MapPin, CheckCircle, ArrowRight, ShieldCheck, Hotel, Map, Zap, TreePine, GraduationCap, Mountain, School, Car, Layout, Utensils, Wifi, Activity, X, Mail, MessageCircle, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { CONTACT_INFO, AGENT_INFO } from '../constants/contact';
 
 const getFeatureIcon = (text: string) => {
     const t = text.toLowerCase();
@@ -69,6 +71,7 @@ const EstateLayout: React.FC<EstatePageProps> = ({
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    // NOTE: Consider moving to environment variables (import.meta.env.VITE_WEB3FORMS_KEY)
                     access_key: 'b5034291-8a43-4923-a84a-1ed1a6c6028a',
                     subject: `New Enquiry: ${title} - ${location}`,
                     from_name: formData.fullName,
@@ -77,7 +80,7 @@ const EstateLayout: React.FC<EstatePageProps> = ({
                     message: formData.message || 'No additional message provided.',
                     estate: title,
                     location: location,
-                    to_email: 'richardadaaze@gmail.com'
+                    to_email: CONTACT_INFO.email
                 }),
             });
 
@@ -104,25 +107,12 @@ const EstateLayout: React.FC<EstatePageProps> = ({
 
     return (
         <div className="bg-white min-h-screen">
-            <Helmet>
-                <title>{title} | Adonai Estate Limited</title>
-                <meta name="description" content={fullDescription} />
-
-                {/* Open Graph / Facebook */}
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content={pageUrl} />
-                <meta property="og:title" content={`${title} | Adonai Estate Limited`} />
-                <meta property="og:description" content={fullDescription} />
-                <meta property="og:image" content={ogImage} />
-                <meta property="og:site_name" content="Adonai Estate Limited" />
-
-                {/* Twitter */}
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:url" content={pageUrl} />
-                <meta name="twitter:title" content={`${title} | Adonai Estate Limited`} />
-                <meta name="twitter:description" content={fullDescription} />
-                <meta name="twitter:image" content={ogImage} />
-            </Helmet>
+            <SEO
+                title={`${title} | Adonai Estate Limited`}
+                description={fullDescription}
+                image={ogImage}
+                pathname={`/estates/${title.toLowerCase().replace(/\s+/g, '-')}`}
+            />
 
             {customHero ? (
                 customHero
@@ -361,10 +351,10 @@ const EstateLayout: React.FC<EstatePageProps> = ({
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-2 gap-3">
-                                        <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 rounded-xl bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all font-bold text-sm">
+                                        <a href={`https://wa.me/${AGENT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 rounded-xl bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all font-bold text-sm">
                                             <MessageCircle size={18} /> WhatsApp
                                         </a>
-                                        <a href="mailto:richardadaaze@gmail.com" className="flex items-center justify-center gap-2 py-3 rounded-xl bg-primary/5 text-primary hover:bg-primary hover:text-white transition-all font-bold text-sm">
+                                        <a href={`mailto:${AGENT_INFO.email}`} className="flex items-center justify-center gap-2 py-3 rounded-xl bg-primary/5 text-primary hover:bg-primary hover:text-white transition-all font-bold text-sm">
                                             <Mail size={18} /> Email
                                         </a>
                                     </div>
@@ -381,6 +371,17 @@ const EstateLayout: React.FC<EstatePageProps> = ({
                                         <span className="text-gray-900 font-medium">{location}</span>
                                     </div>
                                 </div>
+                            </div>
+
+                            {/* Rate Agent Section */}
+                            <div className="mt-6 pt-6 border-t border-gray-100">
+                                <p className="text-sm text-gray-500 mb-3">Had a great experience with our agent?</p>
+                                <Link
+                                    to="/agent/richard-adaze#rate-agent"
+                                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gold/10 text-gold hover:bg-gold hover:text-white transition-all font-bold text-sm"
+                                >
+                                    <Star size={18} /> Rate Our Agent
+                                </Link>
                             </div>
                         </div>
                     </div>

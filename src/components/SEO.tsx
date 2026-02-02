@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { CONTACT_INFO } from '../constants/contact';
 
 interface SEOProps {
     title?: string;
@@ -34,7 +35,7 @@ const SEO = ({ title, description, image, article, pathname, schema }: SEOProps)
         "logo": `${siteUrl}/logo.jpg`,
         "contactPoint": {
             "@type": "ContactPoint",
-            "telephone": "+233599007786",
+            "telephone": CONTACT_INFO.phone.primary,
             "contactType": "customer service",
             "areaServed": "GH",
             "availableLanguage": "en"
@@ -87,7 +88,7 @@ const SEO = ({ title, description, image, article, pathname, schema }: SEOProps)
         "image": seo.image,
         "@id": siteUrl,
         "url": siteUrl,
-        "telephone": "+233599007786",
+        "telephone": CONTACT_INFO.phone.primary,
         "priceRange": "$$$",
         "address": {
             "@type": "PostalAddress",

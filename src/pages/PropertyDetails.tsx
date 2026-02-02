@@ -15,7 +15,8 @@ import {
     Share2,
     Info,
     Home as HomeIcon,
-    Layers
+    Layers,
+    Star
 } from 'lucide-react';
 import { client, urlFor } from '../lib/sanity';
 import SEO from '../components/SEO';
@@ -344,6 +345,17 @@ const PropertyDetails = () => {
                                 >
                                     View Agent Profile
                                 </Link>
+
+                                {/* Rate Agent Button */}
+                                <div className="mt-4 pt-4 border-t border-gray-100">
+                                    <p className="text-xs text-gray-400 text-center mb-3">Had a great experience?</p>
+                                    <Link
+                                        to="/agent/richard-adaze#rate-agent"
+                                        className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gold/10 text-gold hover:bg-gold hover:text-white transition-all font-bold text-sm"
+                                    >
+                                        <Star size={16} /> Rate Our Agent
+                                    </Link>
+                                </div>
                             </div>
 
                             {/* Share & Info */}

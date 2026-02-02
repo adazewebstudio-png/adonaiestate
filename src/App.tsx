@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
+import LoadingFallback from './components/LoadingFallback';
 
 // Lazy load all pages for better performance (Code Splitting)
 const Home = lazy(() => import('./pages/Home'));
@@ -15,10 +16,9 @@ const VoltaSafariCity = lazy(() => import('./pages/estates/VoltaSafariCity'));
 const LeadersCity = lazy(() => import('./pages/estates/LeadersCity'));
 const MillenniumCity = lazy(() => import('./pages/estates/MillenniumCity'));
 const Subsidiaries = lazy(() => import('./pages/Subsidiaries'));
-const GolfCityViewRestaurant = lazy(() => import('./pages/subsidiaries/GolfCityViewRestaurant'));
 const GcvrAucreGardens = lazy(() => import('./pages/subsidiaries/GcvrAucreGardens'));
 const AirportGolfCitySchool = lazy(() => import('./pages/subsidiaries/AirportGolfCitySchool'));
-const Grolip = lazy(() => import('./pages/Grolip'));
+
 const LandSales = lazy(() => import('./pages/services/LandSales'));
 const Consultancy = lazy(() => import('./pages/services/Consultancy'));
 const PropertyManagement = lazy(() => import('./pages/services/PropertyManagement'));
@@ -30,6 +30,7 @@ const BlogPost = lazy(() => import('./pages/BlogPost'));
 const PropertyDetails = lazy(() => import('./pages/PropertyDetails'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const CEO = lazy(() => import('./pages/CEO'));
+const FAQ = lazy(() => import('./pages/FAQ'));
 const PrivacyPolicy = lazy(() => import('./pages/legal/PrivacyPolicy'));
 const TermsOfUse = lazy(() => import('./pages/legal/TermsOfUse'));
 const CookiePolicy = lazy(() => import('./pages/legal/CookiePolicy'));
@@ -39,7 +40,7 @@ const SellLand = lazy(() => import('./pages/SellLand'));
 function App() {
   return (
     <Layout>
-      <Suspense fallback={null}>
+      <Suspense fallback={<LoadingFallback />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/estates" element={<OurEstates />} />
@@ -53,11 +54,13 @@ function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/about/ceo" element={<CEO />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/subsidiaries" element={<Subsidiaries />} />
-          <Route path="/subsidiaries/golf-city-view-restaurant" element={<GolfCityViewRestaurant />} />
+          {/* Redirect old route to new component */}
+          <Route path="/subsidiaries/golf-city-view-restaurant" element={<GcvrAucreGardens />} />
           <Route path="/subsidiaries/gcvr-aucre-gardens" element={<GcvrAucreGardens />} />
           <Route path="/subsidiaries/airport-golf-city-school" element={<AirportGolfCitySchool />} />
-          <Route path="/grolip" element={<Grolip />} />
+
 
           {/* Services */}
           <Route path="/services" element={<Services />} />

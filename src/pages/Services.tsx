@@ -3,6 +3,7 @@ import SEO from '../components/SEO';
 import { motion } from 'framer-motion';
 import { Map, Building2, Handshake, Briefcase, ArrowRight, CheckCircle2, Shield, Users, TrendingUp, Phone, Mail, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { CONTACT_INFO, AGENT_INFO } from '../constants/contact';
 
 const Services = () => {
     const services = [
@@ -188,13 +189,13 @@ const Services = () => {
                             Whether you're buying land, managing property, or seeking expert advice—we're here to help you succeed.
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center gap-4">
-                            <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-10 py-4 shadow-2xl shadow-gold/30 flex items-center justify-center gap-2">
+                            <a href={`https://wa.me/${AGENT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-10 py-4 shadow-2xl shadow-gold/30 flex items-center justify-center gap-2">
                                 <MessageCircle size={20} /> WhatsApp Us
                             </a>
-                            <a href="tel:+233599007786" className="btn bg-white/10 backdrop-blur text-white border border-white/20 hover:bg-white hover:text-primary font-bold px-10 py-4 flex items-center justify-center gap-2">
+                            <a href={`tel:${CONTACT_INFO.phone.primary.replace(/\s+/g, '')}`} className="btn bg-white/10 backdrop-blur text-white border border-white/20 hover:bg-white hover:text-primary font-bold px-10 py-4 flex items-center justify-center gap-2">
                                 <Phone size={20} /> Call Now
                             </a>
-                            <a href="mailto:richardadaaze@gmail.com" className="btn bg-transparent text-white border border-white/30 hover:bg-white hover:text-primary font-bold px-10 py-4 flex items-center justify-center gap-2">
+                            <a href={`mailto:${CONTACT_INFO.email}`} className="btn bg-transparent text-white border border-white/30 hover:bg-white hover:text-primary font-bold px-10 py-4 flex items-center justify-center gap-2">
                                 <Mail size={20} /> Email Us
                             </a>
                         </div>

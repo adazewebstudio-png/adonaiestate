@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../components/SEO';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ImageIcon, Maximize2, X, Filter, Loader2, Calendar, MapPin } from 'lucide-react';
 import { client, urlFor } from '../lib/sanity';
@@ -66,10 +66,11 @@ const Gallery = () => {
 
     return (
         <div className="pt-24 pb-20 bg-slate-50 min-h-screen">
-            <Helmet>
-                <title>Gallery | Adonai Estate Limited</title>
-                <meta name="description" content="Explore photos from our major milestones, events, and estate developments." />
-            </Helmet>
+            <SEO
+                title="Gallery | Adonai Estate Limited"
+                description="Explore photos from our major milestones, events, and estate developments."
+                pathname="/gallery"
+            />
 
             <div className="container mx-auto px-4">
                 {/* Hero Section */}

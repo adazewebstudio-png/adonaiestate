@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import EstateLayout from '../../components/EstateLayout';
 import { School, GraduationCap, Mountain, CheckCircle2, Building2, MapPin, Zap, Route } from 'lucide-react';
 import { motion } from 'framer-motion';
-import BookingModal from '../../components/BookingModal';
+
 
 const UhasFloridaCity = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedPackage, setSelectedPackage] = useState({ name: '', price: '' });
+
 
     const highlights = [
         { icon: School, title: 'Academic Hub', text: 'Located just minutes away from the University of Health and Allied Sciences (UHAS).' },
@@ -77,12 +76,7 @@ const UhasFloridaCity = () => {
                 </div>
             </EstateLayout>
 
-            <BookingModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                packageName="UHAS Florida City Interest"
-                packagePrice="Upcoming"
-            />
+
         </>
     );
 };

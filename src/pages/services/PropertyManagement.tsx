@@ -1,8 +1,9 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../../components/SEO';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Wrench, BarChart3, Home, Key, UserCheck, ClipboardCheck, Mail, MessageCircle, CheckCircle2, Building2, Clock, Wallet } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { CONTACT_INFO, AGENT_INFO } from '../../constants/contact';
 
 const PropertyManagement = () => {
     const services = [
@@ -23,10 +24,11 @@ const PropertyManagement = () => {
 
     return (
         <div className="bg-white min-h-screen">
-            <Helmet>
-                <title>Property Management | Adonai Estate Limited</title>
-                <meta name="description" content="Professional property management services. We handle maintenance, tenant relations, and asset protection for peace of mind." />
-            </Helmet>
+            <SEO
+                title="Property Management | Adonai Estate Limited"
+                description="Professional property management services. We handle maintenance, tenant relations, and asset protection for peace of mind."
+                pathname="/services/property-management"
+            />
 
             {/* Premium Hero Section */}
             <section className="relative bg-primary pt-32 pb-32 overflow-hidden">
@@ -52,10 +54,10 @@ const PropertyManagement = () => {
                             Own the asset, skip the stress. We provide <span className="text-gold font-bold">comprehensive management solutions</span> that protect your property's value and ensure steady returns.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-10 py-4 shadow-2xl shadow-gold/30">
+                            <a href={`https://wa.me/${AGENT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-10 py-4 shadow-2xl shadow-gold/30">
                                 Get a Free Consultation
                             </a>
-                            <a href="mailto:richardadaaze@gmail.com" className="btn bg-white/10 backdrop-blur text-white border border-white/20 hover:bg-white hover:text-primary font-bold px-10 py-4">
+                            <a href={`mailto:${AGENT_INFO.email}`} className="btn bg-white/10 backdrop-blur text-white border border-white/20 hover:bg-white hover:text-primary font-bold px-10 py-4">
                                 Request Proposal
                             </a>
                         </div>
@@ -171,10 +173,10 @@ const PropertyManagement = () => {
                             Focus on your life while we focus on your property. Contact us today for a <span className="font-bold text-primary">management proposal tailored to your asset</span>.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn btn-primary px-10 py-4 shadow-lg shadow-primary/20">
+                            <a href={`https://wa.me/${AGENT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary px-10 py-4 shadow-lg shadow-primary/20">
                                 <MessageCircle size={18} className="mr-2" /> Talk to an Agent
                             </a>
-                            <a href="mailto:richardadaaze@gmail.com" className="btn btn-outline border-primary text-primary hover:bg-primary hover:text-white px-10 py-4 flex items-center justify-center gap-2">
+                            <a href={`mailto:${AGENT_INFO.email}`} className="btn btn-outline border-primary text-primary hover:bg-primary hover:text-white px-10 py-4 flex items-center justify-center gap-2">
                                 <Mail size={18} /> Send Email
                             </a>
                         </div>

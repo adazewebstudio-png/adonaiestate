@@ -1,8 +1,9 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../../components/SEO';
 import { motion } from 'framer-motion';
 import { CheckCircle2, FileCheck, Map, ShieldCheck, ArrowRight, Wallet, BadgeCheck, Mail, Phone, MapPin, FileText, Users, Scale, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { CONTACT_INFO, AGENT_INFO } from '../../constants/contact';
 
 const LandSales = () => {
     const processSteps = [
@@ -23,10 +24,11 @@ const LandSales = () => {
 
     return (
         <div className="bg-white min-h-screen">
-            <Helmet>
-                <title>Land Sales & Registration | Adonai Estate Limited</title>
-                <meta name="description" content="Secure litigation-free land with clear documentation. We handle the entire registration process for your peace of mind." />
-            </Helmet>
+            <SEO
+                title="Land Sales & Registration | Adonai Estate Limited"
+                description="Secure litigation-free land with clear documentation. We handle the entire registration process for your peace of mind."
+                pathname="/services/land-sales"
+            />
 
             {/* Premium Hero Section */}
             <section className="relative bg-primary pt-32 pb-32 overflow-hidden">
@@ -55,7 +57,7 @@ const LandSales = () => {
                             <Link to="/listings" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-10 py-4 shadow-2xl shadow-gold/30">
                                 View Listings
                             </Link>
-                            <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn bg-white/10 backdrop-blur text-white border border-white/20 hover:bg-white hover:text-primary font-bold px-10 py-4">
+                            <a href={`https://wa.me/${AGENT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn bg-white/10 backdrop-blur text-white border border-white/20 hover:bg-white hover:text-primary font-bold px-10 py-4">
                                 Talk to an Agent
                             </a>
                         </div>
@@ -203,10 +205,10 @@ const LandSales = () => {
                             <Link to="/estates" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-10 py-4 shadow-2xl shadow-gold/30">
                                 View Available Estates <ArrowRight size={18} className="ml-2" />
                             </Link>
-                            <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn bg-white/10 backdrop-blur text-white border border-white/20 hover:bg-white hover:text-primary font-bold px-10 py-4 flex items-center justify-center gap-2">
+                            <a href={`https://wa.me/${AGENT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn bg-white/10 backdrop-blur text-white border border-white/20 hover:bg-white hover:text-primary font-bold px-10 py-4 flex items-center justify-center gap-2">
                                 <MessageCircle size={18} /> WhatsApp
                             </a>
-                            <a href="mailto:richardadaaze@gmail.com" className="btn bg-transparent text-white border border-white/30 hover:bg-white hover:text-primary font-bold px-10 py-4 flex items-center justify-center gap-2">
+                            <a href={`mailto:${AGENT_INFO.email}`} className="btn bg-transparent text-white border border-white/30 hover:bg-white hover:text-primary font-bold px-10 py-4 flex items-center justify-center gap-2">
                                 <Mail size={18} /> Email Us
                             </a>
                         </div>

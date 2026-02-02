@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import EstateLayout from '../../components/EstateLayout';
-import { Tag, ShoppingCart, Lock, CheckCircle2, ArrowRight, History, MapPin, Building2, TreeDeciduous } from 'lucide-react';
+import { Tag, Lock, CheckCircle2, ArrowRight, History, MapPin, Building2, TreeDeciduous } from 'lucide-react';
 import { motion } from 'framer-motion';
-import BookingModal from '../../components/BookingModal';
+
 
 const MillenniumCity = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedPackage, setSelectedPackage] = useState({ name: '', price: '' });
+
 
     const highlights = [
         { icon: History, title: 'Cultural Heritage', text: 'Designed to bring people home to feel their roots and understand their heritage.' },
@@ -78,12 +77,7 @@ const MillenniumCity = () => {
                 </div>
             </EstateLayout>
 
-            <BookingModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                packageName={`Millennium City - ${selectedPackage.name}`}
-                packagePrice={selectedPackage.price}
-            />
+
         </>
     );
 };

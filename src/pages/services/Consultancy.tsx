@@ -1,8 +1,9 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEO from '../../components/SEO';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Users, LineChart, Building, PieChart, TrendingUp, Lightbulb, Mail, MessageCircle, MapPin, FileCheck, BadgeCheck, Briefcase, Target, Shield, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { CONTACT_INFO, AGENT_INFO } from '../../constants/contact';
 
 const Consultancy = () => {
     const services = [
@@ -45,10 +46,11 @@ const Consultancy = () => {
 
     return (
         <div className="bg-white min-h-screen">
-            <Helmet>
-                <title>Real Estate Consultancy | Adonai Estate Limited</title>
-                <meta name="description" content="Expert real estate advisory services. We guide you through acquisition, development planning, and investment strategies." />
-            </Helmet>
+            <SEO
+                title="Real Estate Consultancy | Adonai Estate Limited"
+                description="Expert real estate advisory services. We guide you through acquisition, development planning, and investment strategies."
+                pathname="/services/consultancy"
+            />
 
             {/* Premium Hero Section */}
             <section className="relative bg-primary pt-32 pb-32 overflow-hidden">
@@ -74,10 +76,10 @@ const Consultancy = () => {
                             In a dynamic market, <span className="text-gold font-bold">information is power</span>. We provide the expert insights you need to make profitable, risk-free real estate decisions.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-10 py-4 shadow-2xl shadow-gold/30">
+                            <a href={`https://wa.me/${AGENT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-10 py-4 shadow-2xl shadow-gold/30">
                                 Book Consultation
                             </a>
-                            <a href="mailto:richardadaaze@gmail.com" className="btn bg-white/10 backdrop-blur text-white border border-white/20 hover:bg-white hover:text-primary font-bold px-10 py-4">
+                            <a href={`mailto:${AGENT_INFO.email}`} className="btn bg-white/10 backdrop-blur text-white border border-white/20 hover:bg-white hover:text-primary font-bold px-10 py-4">
                                 Send Inquiry
                             </a>
                         </div>
@@ -158,10 +160,10 @@ const Consultancy = () => {
                                 The real estate landscape can be complex. Mistakes in documentation, valuation, or location selection can be costly. Our consultancy service is designed to be your <span className="text-gold font-bold">shield and compass</span>.
                             </p>
                             <div className="flex flex-wrap gap-4">
-                                <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-8 py-4 shadow-lg shadow-gold/30">
+                                <a href={`https://wa.me/${AGENT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn bg-gold text-primary hover:bg-white hover:text-primary font-bold px-8 py-4 shadow-lg shadow-gold/30">
                                     <MessageCircle size={18} className="mr-2" /> Talk to a Consultant
                                 </a>
-                                <a href="mailto:richardadaaze@gmail.com" className="btn bg-transparent border border-white/30 text-white hover:bg-white hover:text-primary font-bold px-8 py-4 flex items-center gap-2">
+                                <a href={`mailto:${AGENT_INFO.email}`} className="btn bg-transparent border border-white/30 text-white hover:bg-white hover:text-primary font-bold px-8 py-4 flex items-center gap-2">
                                     <Mail size={18} /> Send Email
                                 </a>
                             </div>
@@ -216,7 +218,7 @@ const Consultancy = () => {
                     </div>
 
                     <div className="text-center">
-                        <a href="https://wa.me/233599007786" target="_blank" rel="noopener noreferrer" className="btn btn-primary px-10 py-4 shadow-lg shadow-primary/20">
+                        <a href={`https://wa.me/${AGENT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary px-10 py-4 shadow-lg shadow-primary/20">
                             Schedule a Free Consultation <ArrowRight size={18} className="ml-2" />
                         </a>
                     </div>

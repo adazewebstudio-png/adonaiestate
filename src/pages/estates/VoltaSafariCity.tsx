@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import EstateLayout from '../../components/EstateLayout';
 import { Anchor, Waves, TreeDeciduous, CheckCircle2, Home, MapPin, Sun, Wind } from 'lucide-react';
 import { motion } from 'framer-motion';
-import BookingModal from '../../components/BookingModal';
+
 
 const VoltaSafariCity = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+
 
     const highlights = [
         { icon: Waves, title: 'Riverside Living', text: 'Exclusive access to the serene banks of the Volta River at Sogakope.' },
@@ -83,12 +83,7 @@ const VoltaSafariCity = () => {
                 </div>
             </EstateLayout>
 
-            <BookingModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                packageName="Volta Safari City Interest"
-                packagePrice="Upcoming"
-            />
+
         </>
     );
 };

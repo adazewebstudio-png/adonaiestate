@@ -17,7 +17,6 @@ import {
     TrendingUp,
     Loader2
 } from 'lucide-react';
-import emailjs from '@emailjs/browser';
 import SEO from '../components/SEO';
 import { client } from '../lib/sanity';
 
@@ -43,7 +42,7 @@ const SellLand = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Helper to encode data for Netlify
-    const encode = (data: any) => {
+    const encode = (data: Record<string, string>) => {
         return Object.keys(data)
             .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
             .join("&");
