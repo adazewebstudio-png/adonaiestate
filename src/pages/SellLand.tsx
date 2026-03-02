@@ -18,7 +18,7 @@ import {
     Loader2
 } from 'lucide-react';
 import SEO from '../components/SEO';
-import { client } from '../lib/sanity';
+import { toast } from 'react-hot-toast';
 
 const SellLand = () => {
     // Form State
@@ -91,9 +91,13 @@ const SellLand = () => {
         };
 
         try {
-            // Submit to Sanity (Database) AND Netlify (Email Notification) in parallel
+            // Submit to Sanity (via secure API) AND Netlify (Email Notification) in parallel
             await Promise.all([
-                client.create(doc),
+                fetch("/api/sanity-write", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(doc)
+                }),
                 fetch("/", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -105,7 +109,7 @@ const SellLand = () => {
             window.scrollTo(0, 0);
         } catch (error) {
             console.error("Submission failed:", error);
-            alert("Something went wrong. Please try again or contact us directly.");
+            toast.error("Something went wrong. Please try again or contact us directly.");
         } finally {
             setIsSubmitting(false);
         }

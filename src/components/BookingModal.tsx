@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, CheckCircle2 } from 'lucide-react';
+import { X, Send, CheckCircle2, Loader2 } from 'lucide-react';
 import { CONTACT_INFO } from '../constants/contact';
+import { toast } from 'react-hot-toast';
 
 interface BookingModalProps {
     isOpen: boolean;
@@ -18,11 +19,13 @@ const BookingModal = ({ isOpen, onClose, packageName, packagePrice }: BookingMod
         whatsapp: ''
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Reset when modal opens
     useEffect(() => {
         if (isOpen) {
             setIsSubmitted(false);
+            setIsSubmitting(false);
             setFormData({ fullName: '', email: '', phone: '', whatsapp: '' });
         }
     }, [isOpen]);
@@ -33,14 +36,14 @@ const BookingModal = ({ isOpen, onClose, packageName, packagePrice }: BookingMod
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsSubmitted(true);
+        setIsSubmitting(true);
 
         try {
-            await fetch('https://api.web3forms.com/submit', {
+            const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    access_key: 'b5034291-8a43-4923-a84a-1ed1a6c6028a',
+                    access_key: import.meta.env.VITE_WEB3FORMS_KEY,
                     subject: `Booking Enquiry: ${packageName}`,
                     from_name: formData.fullName,
                     email: formData.email,
@@ -51,8 +54,16 @@ const BookingModal = ({ isOpen, onClose, packageName, packagePrice }: BookingMod
                     to_email: CONTACT_INFO.email
                 }),
             });
+            if (response.ok) {
+                setIsSubmitted(true);
+            } else {
+                toast.error('Something went wrong. Please try again or contact us directly.');
+            }
         } catch (err) {
             console.error('Submission error:', err);
+            toast.error('Failed to send enquiry. Please try again.');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -146,8 +157,16 @@ const BookingModal = ({ isOpen, onClose, packageName, packagePrice }: BookingMod
                                     </div>
                                 </div>
 
-                                <button type="submit" className="w-full py-4 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:bg-primary/90 hover:shadow-primary/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-4">
-                                    Send Inquiry <Send size={18} />
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="w-full py-4 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:bg-primary/90 hover:shadow-primary/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
+                                >
+                                    {isSubmitting ? (
+                                        <><Loader2 size={18} className="animate-spin" /> Sending...</>
+                                    ) : (
+                                        <>Send Inquiry <Send size={18} /></>
+                                    )}
                                 </button>
                             </form>
                         </div>

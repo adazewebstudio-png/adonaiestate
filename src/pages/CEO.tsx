@@ -284,7 +284,7 @@ const CEO = () => {
                     <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-16 lg:items-center">
                         <motion.div {...fadeInUp} className="w-full lg:w-1/2">
                             <div className="rounded-[3rem] overflow-hidden shadow-2xl relative aspect-[4/3] group">
-                                <img src="/our_approach.jpg" alt="Impact" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                                <img src="/our_approach.webp" alt="Impact" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
                                 <div className="absolute bottom-10 left-10 text-white">
                                     <p className="text-xs font-black uppercase tracking-[0.4em] mb-2 opacity-70">Impact Narrative</p>

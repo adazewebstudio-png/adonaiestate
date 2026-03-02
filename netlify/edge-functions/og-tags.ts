@@ -1,6 +1,6 @@
-const SANITY_PROJECT_ID = "w50u4jfs";
-const SANITY_DATASET = "production";
-const SANITY_API_VERSION = "2023-05-03";
+const SANITY_PROJECT_ID = Deno.env.get("SANITY_PROJECT_ID") || "w50u4jfs";
+const SANITY_DATASET = Deno.env.get("SANITY_DATASET") || "production";
+const SANITY_API_VERSION = Deno.env.get("SANITY_API_VERSION") || "2023-05-03";
 
 const BASE_URL = "https://adonaiestateltd.com";
 const DEFAULT_IMAGE = `${BASE_URL}/logo.jpg`;
@@ -10,12 +10,12 @@ const staticPages: Record<string, { title: string; description: string; image?: 
     "/": {
         title: "Adonai Estate Limited | Ultra Modern Living in Ho, Volta Region",
         description: "Helping solve Ghana's housing deficit realistically. Own litigation-free land and homes in Airport Golf City, UHAS Florida City, and more in the Volta Region.",
-        image: "/hero_home_main.jpg",
+        image: "/hero_home_main.webp",
     },
     "/about": {
         title: "About Us | Adonai Estate Limited",
         description: "Learn about Adonai Estate Limited, our mission, vision, and commitment to affordable housing in Ghana since 2014.",
-        image: "/about_development.jpg",
+        image: "/about_development.webp",
     },
     "/about/ceo": {
         title: "Founder & CEO | Rev. Dr. Bright Adonai",
@@ -25,12 +25,12 @@ const staticPages: Record<string, { title: string; description: string; image?: 
     "/estates": {
         title: "Our Estates | Premium Communities in the Volta Region",
         description: "Explore our premium estate developments including Airport Golf City, Millennium City, and UHAS Florida City.",
-        image: "/airport_golf_city_main.jpg",
+        image: "/airport_golf_city_main.webp",
     },
     "/estates/airport-golf-city": {
         title: "Airport Golf City | Adonai Estate Limited",
         description: "Discover Airport Golf City, our flagship 98-acre gated community featuring a world-class golf course in Ho, Volta Region.",
-        image: "/airport_golf_city_main.jpg",
+        image: "/airport_golf_city_main.webp",
     },
     "/estates/millennium-city": {
         title: "Millennium City | Adonai Estate Limited",
@@ -55,12 +55,12 @@ const staticPages: Record<string, { title: string; description: string; image?: 
     "/listings": {
         title: "Property Listings | Adonai Estate Limited",
         description: "Browse our available litigation-free land and property listings across the Volta Region.",
-        image: "/home_who_we_are.jpg",
+        image: "/home_who_we_are.webp",
     },
     "/insight": {
         title: "Insights | Real Estate News & Tips",
         description: "Stay informed with the latest real estate news, investment tips, and market insights from Adonai Estate Limited.",
-        image: "/about_development.jpg",
+        image: "/about_development.webp",
     },
     "/contact": {
         title: "Contact Us | Adonai Estate Limited",
@@ -70,23 +70,23 @@ const staticPages: Record<string, { title: string; description: string; image?: 
     "/gallery": {
         title: "Gallery | Adonai Estate Limited",
         description: "Take a visual tour of our estates and community developments.",
-        image: "/airport_golf_city_main.jpg",
+        image: "/airport_golf_city_main.webp",
     },
     "/why-invest": {
         title: "Why Invest With Adonai? | Adonai Estate Limited",
         description: "Discover why investing with Adonai Estate Limited is a smart choice for your future.",
-        image: "/why_invest_hero_aerial.jpg",
+        image: "/why_invest_hero_aerial.webp",
     },
     // Services
     "/services": {
         title: "Our Services | Adonai Estate Limited",
         description: "Explore our comprehensive real estate services including land sales, consultancy, property management, and brokerage.",
-        image: "/about_development.jpg",
+        image: "/about_development.webp",
     },
     "/services/land-sales": {
         title: "Land Sales | Secure & Litigation-Free",
         description: "Buy land with confidence. We provide authentic documentation and planned communities in the best locations.",
-        image: "/land_dispute_avoidance.png",
+        image: "/land_dispute_avoidance.webp",
     },
     "/services/consultancy": {
         title: "Real Estate Consultancy | Adonai Estate Limited",
@@ -124,16 +124,19 @@ const staticPages: Record<string, { title: string; description: string; image?: 
         description: "Providing world-class education for the leaders of tomorrow at Airport Golf City.",
         image: "/agis_logo.jpg",
     },
-    "/grolip": {
-        title: "GROLIP | Greater Returns On Land Investment",
-        description: "Earn 4% monthly appreciation with our unique land investment package at Airport Golf City.",
-        image: "/land_dispute_avoidance.png",
-    },
+},
 };
+
+// Sanitize user input before embedding in GROQ queries to prevent injection
+function sanitizeInput(input: string): string {
+    // Only allow alphanumeric chars, hyphens, underscores, and dots
+    return input.replace(/[^a-zA-Z0-9\-_.]/g, '');
+}
 
 // Fetch blog post from Sanity using native fetch
 async function fetchBlogPost(slug: string) {
-    const query = encodeURIComponent(`*[_type == "post" && slug.current == "${slug}"][0]{
+    const safeSlug = sanitizeInput(slug);
+    const query = encodeURIComponent(`*[_type == "post" && slug.current == "${safeSlug}"][0]{
     title,
     excerpt,
     "image": mainImage.asset->url + "?w=1200&h=630&auto=format"
@@ -263,8 +266,9 @@ export default async (request: Request, context: any) => {
         else if (lookupPath.startsWith("/listings/")) {
             const id = lookupPath.replace("/listings/", "");
             if (id) {
+                const safeId = sanitizeInput(id);
                 // We use the same fetch logic but for 'property' type
-                const query = encodeURIComponent(`*[_type == "property" && _id == "${id}"][0]{
+                const query = encodeURIComponent(`*[_type == "property" && _id == "${safeId}"][0]{
                     title,
                     location,
                     price,

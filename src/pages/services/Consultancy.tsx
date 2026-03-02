@@ -50,6 +50,17 @@ const Consultancy = () => {
                 title="Real Estate Consultancy | Adonai Estate Limited"
                 description="Expert real estate advisory services. We guide you through acquisition, development planning, and investment strategies."
                 pathname="/services/consultancy"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "Service",
+                    "name": "Real Estate Consultancy",
+                    "description": "Professional advisory on land acquisition, development planning, project feasibility, and investment strategies in the Ghanaian real estate market.",
+                    "provider": {
+                        "@type": "RealEstateAgent",
+                        "name": "Adonai Estate Limited"
+                    },
+                    "areaServed": "GH"
+                }}
             />
 
             {/* Premium Hero Section */}

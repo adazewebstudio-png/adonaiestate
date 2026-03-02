@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { Facebook, Instagram, Linkedin, Globe, Star, MessageSquare, Award, Clock, Users, ShieldCheck, Loader2, Mail, CheckCircle, Target, Briefcase, Share2 } from 'lucide-react';
 import { client, urlFor } from '../lib/sanity';
+import { toast } from 'react-hot-toast';
 import { AGENT_INFO } from '../constants/contact';
 
 // User-provided static content as fallback
@@ -77,7 +78,7 @@ const AgentProfile = () => {
             try {
                 // Fetch Agent (Richard)
                 const agentQuery = `*[_type == "agent" && (slug.current == "richard-adaze" || name match "Richard Adaze*")][0]`;
-                const agentData = await client.fetch(agentQuery);
+                const agentData = await client.fetch(agentQuery, {}, { useCdn: true });
                 setAgent(agentData);
 
                 if (agentData) {
@@ -111,13 +112,13 @@ const AgentProfile = () => {
 
     const handleSubmitReview = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (rating === 0) return alert('Please select a rating');
-        if (!reviewerName.trim()) return alert('Please enter your name');
-        if (!agent) return alert('Review system unavailable.');
+        if (rating === 0) { toast.error('Please select a rating'); return; }
+        if (!reviewerName.trim()) { toast.error('Please enter your name'); return; }
+        if (!agent) { toast.error('Review system unavailable.'); return; }
 
         setSubmitting(true);
         try {
-            const result = await client.create({
+            const reviewDoc = {
                 _type: 'review',
                 agent: {
                     _type: 'reference',
@@ -126,8 +127,17 @@ const AgentProfile = () => {
                 name: reviewerName.trim(),
                 text: comment.trim() || 'Great experience!',
                 rating: rating,
-                approved: true, // Auto-approve for real-time display
+                approved: false, // Require moderation via Sanity Studio
+            };
+
+            const response = await fetch('/api/sanity-write', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(reviewDoc)
             });
+
+            if (!response.ok) throw new Error('Failed to submit review');
+            const result = await response.json();
 
             // Update UI immediately (Optimistic-ish, using returned ID)
             const newReview: Review = {
@@ -139,13 +149,13 @@ const AgentProfile = () => {
             };
             setReviews([newReview, ...reviews]);
 
-            alert('Thank you! Your review has been posted.');
+            toast.success('Thank you! Your review has been posted.');
             setComment('');
             setReviewerName('');
             setRating(0);
         } catch (error) {
             console.error('Error submitting review:', error);
-            alert('Failed to submit review. Please try again.');
+            toast.error('Failed to submit review. Please try again.');
         } finally {
             setSubmitting(false);
         }
@@ -189,9 +199,42 @@ const AgentProfile = () => {
         <div className="pt-24 pb-20 bg-slate-50 min-h-screen">
             <SEO
                 title={`${displayProfile.name} - ${displayProfile.role}`}
-                description="Verified Company Representative at Adonai Estate Limited."
+                description={`Verified Company Representative at Adonai Estate Limited. Specialized in ${displayProfile.specialization} with ${displayProfile.experience} experience.`}
                 image={displayProfile.image}
                 pathname="/agent/richard-adaze"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "ProfilePage",
+                    "mainEntity": {
+                        "@type": "Person",
+                        "name": displayProfile.name,
+                        "jobTitle": displayProfile.role,
+                        "image": displayProfile.image,
+                        "description": displayProfile.bio[0],
+                        "url": AGENT_INFO.website,
+                        "sameAs": [
+                            AGENT_INFO.socials.facebook,
+                            AGENT_INFO.socials.instagram,
+                            AGENT_INFO.socials.twitter,
+                            AGENT_INFO.socials.linkedin,
+                            AGENT_INFO.socials.tiktok,
+                            AGENT_INFO.website,
+                            AGENT_INFO.studio
+                        ],
+                        "worksFor": {
+                            "@type": "Organization",
+                            "name": "Adonai Estate Limited",
+                            "url": "https://adonaiestateltd.com"
+                        },
+                        "knowsAbout": [
+                            "Real Estate Marketing",
+                            "Digital Infrastructure",
+                            "Ghana Real Estate",
+                            "Trust Architecture",
+                            "Web Development"
+                        ]
+                    }
+                }}
             />
 
             <div className="container mx-auto px-4">
@@ -286,7 +329,7 @@ const AgentProfile = () => {
                                             }).catch(console.error);
                                         } else {
                                             navigator.clipboard.writeText(window.location.href);
-                                            alert('Profile link copied to clipboard!');
+                                            toast.success('Profile link copied to clipboard!');
                                         }
                                     }}
                                     className="text-sm font-bold text-gold hover:text-gold/80 flex items-center gap-2"

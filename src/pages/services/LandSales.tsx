@@ -28,6 +28,40 @@ const LandSales = () => {
                 title="Land Sales & Registration | Adonai Estate Limited"
                 description="Secure litigation-free land with clear documentation. We handle the entire registration process for your peace of mind."
                 pathname="/services/land-sales"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "Service",
+                    "name": "Land Sales & Registration",
+                    "description": "Providing litigation-free, fully documented land (indenture, site plan) for residential and commercial development in Ghana's Volta Region.",
+                    "provider": {
+                        "@type": "RealEstateAgent",
+                        "name": "Adonai Estate Limited"
+                    },
+                    "areaServed": {
+                        "@type": "State",
+                        "name": "Volta Region, Ghana"
+                    },
+                    "hasOfferCatalog": {
+                        "@type": "OfferCatalog",
+                        "name": "Land Sales Offerings",
+                        "itemListElement": [
+                            {
+                                "@type": "Offer",
+                                "itemOffered": {
+                                    "@type": "Service",
+                                    "name": "Residential Land Sales"
+                                }
+                            },
+                            {
+                                "@type": "Offer",
+                                "itemOffered": {
+                                    "@type": "Service",
+                                    "name": "Commercial Land Sales"
+                                }
+                            }
+                        ]
+                    }
+                }}
             />
 
             {/* Premium Hero Section */}

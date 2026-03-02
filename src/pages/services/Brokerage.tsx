@@ -33,6 +33,17 @@ const Brokerage = () => {
                 title="Brokerage Services | Adonai Estate Limited"
                 description="Transparent real estate brokerage. We connect buyers and sellers with integrity, ensuring fair deals and smooth transactions."
                 pathname="/services/brokerage"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "Service",
+                    "name": "Real Estate Brokerage",
+                    "description": "Facilitating transparent property transactions between buyers and sellers, including valuation, marketing, vetting, and closing support.",
+                    "provider": {
+                        "@type": "RealEstateAgent",
+                        "name": "Adonai Estate Limited"
+                    },
+                    "areaServed": "GH"
+                }}
             />
 
             {/* Premium Hero Section */}

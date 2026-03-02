@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Calendar, User, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { client, urlFor } from '../lib/sanity';
+import { useHeaderStyle } from '../contexts/HeaderContext';
+import BlogSkeleton from '../components/skeletons/BlogSkeleton';
 
 interface Post {
     _id: string;
@@ -21,19 +23,9 @@ interface Post {
     };
 }
 
-const BlogSkeleton = () => (
-    <div className="bg-white rounded-[2.5rem] overflow-hidden border border-gray-100 flex flex-col h-full animate-pulse">
-        <div className="h-64 bg-gray-200"></div>
-        <div className="p-8 space-y-4">
-            <div className="h-4 bg-gray-200 rounded w-1/3"></div>
-            <div className="h-7 bg-gray-200 rounded w-full"></div>
-            <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-            <div className="h-4 bg-gray-200 rounded w-4/5"></div>
-        </div>
-    </div>
-);
 
-import { useHeaderStyle } from '../contexts/HeaderContext';
+
+
 
 const Insight = () => {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -68,6 +60,27 @@ const Insight = () => {
                 title="Insights & News"
                 description="Latest news, real estate tips, and market insights from Adonai Estate Limited. Stay updated on the Ghanaian housing market."
                 pathname="/insight"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "CollectionPage",
+                    "name": "Insights & News | Adonai Estate Limited",
+                    "description": "A collection of articles, guides, and market updates on Ghana real estate by Adonai Estate Limited.",
+                    "url": "https://adonaiestateltd.com/insight",
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "Adonai Estate Limited",
+                        "url": "https://adonaiestateltd.com",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://adonaiestateltd.com/logo.jpg"
+                        }
+                    },
+                    "about": {
+                        "@type": "Thing",
+                        "name": "Ghana Real Estate",
+                        "description": "Land ownership, estate development, and real estate investment in Ghana's Volta Region."
+                    }
+                }}
             />
 
             <div className="bg-slate-50 min-h-screen">

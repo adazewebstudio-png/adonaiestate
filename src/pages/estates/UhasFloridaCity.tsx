@@ -46,6 +46,19 @@ const UhasFloridaCity = () => {
                 imagePlaceholder="UHAS Florida City Development"
                 heroImage="/images/estates/florida-city/hero.jpg"
                 images={['/images/estates/florida-city/hero.jpg']}
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "RealEstateListing",
+                    "name": "UHAS Florida City",
+                    "description": "Student-centric and staff-friendly housing plots in Ho, minutes from UHAS and Ho Teaching Hospital.",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": "Ho",
+                        "addressRegion": "Volta Region",
+                        "addressCountry": "GH"
+                    },
+                    "status": "Upcoming Project"
+                }}
             >
                 {/* Vision Section */}
                 <div className="mt-20">

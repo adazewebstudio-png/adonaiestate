@@ -25,7 +25,7 @@ const GcvrAucreGardens = () => {
                     >
                         {/* Logo / Hero Image Area */}
                         <div className="w-48 h-48 mx-auto mb-10 overflow-hidden rounded-full border-4 border-gold shadow-2xl bg-white p-2">
-                            <img src="/gcvr_aucre_logo.jpg" alt="GCVR/AUCRE GARDENS Logo" className="w-full h-full object-cover rounded-full" />
+                            <img src="/gcvr_aucre_logo.webp" alt="GCVR/AUCRE GARDENS Logo" className="w-full h-full object-cover rounded-full" />
                         </div>
 
                         {/* Status Badge */}

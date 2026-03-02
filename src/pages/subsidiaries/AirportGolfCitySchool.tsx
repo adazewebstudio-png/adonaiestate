@@ -32,7 +32,7 @@ const AirportGolfCitySchool = () => {
                         {/* Header Section */}
                         <div className="text-center mb-16">
                             <div className="w-40 h-40 mx-auto mb-8 overflow-hidden rounded-full border-4 border-red-600 shadow-2xl bg-white p-2">
-                                <img src="/agis_logo.jpg" alt="AGIS Logo" className="w-full h-full object-cover rounded-full" />
+                                <img src="/agis_logo.webp" alt="AGIS Logo" className="w-full h-full object-cover rounded-full" />
                             </div>
 
                             <span className="inline-block px-4 py-1.5 bg-red-100 text-red-700 rounded-full text-xs font-bold tracking-widest uppercase mb-6 border border-red-200">

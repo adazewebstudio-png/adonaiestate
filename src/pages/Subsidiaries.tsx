@@ -21,7 +21,7 @@ const Subsidiaries = () => {
             isExternal: false,
             description: "A scenic garden restaurant and event centre perfect for dining and social gatherings.",
             icon: TreeDeciduous,
-            image: "/gcvr_aucre_logo.jpg"
+            image: "/gcvr_aucre_logo.webp"
         },
         {
             name: "AIRPORT GOLFCITY INTERNATIONAL SCHOOL",
@@ -29,7 +29,7 @@ const Subsidiaries = () => {
             isExternal: false,
             description: "Nurturing future leaders with quality education.",
             icon: GraduationCap,
-            image: "/agis_logo.jpg"
+            image: "/agis_logo.webp"
         },
         {
             name: "Adonai Engineering & Construction Limited",
@@ -37,7 +37,7 @@ const Subsidiaries = () => {
             isExternal: true,
             description: "Professional engineering and construction solutions.",
             icon: HardHat,
-            image: "/aecl_logo.jpg"
+            image: "/aecl_logo.webp"
         },
         {
             name: "Adonai University College of Research and Entrepreneurship",
@@ -45,7 +45,7 @@ const Subsidiaries = () => {
             isExternal: true,
             description: "Fostering innovation and entrepreneurship in higher education.",
             icon: BookOpen,
-            image: "/aucre_logo.jpg"
+            image: "/aucre_logo.webp"
         }
     ];
 

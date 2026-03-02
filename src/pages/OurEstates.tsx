@@ -8,7 +8,7 @@ const activeEstates = [
     {
         name: 'Airport Golf City',
         location: 'Ho, Volta Region',
-        image: '/airport_golf_city_main.jpg',
+        image: '/airport_golf_city_main.webp',
         description: 'Our flagship development, meticulously designed as a luxury sanctuary. Features well-demarcated plots, premium infrastructure, and a stunning 98-acre golf course.',
         features: ['98-acre Golf Course', '24/7 Elite Security', 'Planned Hotel & Restaurant', '100% Litigation Free'],
         link: '/estates/airport-golf-city',
@@ -84,7 +84,7 @@ const OurEstates = () => {
             <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="/airport_golf_city_main.jpg"
+                        src="/airport_golf_city_main.webp"
                         className="w-full h-full object-cover scale-105"
                         alt="Adonai Estates"
                     />
@@ -234,6 +234,7 @@ const MainEstateCard = ({ estate, index }: { estate: any, index: number }) => (
                     src={estate.image}
                     alt={estate.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                    loading="lazy"
                 />
                 <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-all duration-700"></div>
                 <div className="absolute top-8 left-8">
@@ -285,6 +286,7 @@ const SecondaryEstateCard = ({ estate, index }: { estate: any, index: number }) 
                     src={estate.image}
                     alt={estate.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 to-transparent flex flex-col justify-end p-6">
                 </div>

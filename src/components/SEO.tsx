@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { CONTACT_INFO } from '../constants/contact';
+import { CONTACT_INFO, AGENT_INFO } from '../constants/contact';
 
 interface SEOProps {
     title?: string;
@@ -12,14 +12,17 @@ interface SEOProps {
 }
 
 const SEO = ({ title, description, image, article, pathname, schema }: SEOProps) => {
-    const defaultTitle = 'Adonai Estate Limited | Ultra Modern Living in Ho, Volta Region';
-    const defaultDescription = 'Adonai Estate Limited offers litigation-free lands, property management, and ultra-modern estate living in Ho, Volta Region, Ghana. Join our golf city community.';
+    const defaultTitle = 'Adonai Estate Limited | Litigation-Free Land & Modern Estates in Ho, Ghana';
+    const defaultDescription = 'Adonai Estate Limited offers litigation-free lands, property management, and ultra-modern estate living in Ho, Volta Region, Ghana. Airport Golf City, Leaders City, and more.';
     const siteUrl = 'https://adonaiestateltd.com';
     const defaultImage = '/logo.jpg';
     const twitterUsername = '@adonaiestate';
 
     const seo = {
-        title: title ? `${title} | Adonai Estate Limited` : defaultTitle,
+        // Prevent double-appending brand name if title already includes it
+        title: title
+            ? (title.includes('| Adonai Estate Limited') ? title : `${title} | Adonai Estate Limited`)
+            : defaultTitle,
         description: description || defaultDescription,
         image: image?.startsWith('http') ? image : `${siteUrl}${image || defaultImage}`,
         url: `${siteUrl}${pathname || ''}`,
@@ -42,22 +45,52 @@ const SEO = ({ title, description, image, article, pathname, schema }: SEOProps)
         },
         "sameAs": [
             "https://web.facebook.com/AdonaiEstateLtd",
-            "https://www.instagram.com/adonaiestateltd/",
-            "https://adazewebstudio.com"
-        ]
+            "https://www.facebook.com/AdonaiEstateLtd",
+            "https://www.instagram.com/adonaiestateltd",
+            "https://twitter.com/adonaiestate",
+            "https://www.youtube.com/@adonaiestateltd",
+            "https://www.linkedin.com/company/adonai-estate-ltd"
+        ],
+        "founder": {
+            "@type": "Person",
+            "name": "Rev. Dr. Bright Adonai",
+            "jobTitle": "CEO",
+            "image": `${siteUrl}/ceo_bright_adonai.jpg`
+        },
+        "member": {
+            "@id": `${AGENT_INFO.website}#person`
+        }
     };
 
-    // Website Schema for Search Box
+    // Richard Adaze Person Schema
+    const personSchema = {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": `${AGENT_INFO.website}#person`,
+        "name": AGENT_INFO.name,
+        "jobTitle": AGENT_INFO.role,
+        "url": AGENT_INFO.website,
+        "sameAs": [
+            AGENT_INFO.socials.facebook,
+            AGENT_INFO.socials.instagram,
+            AGENT_INFO.socials.twitter,
+            AGENT_INFO.socials.linkedin,
+            AGENT_INFO.socials.tiktok,
+            AGENT_INFO.studio
+        ],
+        "worksFor": {
+            "@id": siteUrl
+        }
+    };
+
+    // Website Schema — removed fake SearchAction (no search page exists, causes GSC errors)
     const websiteSchema = {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Adonai Estate Limited",
         "url": siteUrl,
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": `${siteUrl}/search?q={search_term_string}`,
-            "query-input": "required name=search_term_string"
-        }
+        "inLanguage": "en-GH",
+        "description": defaultDescription
     };
 
     // Breadcrumb Schema for structural understanding
@@ -89,7 +122,9 @@ const SEO = ({ title, description, image, article, pathname, schema }: SEOProps)
         "@id": siteUrl,
         "url": siteUrl,
         "telephone": CONTACT_INFO.phone.primary,
-        "priceRange": "$$$",
+        "priceRange": "GHS 7,000 - GHS 100,000+",
+        "currenciesAccepted": "GHS, USD, GBP",
+        "paymentAccepted": "Cash, Bank Transfer, Installment",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "Ho - Aflao Road",
@@ -101,7 +136,23 @@ const SEO = ({ title, description, image, article, pathname, schema }: SEOProps)
             "@type": "GeoCoordinates",
             "latitude": 6.6111,
             "longitude": 0.4703
-        }
+        },
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "17:00"
+        },
+        "areaServed": {
+            "@type": "State",
+            "name": "Volta Region, Ghana"
+        },
+        "sameAs": [
+            "https://web.facebook.com/AdonaiEstateLtd",
+            "https://www.facebook.com/AdonaiEstateLtd",
+            "https://www.instagram.com/adonaiestateltd",
+            "https://twitter.com/adonaiestate"
+        ]
     };
 
     return (
@@ -112,15 +163,19 @@ const SEO = ({ title, description, image, article, pathname, schema }: SEOProps)
             <link rel="canonical" href={seo.url} />
 
             {/* OG Tags */}
+            <meta property="og:locale" content="en_GH" />
             <meta property="og:site_name" content="Adonai Estate Limited" />
             {seo.url && <meta property="og:url" content={seo.url} />}
             <meta property="og:type" content={article ? "article" : "website"} />
             {seo.title && <meta property="og:title" content={seo.title} />}
             {seo.description && <meta property="og:description" content={seo.description} />}
             {seo.image && <meta property="og:image" content={seo.image} />}
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
 
             {/* Twitter Tags */}
             <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:site" content="@adonaiestate" />
             {twitterUsername && <meta name="twitter:creator" content={twitterUsername} />}
             {seo.title && <meta name="twitter:title" content={seo.title} />}
             {seo.description && <meta name="twitter:description" content={seo.description} />}
@@ -128,6 +183,7 @@ const SEO = ({ title, description, image, article, pathname, schema }: SEOProps)
 
             {/* Structured Data for SEO / AEO / LLMs */}
             <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
+            <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
             <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
             <script type="application/ld+json">{JSON.stringify(businessSchema)}</script>
             <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>

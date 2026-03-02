@@ -28,6 +28,17 @@ const PropertyManagement = () => {
                 title="Property Management | Adonai Estate Limited"
                 description="Professional property management services. We handle maintenance, tenant relations, and asset protection for peace of mind."
                 pathname="/services/property-management"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "Service",
+                    "name": "Property Management",
+                    "description": "End-to-end property management including tenant screening, rent collection, maintenance, security oversight, and financial reporting.",
+                    "provider": {
+                        "@type": "RealEstateAgent",
+                        "name": "Adonai Estate Limited"
+                    },
+                    "areaServed": "GH"
+                }}
             />
 
             {/* Premium Hero Section */}

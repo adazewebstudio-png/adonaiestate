@@ -54,16 +54,33 @@ const WhyInvest = () => {
     return (
         <div className="bg-[#FAF9F6] min-h-screen text-slate-900 font-inter overflow-x-hidden">
             <SEO
-                title="Why Invest With Adonai? | Secure Land Ownership in Ghana"
+                title="Why Invest With Adonai? Secure Land Ownership in Ghana"
                 description="You deserve to own land without fear. Discover how Adonai Estate protects your investment with 100% litigation-free lands and verified systems."
                 pathname="/why-invest"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "WebPage",
+                    "name": "Why Invest With Adonai Estate Limited",
+                    "description": "Learn why thousands of Ghanaians and diaspora investors trust Adonai Estate Limited for safe, affordable, litigation-free land ownership in Ghana.",
+                    "url": "https://adonaiestateltd.com/why-invest",
+                    "about": {
+                        "@type": "Organization",
+                        "name": "Adonai Estate Limited",
+                        "url": "https://adonaiestateltd.com"
+                    },
+                    "mainContentOfPage": {
+                        "@type": "WebPageElement",
+                        "cssSelector": "main",
+                        "about": "Real estate investment protection, litigation-free land ownership, and trust-based property development in Ghana"
+                    }
+                }}
             />
 
             {/* --- HERO: THE MANDATE OF FEARLESSNESS --- */}
             <section className="relative w-full h-[600px] flex items-center justify-center overflow-hidden bg-slate-950 z-0">
                 <div className="absolute inset-0 z-0 overflow-hidden">
                     <img
-                        src="/why_invest_hero_aerial.jpg"
+                        src="/why_invest_hero_aerial.webp"
                         alt="Adonai Estate Aerial View"
                         className="w-full h-full object-cover opacity-60"
                     />
@@ -131,7 +148,7 @@ const WhyInvest = () => {
                             className="relative"
                         >
                             <div className="aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl relative z-10">
-                                <img src="/why_invest_supporting_leaders_city.jpg" alt="Leaders City - Adonai Estate Development" className="w-full h-full object-cover" />
+                                <img src="/why_invest_supporting_leaders_city.webp" alt="Leaders City - Adonai Estate Development" className="w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-primary/5 mix-blend-multiply"></div>
                             </div>
                             {/* Decorative element */}

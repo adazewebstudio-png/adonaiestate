@@ -28,6 +28,16 @@ const AboutUs = () => {
                 description="Learn about Adonai Estate Limited, our mission, vision, and commitment to affordable housing in Ghana since 2014. We focus on secure, litigation-free land."
                 pathname="/about"
                 image="/ceo_bright_adonai.jpg"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "AboutPage",
+                    "mainEntity": {
+                        "@type": "Organization",
+                        "name": "Adonai Estate Limited",
+                        "foundingDate": "2014",
+                        "description": "Adonai Estate Limited is a Ghanaian real estate company dedicated to making land and home ownership secure, affordable, and achievable."
+                    }
+                }}
             />
 
             <div className="pt-24 pb-20 bg-white min-h-screen">
@@ -54,7 +64,7 @@ const AboutUs = () => {
                             className="bg-slate-100 rounded-[3rem] h-[400px] md:h-[500px] w-full flex items-center justify-center relative overflow-hidden shadow-2xl"
                         >
                             <img
-                                src="/about_development.jpg"
+                                src="/about_development.webp"
                                 alt="Adonai Estate Development"
                                 className="w-full h-full object-cover"
                             />
@@ -292,8 +302,9 @@ const AboutUs = () => {
                                 {[
                                     {
                                         name: "Richard Adaze",
-                                        role: "Head of Marketing and PRO",
+                                        role: "Head of Marketing / Lead Consultant",
                                         image: "/richard_adaze.jpg",
+                                        link: "/agent/richard-adaze"
                                     },
                                     {
                                         name: "Delali Prince Agbati",
@@ -314,23 +325,47 @@ const AboutUs = () => {
                                         transition={{ delay: 0.4 + (index * 0.2) }}
                                         className="group"
                                     >
-                                        <div className="relative mb-6 overflow-hidden rounded-[2.5rem] bg-slate-100 aspect-[4/5] shadow-xl border border-gray-100">
-                                            {member.image ? (
-                                                <img
-                                                    src={member.image}
-                                                    alt={member.name}
-                                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
-                                                />
-                                            ) : (
-                                                <div className="w-full h-full flex items-center justify-center text-gray-300">
-                                                    <Users size={80} strokeWidth={1} />
+                                        {member.link ? (
+                                            <Link to={member.link}>
+                                                <div className="relative mb-6 overflow-hidden rounded-[2.5rem] bg-slate-100 aspect-[4/5] shadow-xl border border-gray-100 group-hover:shadow-2xl transition-all">
+                                                    {member.image ? (
+                                                        <img
+                                                            src={member.image}
+                                                            alt={member.name}
+                                                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full flex items-center justify-center text-gray-300">
+                                                            <Users size={80} strokeWidth={1} />
+                                                        </div>
+                                                    )}
                                                 </div>
-                                            )}
-                                        </div>
-                                        <div className="text-center">
-                                            <h3 className="text-2xl font-bold text-gray-900 mb-1">{member.name}</h3>
-                                            <p className="text-gold font-bold uppercase tracking-widest text-xs">{member.role}</p>
-                                        </div>
+                                                <div className="text-center">
+                                                    <h3 className="text-2xl font-bold text-gray-900 mb-1 group-hover:text-primary transition-colors">{member.name}</h3>
+                                                    <p className="text-gold font-bold uppercase tracking-widest text-xs">{member.role}</p>
+                                                </div>
+                                            </Link>
+                                        ) : (
+                                            <>
+                                                <div className="relative mb-6 overflow-hidden rounded-[2.5rem] bg-slate-100 aspect-[4/5] shadow-xl border border-gray-100">
+                                                    {member.image ? (
+                                                        <img
+                                                            src={member.image}
+                                                            alt={member.name}
+                                                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full flex items-center justify-center text-gray-300">
+                                                            <Users size={80} strokeWidth={1} />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="text-center">
+                                                    <h3 className="text-2xl font-bold text-gray-900 mb-1">{member.name}</h3>
+                                                    <p className="text-gold font-bold uppercase tracking-widest text-xs">{member.role}</p>
+                                                </div>
+                                            </>
+                                        )}
                                     </motion.div>
                                 ))}
                             </div>
@@ -342,7 +377,7 @@ const AboutUs = () => {
                         <motion.div {...fadeIn}>
                             <div className="bg-slate-100 rounded-3xl h-64 md:h-96 w-full mb-8 relative overflow-hidden">
                                 <img
-                                    src="/our_approach.jpg"
+                                    src="/our_approach.webp"
                                     alt="Adonai Estate Approach and Vision"
                                     className="w-full h-full object-cover"
                                 />

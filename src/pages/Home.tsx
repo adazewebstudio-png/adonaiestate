@@ -12,8 +12,6 @@ import {
     Maximize,
     Calendar,
     User,
-    Search,
-    Loader2,
     Mail,
     MapPin
 } from 'lucide-react';
@@ -22,6 +20,8 @@ import { client, urlFor } from '../lib/sanity';
 import SEO from '../components/SEO';
 import { useHeaderStyle } from '../contexts/HeaderContext';
 import { CONTACT_INFO } from '../constants/contact';
+import PropertySkeleton from '../components/skeletons/PropertySkeleton';
+import BlogSkeleton from '../components/skeletons/BlogSkeleton';
 
 const Home = () => {
     const { setIsTransparent } = useHeaderStyle();
@@ -35,30 +35,7 @@ const Home = () => {
     const [featuredPosts, setFeaturedPosts] = useState([]);
     const [loadingData, setLoadingData] = useState(true);
 
-    // Skeleton Components
-    const PropertySkeleton = () => (
-        <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full animate-pulse">
-            <div className="h-64 bg-gray-200"></div>
-            <div className="p-6 space-y-3">
-                <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-                <div className="h-6 bg-gray-200 rounded w-3/4"></div>
-                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                <div className="h-10 bg-gray-200 rounded mt-4"></div>
-            </div>
-        </div>
-    );
 
-    const BlogSkeleton = () => (
-        <div className="bg-white rounded-[2.5rem] overflow-hidden border border-gray-100 flex flex-col h-full animate-pulse">
-            <div className="h-64 bg-gray-200"></div>
-            <div className="p-8 space-y-4">
-                <div className="h-4 bg-gray-200 rounded w-1/3"></div>
-                <div className="h-7 bg-gray-200 rounded w-full"></div>
-                <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-                <div className="h-4 bg-gray-200 rounded w-4/5"></div>
-            </div>
-        </div>
-    );
 
     useEffect(() => {
         const fetchData = async () => {
@@ -90,7 +67,7 @@ const Home = () => {
         {
             name: 'Airport Golf City',
             location: 'Ho',
-            image: '/airport_golf_city_main.jpg',
+            image: '/airport_golf_city_main.webp',
             description: 'Our biggest site featuring a 98-acre golf course, secure gated community, and premium amenities.',
             link: '/estates/airport-golf-city',
             status: 'Selling Fast'
@@ -139,7 +116,7 @@ const Home = () => {
     return (
         <>
             <SEO
-                title="Adonai Estate Limited | Ultra Modern Real Estate in Ghana"
+                title="Ultra-Modern, Litigation-Free Estates in Ghana"
                 description="Helping solve Ghana's housing deficit realistically. Own litigation-free land and homes in Airport Golf City, UHAS Florida City, and more in the Volta Region."
                 pathname="/"
             />
@@ -148,7 +125,7 @@ const Home = () => {
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="/hero_home_main.jpg"
+                        src="/hero_home_main.webp"
                         alt="Adonai Estate Hero"
                         className="w-full h-full object-cover"
                         fetchPriority="high"
@@ -489,7 +466,7 @@ const Home = () => {
 
                         <div className="relative">
                             <div className="glass-card p-2 rotate-3 hover:rotate-0 transition-transform duration-500 bg-white">
-                                <img src="/home_who_we_are.jpg" alt="About Adonai Estate" className="rounded-xl w-full h-auto shadow-2xl object-cover" loading="lazy" />
+                                <img src="/home_who_we_are.webp" alt="About Adonai Estate" className="rounded-xl w-full h-auto shadow-2xl object-cover" loading="lazy" />
                             </div>
                         </div>
                     </div>
@@ -645,7 +622,7 @@ const Home = () => {
                             <div className="relative inline-block mx-auto lg:mx-0">
                                 <div className="absolute inset-0 bg-gold/10 transform translate-x-4 translate-y-4 rounded-3xl"></div>
                                 <img
-                                    src="/ceo_bright_adonai.jpg"
+                                    src="/ceo_bright_adonai.webp"
                                     alt="Rev. Dr. Bright Adonai"
                                     className="relative z-10 w-full max-w-[350px] rounded-3xl shadow-xl border border-gray-100 mx-auto object-cover"
                                     loading="lazy"
@@ -703,9 +680,9 @@ const Home = () => {
 
                                 <div className="pt-4">
                                     <p className="text-xl font-bold text-gray-900 mb-4">Enquire now. Secure your plot. Grow with the development.</p>
-                                    <Link to="/estates/airport-golf-city" className="inline-flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all uppercase tracking-wide border-b-2 border-primary pb-1">
+                                    <a href="tel:+233540530320" className="inline-flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all uppercase tracking-wide border-b-2 border-primary pb-1">
                                         Start Your Journey <ArrowRight size={20} />
-                                    </Link>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -714,18 +691,18 @@ const Home = () => {
             </section>
             {/* CTA */}
             <section className="py-24 relative overflow-hidden bg-primary">
-                <div className="absolute inset-0 bg-[url('/hero_home_main.jpg')] bg-cover bg-fixed opacity-10 mix-blend-overlay"></div>
+                <div className="absolute inset-0 bg-[url('/hero_home_main.webp')] bg-cover bg-fixed opacity-10 mix-blend-overlay"></div>
                 <div className="container mx-auto text-center relative z-10">
                     <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Ready to Own Your Dream Land?</h2>
                     <p className="text-xl text-blue-50 mb-10 max-w-2xl mx-auto">
                         Take the first step towards litigation-free land ownership and quality living today.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href={`https://wa.me/${CONTACT_INFO.phone.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary text-lg px-8 py-4">
+                        <a href="https://wa.me/233540530320" target="_blank" rel="noopener noreferrer" className="btn btn-primary text-lg px-8 py-4">
                             Get in Touch with Adonai
                         </a>
-                        <a href={`mailto:${CONTACT_INFO.email}`} className="btn btn-outline border-white text-white hover:bg-white hover:text-primary text-lg px-8 py-4 flex items-center justify-center gap-2">
-                            <Mail size={20} /> Send Email
+                        <a href={`mailto:${CONTACT_INFO.email}`} className="btn btn-outline border-white text-white !text-white hover:bg-white hover:!text-primary text-lg px-8 py-4 flex items-center justify-center gap-2">
+                            <Mail size={20} className="text-white group-hover:text-primary" /> Send Email
                         </a>
                     </div>
                 </div>

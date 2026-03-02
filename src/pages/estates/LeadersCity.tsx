@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import EstateLayout from '../../components/EstateLayout';
 import { Landmark, Building2, Briefcase, CheckCircle2, TrendingUp, MapPin, ShoppingBag, Settings, Car, Trophy, Sparkles, X, FileText, ArrowRight, Loader2, Layout } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -51,8 +52,7 @@ const LeadersCity = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    // NOTE: Consider moving to environment variables (import.meta.env.VITE_WEB3FORMS_KEY)
-                    access_key: 'b5034291-8a43-4923-a84a-1ed1a6c6028a',
+                    access_key: import.meta.env.VITE_WEB3FORMS_KEY,
                     subject: `Leaders City Interest: ${formData.propertyCategory} - ${formData.propertyType}`,
                     from_name: formData.fullName,
                     email: formData.email,
@@ -76,11 +76,11 @@ const LeadersCity = () => {
                 setSubmitSuccess(true);
                 setFormData({ fullName: '', email: '', phone: '', propertyCategory: '', propertyType: '' });
             } else {
-                alert('Something went wrong. Please try again.');
+                toast.error('Something went wrong. Please try again.');
             }
         } catch (error) {
             console.error('Submission error:', error);
-            alert('Failed to submit. Please try again.');
+            toast.error('Failed to submit. Please try again.');
         } finally {
             setIsSubmitting(false);
         }
@@ -116,21 +116,35 @@ const LeadersCity = () => {
                 upcomingOfferings={offerings}
                 description="Leaders City is the ultimate destination for those who lead. This premium mixed-use development in Ho is meticulously designed for professionals and entrepreneurs at every stage—from the young and upcoming to the highly established and seasoned visionaries. It's more than an estate; it's a high-performance ecosystem for life and business."
                 features={[
-                    'Huge Ultra-Modern Mall at the Entrance',
-                    'State-of-the-art Auto Repair Center',
-                    'Premium Car Showrooms',
-                    'World-Class Event Center',
-                    'Aspire Apartments (Modern Living)',
-                    'Heritage Park (Executive Residences)',
-                    'Horizon Enclave (Serviced Plots)',
-                    'Strict "Hidden Roof" Architectural Code',
-                    'Central Location in Ho Business District',
-                    'Underground Drainage & Asphalted Roads',
-                    '24/7 Professional Security & Smart Tech',
-                    'High-Speed Internet Ready Zones'
+                    'Hidden Roof Architectural Code',
+                    'Ultra-Modern Shopping Mall',
+                    'Automobile Showrooms & Repair Center',
+                    'Elite Event & Conference Center',
+                    'Central Business District Location',
+                    'Smart Eco-System Tech Ready',
+                    'Underground Drainage Systems',
+                    '24/7 Professional Security'
                 ]}
                 imagePlaceholder="Leaders City Architecture"
                 heroImage="/images/estates/leaders-city/img3.jpg"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "RealEstateListing",
+                    "name": "Leaders City - The Center of Global Opportunity",
+                    "description": "Premium mixed-use estate development in Ho, Ghana, featuring modern apartments, standalone homes, and commercial hubs for entrepreneurs.",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": "Ho",
+                        "addressRegion": "Volta Region",
+                        "addressCountry": "GH"
+                    },
+                    "amenityFeature": [
+                        { "@type": "LocationFeatureSpecification", "name": "Underground Drainage", "value": true },
+                        { "@type": "LocationFeatureSpecification", "name": "24/7 Security", "value": true },
+                        { "@type": "LocationFeatureSpecification", "name": "Shopping Mall", "value": true }
+                    ],
+                    "status": "Upcoming Milestone"
+                }}
                 images={[
                     '/images/estates/leaders-city/img3.jpg',
                     '/images/estates/leaders-city/img1.jpg',
@@ -242,7 +256,7 @@ const LeadersCity = () => {
                                 viewport={{ once: true }}
                                 className="rounded-[2.5rem] overflow-hidden shadow-xl aspect-[16/10] cursor-zoom-in group"
                             >
-                                <img src="/images/estates/leaders-city/aspire1.jpg" alt="Aspire Apartments Aerial" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                <img src="/images/estates/leaders-city/aspire1.jpg" alt="Aspire Apartments Aerial" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                             </motion.div>
                         </div>
                     </div>
@@ -258,7 +272,7 @@ const LeadersCity = () => {
                                 viewport={{ once: true }}
                                 className="rounded-[2.5rem] overflow-hidden shadow-xl aspect-square cursor-zoom-in group"
                             >
-                                <img src="/images/estates/leaders-city/heritage1.jpg" alt="Heritage Park Residence" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                <img src="/images/estates/leaders-city/heritage1.jpg" alt="Heritage Park Residence" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                             </motion.div>
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
@@ -267,7 +281,7 @@ const LeadersCity = () => {
                                 transition={{ delay: 0.1 }}
                                 className="rounded-[2.5rem] overflow-hidden shadow-xl aspect-square cursor-zoom-in group translate-y-8"
                             >
-                                <img src="/images/estates/leaders-city/heritage3.jpg" alt="Heritage Park Modern Home" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                <img src="/images/estates/leaders-city/heritage3.jpg" alt="Heritage Park Modern Home" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                             </motion.div>
                         </div>
                         <motion.div
@@ -356,7 +370,7 @@ const LeadersCity = () => {
                                 viewport={{ once: true }}
                                 className="rounded-[2.5rem] overflow-hidden shadow-xl aspect-[16/10] bg-gradient-to-br from-slate-100 to-white flex items-center justify-center border border-gray-100"
                             >
-                                <img src="/images/estates/leaders-city/horizon_enclave.jpg" alt="Horizon Enclave Plots" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                <img src="/images/estates/leaders-city/horizon_enclave.jpg" alt="Horizon Enclave Plots" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                             </motion.div>
                         </div>
                         <motion.div
@@ -450,7 +464,7 @@ const LeadersCity = () => {
                         viewport={{ once: true }}
                         className="rounded-[3rem] overflow-hidden shadow-2xl aspect-[21/9] cursor-zoom-in group"
                     >
-                        <img src="/images/estates/leaders-city/heritage2.jpg" alt="Leaders City Road Network" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <img src="/images/estates/leaders-city/heritage2.jpg" alt="Leaders City Road Network" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                     </motion.div>
                 </div>
             </EstateLayout>
@@ -503,6 +517,7 @@ const LeadersCity = () => {
                                     onClick={() => setIsInterestModalOpen(false)}
                                     disabled={isSubmitting}
                                     className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+                                    aria-label="Close"
                                 >
                                     <X size={24} />
                                 </button>

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import SEO from '../components/SEO';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { MapPin, Maximize, Tag, User, Calendar, ArrowRight, Filter, Search, ChevronDown, X } from 'lucide-react';
+import { MapPin, Maximize, Tag, Calendar, ArrowRight, Filter, Search, ChevronDown, X } from 'lucide-react';
 import { client, urlFor } from '../lib/sanity';
+import PropertySkeleton from '../components/skeletons/PropertySkeleton';
 
 interface Property {
     _id: string;
@@ -50,17 +51,7 @@ const LOCATIONS: any = {
     }
 };
 
-const PropertySkeleton = () => (
-    <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col h-full animate-pulse">
-        <div className="h-64 bg-gray-200"></div>
-        <div className="p-6 space-y-3">
-            <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-            <div className="h-6 bg-gray-200 rounded w-3/4"></div>
-            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-            <div className="h-10 bg-gray-200 rounded mt-4"></div>
-        </div>
-    </div>
-);
+
 
 const Listings = () => {
     const [properties, setProperties] = useState<Property[]>([]);
@@ -288,7 +279,7 @@ const Listings = () => {
                                     </div>
                                     <div className="mt-auto flex flex-col gap-4">
                                         <Link to="/agent/richard-adaze" className="flex items-center gap-3 group/agent p-2 rounded-xl transition-colors hover:bg-slate-50">
-                                            <img src="/richard_adaze.jpg" alt="Agent" className="w-8 h-8 rounded-full border border-gray-200" />
+                                            <img src="/richard_adaze.webp" alt="Agent" className="w-8 h-8 rounded-full border border-gray-200" />
                                             <div className="text-left"><span className="block text-[9px] text-gray-400 font-black uppercase tracking-tighter">Listed By</span><span className="block text-xs font-bold text-gray-700 group-hover/agent:text-gold transition-colors">Richard Adaze</span></div>
                                         </Link>
                                         <Link to={`/listings/${prop._id}`} className="w-full flex items-center justify-center gap-2 py-3 bg-primary text-white font-bold rounded-xl hover:bg-gold transition-all duration-300 shadow-lg shadow-primary/10">View Details <ArrowRight size={16} /></Link>

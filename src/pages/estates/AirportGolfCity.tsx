@@ -1,12 +1,11 @@
 import React from 'react';
 import EstateLayout from '../../components/EstateLayout';
-import { Tag, Lock, CheckCircle2, ArrowRight, MapPin, ShieldCheck, Layout, Star } from 'lucide-react';
+import { Lock, CheckCircle2, ArrowRight, MapPin, ShieldCheck, Layout, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
-
-import SEO from '../../components/SEO';
+import { useNavigate } from 'react-router-dom';
 
 const AirportGolfCity = () => {
-
+    const navigate = useNavigate();
 
     const communities = [
         { name: 'Community 1', status: 'Sold Out' },
@@ -32,7 +31,7 @@ const AirportGolfCity = () => {
                     initial={{ scale: 1.15 }}
                     animate={{ scale: 1 }}
                     transition={{ duration: 20, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
-                    src="/airport_golf_city_main.jpg"
+                    src="/airport_golf_city_main.webp"
                     alt="Airport Golf City"
                     className="w-full h-full object-cover"
                 />
@@ -108,15 +107,16 @@ const AirportGolfCity = () => {
 
     return (
         <>
-            <SEO
-                title="Airport Golf City | 98-Acre Golf Experience in Ho"
-                description="Secure a plot in Ghana's premier golf community. Airport Golf City in Ho, Volta Region offers litigation-free lands, 24-hour security, and a vibrant golfing social life."
-                pathname="/estates/airport-golf-city"
+            <EstateLayout
+                title="Airport Golf City"
+                location="Ho, Volta Region"
+                customHero={CustomHero}
+                contentPadding="pt-12 md:pt-20 pb-24"
                 schema={{
                     "@context": "https://schema.org/",
-                    "@type": "Product",
+                    "@type": "RealEstateListing",
                     "name": "Airport Golf City Estate Plot",
-                    "image": "https://adonaiestateltd.com/airport_golf_city_main.jpg",
+                    "image": "https://adonaiestateltd.com/airport_golf_city_main.webp",
                     "description": "Standard plot size (100 x 70 ft) in a gated community with a 98-acre functional golf course in Ho, Volta Region.",
                     "brand": {
                         "@type": "Brand",
@@ -130,12 +130,6 @@ const AirportGolfCity = () => {
                         "offerCount": "11"
                     }
                 }}
-            />
-            <EstateLayout
-                title="Airport Golf City"
-                location="Ho, Volta Region"
-                customHero={CustomHero}
-                contentPadding="pt-12 md:pt-20 pb-24"
                 aboutContent={
                     <div className="space-y-8 text-gray-600 leading-relaxed text-lg">
                         <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-gold first-letter:mr-3 first-letter:float-left">
@@ -207,7 +201,7 @@ const AirportGolfCity = () => {
                     'Social amenities & Green spaces'
                 ]}
                 imagePlaceholder="Airport Golf City Image"
-                heroImage="/airport_golf_city_main.jpg"
+                heroImage="/airport_golf_city_main.webp"
                 images={[
                     '/images/airport-golf-city/img1.jpg',
                     '/images/airport-golf-city/img2.jpg',
@@ -271,7 +265,7 @@ const AirportGolfCity = () => {
                                             </div>
 
                                             <button
-                                                onClick={() => window.location.href = '/listings'}
+                                                onClick={() => navigate('/listings')}
                                                 className="w-full py-4 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:bg-primary/90 hover:shadow-primary/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group"
                                             >
                                                 <Layout size={18} />

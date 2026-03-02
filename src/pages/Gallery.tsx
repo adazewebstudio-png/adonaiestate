@@ -32,7 +32,7 @@ const Gallery = () => {
         const fetchGallery = async () => {
             try {
                 const query = `*[_type == "gallery"] | order(_createdAt desc)`;
-                const data = await client.fetch(query);
+                const data = await client.fetch(query, {}, { useCdn: true });
                 setItems(data);
                 setFilteredItems(data);
             } catch (error) {
@@ -137,6 +137,7 @@ const Gallery = () => {
                                             src={urlFor(item.image).width(800).height(800).url()}
                                             alt={item.title}
                                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                                            loading="lazy"
                                         />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center bg-slate-100">
@@ -207,7 +208,7 @@ const Gallery = () => {
                         >
                             <div className="lg:col-span-2 aspect-[4/3] lg:aspect-auto bg-slate-100 relative">
                                 <img
-                                    src={urlFor(selectedImage.image).url()}
+                                    src={urlFor(selectedImage.image).width(1600).auto('format').url()}
                                     alt={selectedImage.title}
                                     className="w-full h-full object-contain"
                                 />

@@ -116,12 +116,28 @@ const FAQ = () => {
         }
     ];
 
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqs.flatMap(category =>
+            category.items.map(item => ({
+                "@type": "Question",
+                "name": item.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.answer
+                }
+            }))
+        )
+    };
+
     return (
         <>
             <SEO
-                title="Frequently Asked Questions | Adonai Estate Limited"
-                description="Find answers to common questions about buying land in Ghana, our litigation-free guarantee, payment plans, and estate locations."
+                title="Frequently Asked Questions About Buying Land in Ghana"
+                description="Find answers to common questions about buying litigation-free land in Ghana, payment plans, documentation, and our estate locations in Ho, Volta Region."
                 pathname="/faq"
+                schema={faqSchema}
             />
 
             <div className="pt-32 pb-20 bg-slate-50 min-h-screen font-sans">

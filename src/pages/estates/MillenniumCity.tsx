@@ -48,6 +48,19 @@ const MillenniumCity = () => {
                 imagePlaceholder="Millennium City View"
                 heroImage="/images/estates/millennium-city/hero.jpg"
                 images={['/images/estates/millennium-city/hero.jpg']}
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "RealEstateListing",
+                    "name": "Millennium City - A Homecoming Project",
+                    "description": "A cultural-centric residential community in Kpetoe, Volta Region, designed for locals and the diaspora to reconnect with their heritage.",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": "Kpetoe",
+                        "addressRegion": "Volta Region",
+                        "addressCountry": "GH"
+                    },
+                    "status": "Upcoming Project"
+                }}
             >
                 {/* Vision & Concept Section */}
                 <div className="mt-20">

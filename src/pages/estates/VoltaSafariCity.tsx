@@ -53,6 +53,19 @@ const VoltaSafariCity = () => {
                     '/images/estates/volta-safari-city/safari5.jpg',
                     '/images/estates/volta-safari-city/safari6.jpg'
                 ]}
+                schema={{
+                    "@context": "https://schema.org",
+                    "@type": "RealEstateListing",
+                    "name": "Volta Safari City",
+                    "description": "Eco-luxury riverside development in Sogakope, featuring resort-style lodges and sustainable living plots.",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": "Sogakope",
+                        "addressRegion": "Volta Region",
+                        "addressCountry": "GH"
+                    },
+                    "status": "Upcoming Project"
+                }}
             >
                 {/* Vision Section */}
                 <div className="mt-20">

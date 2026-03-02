@@ -19,6 +19,7 @@ import {
     Star
 } from 'lucide-react';
 import { client, urlFor } from '../lib/sanity';
+import { toast } from 'react-hot-toast';
 import SEO from '../components/SEO';
 import { PortableText } from '@portabletext/react';
 
@@ -57,7 +58,7 @@ const PropertyDetails = () => {
                     _id, title, location, region, district, area, price, size, type, category, mainImage, propertyImages, fullDescription, tag, _createdAt,
                     floorPlans, roomDimensions, features
                 }`;
-                const data = await client.fetch(query, { id });
+                const data = await client.fetch(query, { id }, { useCdn: true });
                 setProperty(data);
             } catch (error) {
                 console.error('Error fetching property details:', error);
@@ -310,7 +311,7 @@ const PropertyDetails = () => {
                                 <div className="text-center mb-6">
                                     <div className="relative inline-block">
                                         <img
-                                            src="/richard_adaze.jpg"
+                                            src="/richard_adaze.webp"
                                             alt="Richard Adaze"
                                             className="w-24 h-24 rounded-[2rem] object-cover mx-auto mb-4 border-4 border-white shadow-lg"
                                         />
@@ -410,7 +411,7 @@ const PropertyDetails = () => {
                                         <button
                                             onClick={() => {
                                                 navigator.clipboard.writeText(property._id);
-                                                alert('Property ID copied!');
+                                                toast.success('Property ID copied!');
                                             }}
                                             className="text-gold hover:text-primary transition-colors"
                                             title="Copy ID"

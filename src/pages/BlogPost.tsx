@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { Calendar, User, ArrowLeft, Loader2, Share2, Facebook, Twitter, Linkedin, Copy, Bookmark, Clock, ArrowRight, Mail, MessageCircle, Send, CheckCircle2 } from 'lucide-react';
+import { Calendar, User, ArrowLeft, Loader2, Facebook, Twitter, Linkedin, Copy, Clock, ArrowRight, Mail, MessageCircle, Send, CheckCircle2 } from 'lucide-react';
 import { PortableText } from '@portabletext/react';
 import { client, urlFor } from '../lib/sanity';
+import { toast } from 'react-hot-toast';
 import SEO from '../components/SEO';
 import { useHeaderStyle } from '../contexts/HeaderContext';
 import { CONTACT_INFO } from '../constants/contact';
@@ -14,6 +15,7 @@ interface Post {
     title: string;
     mainImage: any;
     _createdAt: string;
+    _updatedAt?: string;
     author?: {
         name: string;
         image?: any;
@@ -160,7 +162,7 @@ const BlogPost = () => {
         setSubmitting(true);
 
         try {
-            await client.create({
+            const commentDoc = {
                 _type: 'comment',
                 post: {
                     _type: 'reference',
@@ -170,12 +172,21 @@ const BlogPost = () => {
                 email: commentData.email,
                 comment: commentData.comment,
                 approved: false,
+            };
+
+            const response = await fetch('/api/sanity-write', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(commentDoc)
             });
+
+            if (!response.ok) throw new Error('Failed to submit comment');
+
             setSubmitted(true);
             setCommentData({ name: '', email: '', comment: '' });
         } catch (error) {
             console.error('Error submitting comment:', error);
-            alert('Failed to submit comment. Please try again.');
+            toast.error('Failed to submit comment. Please try again.');
         } finally {
             setSubmitting(false);
         }
@@ -212,7 +223,7 @@ const BlogPost = () => {
                         "keywords": keywords[]->title
                     }
                 }`;
-                const data = await client.fetch(query, { slug });
+                const data = await client.fetch(query, { slug }, { useCdn: true });
                 setPost(data);
 
                 if (data) {
@@ -225,7 +236,7 @@ const BlogPost = () => {
                         slug,
                         excerpt
                     }`;
-                    const relatedData = await client.fetch(relatedQuery, { id: data._id });
+                    const relatedData = await client.fetch(relatedQuery, { id: data._id }, { useCdn: true });
                     setRelatedPosts(relatedData);
                 }
             } catch (error) {
@@ -277,7 +288,16 @@ const BlogPost = () => {
             }
         },
         "datePublished": post.publishedAt || post._createdAt,
-        "description": post.excerpt || post.title
+        "dateModified": post._updatedAt || post.publishedAt || post._createdAt,
+        "description": post.excerpt || post.title,
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://adonaiestateltd.com/insight/${post.slug?.current}`
+        },
+        "wordCount": (() => {
+            const text = (post.body || []).map((block: any) => block.children?.map((c: any) => c.text).join('') || '').join(' ');
+            return text.split(/\s+/).filter(Boolean).length;
+        })()
     };
 
     const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
@@ -365,7 +385,11 @@ const BlogPost = () => {
                                 </div>
                                 <div className="flex items-center gap-2 text-sm">
                                     <Clock size={18} className="text-gold" />
-                                    <span>5 min read</span>
+                                    <span>{(() => {
+                                        const text = (post.body || []).map((block: any) => block.children?.map((c: any) => c.text).join('') || '').join(' ');
+                                        const mins = Math.max(1, Math.ceil(text.split(/\s+/).length / 200));
+                                        return `${mins} min read`;
+                                    })()}</span>
                                 </div>
                             </div>
                         </motion.div>
@@ -412,7 +436,7 @@ const BlogPost = () => {
                             <button
                                 onClick={() => {
                                     navigator.clipboard.writeText(shareUrl);
-                                    alert('Link copied to clipboard!');
+                                    toast.success('Link copied to clipboard!');
                                 }}
                                 className="w-12 h-12 rounded-full border border-gray-100 flex items-center justify-center text-gray-400 hover:bg-gold hover:text-white transition-all transform hover:scale-110 active:scale-95"
                                 title="Copy Link"

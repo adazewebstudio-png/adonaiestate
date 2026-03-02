@@ -21,10 +21,9 @@ const ExecutiveContactModal = ({ isOpen, onClose }: ExecutiveContactModalProps) 
     const [error, setError] = useState<string | null>(null);
 
     // --- EMAILJS CONFIGURATION ---
-    // NOTE: Consider moving these to environment variables (import.meta.env.VITE_*)
-    const SERVICE_ID = 'service_1wmna0x';
-    const TEMPLATE_ID = 'template_32wg3nh';
-    const PUBLIC_KEY = '3niJ8UvwCvJdVdoM1';
+    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
     useEffect(() => {
         if (isOpen) {

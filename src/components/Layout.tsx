@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import FloatingSocialButtons from './FloatingSocialButtons';
 import { useLocation } from 'react-router-dom';
 import { HeaderProvider } from '../contexts/HeaderContext';
 
@@ -19,6 +20,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     {children}
                 </main>
                 <Footer />
+                <FloatingSocialButtons />
             </div>
         </HeaderProvider>
     );

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import SEO from '../components/SEO';
+import React, { useState, useEffect } from 'react';
+import SEO from './SEO';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, CheckCircle, ArrowRight, ShieldCheck, Hotel, Map, Zap, TreePine, GraduationCap, Mountain, School, Car, Layout, Utensils, Wifi, Activity, X, Mail, MessageCircle, Star } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { CONTACT_INFO, AGENT_INFO } from '../constants/contact';
 
@@ -38,12 +39,13 @@ interface EstatePageProps {
     customHero?: React.ReactNode;
     contentPadding?: string;
     aboutContent?: React.ReactNode;
+    schema?: any;
     children?: React.ReactNode;
 }
 
 const EstateLayout: React.FC<EstatePageProps> = ({
     title, location, description, features, priceInfo, imagePlaceholder, images, heroImage,
-    isUpcoming, upcomingLabel, upcomingHeroTitle, upcomingOfferings, customHero, contentPadding, aboutContent, children
+    isUpcoming, upcomingLabel, upcomingHeroTitle, upcomingOfferings, customHero, contentPadding, aboutContent, schema, children
 }) => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [formData, setFormData] = useState({
@@ -54,6 +56,16 @@ const EstateLayout: React.FC<EstatePageProps> = ({
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitSuccess, setSubmitSuccess] = useState(false);
+
+    // Close lightbox on Escape key (accessibility: WCAG 2.1 SC 2.1.2)
+    useEffect(() => {
+        if (!selectedImage) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setSelectedImage(null);
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [selectedImage]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -71,8 +83,7 @@ const EstateLayout: React.FC<EstatePageProps> = ({
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    // NOTE: Consider moving to environment variables (import.meta.env.VITE_WEB3FORMS_KEY)
-                    access_key: 'b5034291-8a43-4923-a84a-1ed1a6c6028a',
+                    access_key: import.meta.env.VITE_WEB3FORMS_KEY,
                     subject: `New Enquiry: ${title} - ${location}`,
                     from_name: formData.fullName,
                     email: formData.email,
@@ -91,18 +102,18 @@ const EstateLayout: React.FC<EstatePageProps> = ({
                 setFormData({ fullName: '', phone: '', email: '', message: '' });
                 setTimeout(() => setSubmitSuccess(false), 5000);
             } else {
-                alert('Something went wrong. Please try again or contact us directly.');
+                toast.error('Something went wrong. Please try again or contact us directly.');
             }
         } catch (error) {
             console.error('Email submission error:', error);
-            alert('Failed to send enquiry. Please try again or contact us directly via WhatsApp or Email.');
+            toast.error('Failed to send enquiry. Please try again or contact us directly via WhatsApp or Email.');
         } finally {
             setIsSubmitting(false);
         }
     };
 
     const pageUrl = `https://adonaiestateltd.com/estates/${title.toLowerCase().replace(/\s+/g, '-')}`;
-    const ogImage = heroImage ? `https://adonaiestateltd.com${heroImage}` : (images && images[0] ? `https://adonaiestateltd.com${images[0]}` : 'https://adonaiestateltd.com/airport_golf_city_main.jpg');
+    const ogImage = heroImage ? `https://adonaiestateltd.com${heroImage}` : (images && images[0] ? `https://adonaiestateltd.com${images[0]}` : 'https://adonaiestateltd.com/airport_golf_city_main.webp');
     const fullDescription = `Explore ${title} in ${location}. ${description}`;
 
     return (
@@ -112,6 +123,7 @@ const EstateLayout: React.FC<EstatePageProps> = ({
                 description={fullDescription}
                 image={ogImage}
                 pathname={`/estates/${title.toLowerCase().replace(/\s+/g, '-')}`}
+                schema={schema}
             />
 
             {customHero ? (

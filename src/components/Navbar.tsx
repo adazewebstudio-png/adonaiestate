@@ -3,6 +3,7 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useHeaderStyle } from '../contexts/HeaderContext';
+import { CONTACT_INFO } from '../constants/contact';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -171,7 +172,7 @@ const Navbar = () => {
                 </AnimatePresence>
               </div>
             ))}
-            <a href="tel:+233599007786" className="btn btn-primary text-sm gap-2">
+            <a href={`tel:${CONTACT_INFO.phone.callNow}`} className="btn btn-primary text-sm gap-2">
               <Phone size={16} />
               <span>Call Now</span>
             </a>
@@ -294,7 +295,7 @@ const Navbar = () => {
               {/* Footer with Call CTA */}
               <div className="p-6 border-t border-gray-100 shrink-0">
                 <a
-                  href="tel:+233599007786"
+                  href={`tel:${CONTACT_INFO.phone.callNow}`}
                   className="w-full h-14 bg-primary text-white flex items-center justify-center gap-3 rounded-2xl font-bold text-lg shadow-xl shadow-primary/20 active:scale-95 transition-transform"
                 >
                   <Phone size={20} fill="currentColor" />
