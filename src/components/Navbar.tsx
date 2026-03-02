@@ -107,8 +107,10 @@ const Navbar = () => {
         <div className="container mx-auto px-4 flex justify-between items-center">
           <Link to="/" className="flex items-center gap-2 z-50">
             <img
-              src="/logo.jpg"
+              src="/logo.webp"
               alt="Adonai Estate"
+              width="48"
+              height="48"
               className={`h-10 md:h-12 w-auto rounded-full border-2 transition-colors ${isDarkText ? 'border-primary/10' : 'border-white/10'}`}
             />
             <div className="flex flex-col">
@@ -185,6 +187,7 @@ const Navbar = () => {
               : (isDarkText ? 'text-gray-900' : 'text-white')
               }`}
             onClick={() => setIsOpen(true)}
+            aria-label="Open navigation menu"
           >
             <Menu size={24} />
           </button>
@@ -215,7 +218,7 @@ const Navbar = () => {
               {/* Header with logo and close */}
               <div className="p-6 flex items-center justify-between border-b border-gray-100 shrink-0">
                 <div className="flex items-center gap-2">
-                  <img src="/logo.jpg" alt="Logo" className="h-8 rounded-full" />
+                  <img src="/logo.webp" alt="Adonai logo" width="32" height="32" className="h-8 rounded-full" />
                   <span className="text-primary font-bold font-serif text-lg tracking-tight uppercase">Menu</span>
                 </div>
                 <button

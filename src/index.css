@@ -8,6 +8,8 @@
   --color-primary-light: #a31535;
   --color-secondary: #d4af37;
   /* Gold */
+  --color-secondary-dark: #916f00;
+  /* Accessible Gold for white BG */
   --color-bg: #ffffff;
   /* White */
   --color-surface: #f8fafc;
@@ -130,6 +132,10 @@ a {
 
 .text-gold {
   color: var(--color-secondary);
+}
+
+.text-gold-accessible {
+  color: var(--color-secondary-dark);
 }
 
 /* Animation utilities */

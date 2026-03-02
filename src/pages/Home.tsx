@@ -127,6 +127,8 @@ const Home = () => {
                     <img
                         src="/hero_home_main.webp"
                         alt="Adonai Estate Hero"
+                        width="1920"
+                        height="1080"
                         className="w-full h-full object-cover"
                         fetchPriority="high"
                     />
@@ -169,6 +171,7 @@ const Home = () => {
                     className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/50"
                     animate={{ y: [0, 10, 0] }}
                     transition={{ repeat: Infinity, duration: 2 }}
+                    aria-label="Scroll down to explore"
                 >
                     <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center p-1">
                         <div className="w-1 h-2 bg-white rounded-full"></div>
@@ -188,7 +191,7 @@ const Home = () => {
                             transition={{ duration: 0.6 }}
                             className="text-left"
                         >
-                            <span className="text-gold font-bold tracking-widest uppercase mb-2 block text-sm">Since 2014</span>
+                            <span className="text-gold-accessible font-bold tracking-widest uppercase mb-2 block text-sm">Since 2014</span>
                             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
                                 Your Trusted <br />
                                 <span className="text-primary">Land Ownership Partner</span>
@@ -207,10 +210,10 @@ const Home = () => {
                             </div>
 
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <Link to="/about" className="btn btn-primary inline-flex items-center gap-2">
+                                <Link to="/about" className="btn btn-primary inline-flex items-center gap-2" aria-label="Read more about Adonai Estate History">
                                     Read More <ArrowRight size={18} />
                                 </Link>
-                                <p className="text-gold font-serif italic text-lg self-center">
+                                <p className="text-gold-accessible font-serif italic text-lg self-center">
                                     "Own land with confidence."
                                 </p>
                             </div>
@@ -285,7 +288,7 @@ const Home = () => {
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                         <div className="max-w-xl">
-                            <span className="text-gold font-bold tracking-widest uppercase mb-3 block text-sm">Official Listings</span>
+                            <span className="text-gold-accessible font-bold tracking-widest uppercase mb-3 block text-sm">Official Listings</span>
                             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 font-serif mb-4 italic">Featured Properties</h2>
                             <p className="text-gray-600 text-lg leading-relaxed">
                                 Explore our latest litigation-free land offerings and premium residential developments across strategic growth zones.
@@ -352,7 +355,7 @@ const Home = () => {
                                                 <Maximize size={16} className="text-gold" />
                                                 <span className="text-xs font-bold tracking-tight">{prop.size}</span>
                                             </div>
-                                            <Link to={`/listings/${prop._id}`} className="ml-auto text-primary font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">
+                                            <Link to={`/listings/${prop._id}`} className="ml-auto text-primary font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all" aria-label={`View details for ${prop.title}`}>
                                                 Details <ArrowRight size={14} />
                                             </Link>
                                         </div>
@@ -372,7 +375,7 @@ const Home = () => {
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Our Premium Estates</h2>
                             <p className="text-gray-600">Discover your dream location in the Volta Region</p>
                         </div>
-                        <Link to="/estates" className="hidden md:flex items-center gap-2 text-primary hover:text-primary-light transition-colors font-medium">
+                        <Link to="/estates" className="hidden md:flex items-center gap-2 text-primary hover:text-primary-light transition-colors font-medium" aria-label="View all estates offered by Adonai Estate">
                             View All <ArrowRight size={16} />
                         </Link>
                     </div>
@@ -407,7 +410,7 @@ const Home = () => {
                                 </div>
                                 <div className="p-5">
                                     <p className="text-gray-600 text-sm mb-4 line-clamp-2">{estate.description}</p>
-                                    <Link to={estate.link} className="text-primary text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
+                                    <Link to={estate.link} className="text-primary text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all" aria-label={`Learn more about ${estate.name}`}>
                                         Learn more <ArrowRight size={14} />
                                     </Link>
                                 </div>
@@ -430,7 +433,7 @@ const Home = () => {
                 <div className="container mx-auto relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div>
-                            <h2 className="text-gold uppercase tracking-widest font-bold mb-2">Who We Are</h2>
+                            <h2 className="text-gold-accessible uppercase tracking-widest font-bold mb-2">Who We Are</h2>
                             <h3 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 font-serif">Confidence in Ownership</h3>
                             <div className="space-y-6 text-gray-600 text-lg font-light leading-relaxed">
                                 <p>
@@ -466,7 +469,7 @@ const Home = () => {
 
                         <div className="relative">
                             <div className="glass-card p-2 rotate-3 hover:rotate-0 transition-transform duration-500 bg-white">
-                                <img src="/home_who_we_are.webp" alt="About Adonai Estate" className="rounded-xl w-full h-auto shadow-2xl object-cover" loading="lazy" />
+                                <img src="/home_who_we_are.webp" alt="Adonai Estate's vision and core values" width="800" height="600" className="rounded-xl w-full h-auto shadow-2xl object-cover" loading="lazy" />
                             </div>
                         </div>
                     </div>
@@ -478,7 +481,7 @@ const Home = () => {
                 <div className="absolute inset-0 bg-slate-100 opacity-5"></div>
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="text-center mb-16">
-                        <span className="text-gold font-bold tracking-widest uppercase mb-2 block">What We Do</span>
+                        <span className="text-gold-accessible font-bold tracking-widest uppercase mb-2 block">What We Do</span>
                         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 font-serif">Our Expertise</h2>
                         <p className="text-gray-600 mt-4 max-w-2xl mx-auto text-lg">Comprehensive real estate solutions tailored to your needs.</p>
                     </div>
@@ -527,7 +530,7 @@ const Home = () => {
                                     <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-primary transition-colors">{service.title}</h3>
                                     <p className="text-gray-600 text-sm mb-6 leading-relaxed">{service.desc}</p>
 
-                                    <span className="mt-auto text-primary font-bold text-sm flex items-center gap-2 group-hover:gap-3 transition-all">
+                                    <span className="mt-auto text-primary font-bold text-sm flex items-center gap-2 group-hover:gap-3 transition-all" aria-label={`Learn more about our ${service.title} service`}>
                                         Learn More <ArrowRight size={16} />
                                     </span>
                                 </motion.div>
@@ -542,7 +545,7 @@ const Home = () => {
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                         <div>
-                            <span className="text-gold font-bold tracking-widest uppercase mb-2 block text-sm">Market Intelligence</span>
+                            <span className="text-gold-accessible font-bold tracking-widest uppercase mb-2 block text-sm">Market Intelligence</span>
                             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 font-serif italic">Latest Insights</h2>
                         </div>
                         <Link to="/insight" className="flex items-center gap-3 text-primary font-bold hover:gap-5 transition-all group border-b-2 border-primary/20 pb-2 uppercase tracking-widest text-xs">
@@ -602,7 +605,7 @@ const Home = () => {
                                             {post.excerpt}
                                         </p>
 
-                                        <Link to={`/insight/${post.slug?.current || post._id}`} className="inline-flex items-center gap-2 text-xs font-black text-primary hover:text-gold transition-colors mt-auto uppercase tracking-widest border-b border-primary/10 pb-1 w-fit">
+                                        <Link to={`/insight/${post.slug?.current || post._id}`} className="inline-flex items-center gap-2 text-xs font-black text-primary hover:text-gold transition-colors mt-auto uppercase tracking-widest border-b border-primary/10 pb-1 w-fit" aria-label={`Read more about ${post.title}`}>
                                             Read More <ArrowRight size={14} />
                                         </Link>
                                     </div>
@@ -623,14 +626,16 @@ const Home = () => {
                                 <div className="absolute inset-0 bg-gold/10 transform translate-x-4 translate-y-4 rounded-3xl"></div>
                                 <img
                                     src="/ceo_bright_adonai.webp"
-                                    alt="Rev. Dr. Bright Adonai"
+                                    alt="Founder & CEO, Rev. Dr. Bright Adonai"
+                                    width="350"
+                                    height="450"
                                     className="relative z-10 w-full max-w-[350px] rounded-3xl shadow-xl border border-gray-100 mx-auto object-cover"
                                     loading="lazy"
                                 />
                             </div>
                             <div className="mt-6 text-center lg:text-left pl-2">
                                 <h3 className="text-2xl font-bold text-primary font-serif">Rev. Dr. Bright Adonai</h3>
-                                <p className="text-gold font-bold tracking-widest text-sm uppercase">CEO, Adonai Estate Ltd</p>
+                                <p className="text-gold-accessible font-bold tracking-widest text-sm uppercase">CEO, Adonai Estate Ltd</p>
                             </div>
                         </div>
 
