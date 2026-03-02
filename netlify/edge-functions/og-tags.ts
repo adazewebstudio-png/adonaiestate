@@ -3,7 +3,7 @@ const SANITY_DATASET = Deno.env.get("SANITY_DATASET") || "production";
 const SANITY_API_VERSION = Deno.env.get("SANITY_API_VERSION") || "2023-05-03";
 
 const BASE_URL = "https://adonaiestateltd.com";
-const DEFAULT_IMAGE = `${BASE_URL}/logo.jpg`;
+const DEFAULT_IMAGE = `${BASE_URL}/logo.webp`;
 
 // Page metadata for static pages
 const staticPages: Record<string, { title: string; description: string; image?: string }> = {
@@ -65,7 +65,7 @@ const staticPages: Record<string, { title: string; description: string; image?: 
     "/contact": {
         title: "Contact Us | Adonai Estate Limited",
         description: "Get in touch with Adonai Estate Limited for inquiries about land purchases, consultancy, and property management.",
-        image: "/logo.jpg",
+        image: "/logo.webp",
     },
     "/gallery": {
         title: "Gallery | Adonai Estate Limited",
@@ -91,40 +91,39 @@ const staticPages: Record<string, { title: string; description: string; image?: 
     "/services/consultancy": {
         title: "Real Estate Consultancy | Adonai Estate Limited",
         description: "Professional advice on land acquisition, development planning, and real estate investment in Ghana.",
-        image: "/logo.jpg",
+        image: "/logo.webp",
     },
     "/services/property-management": {
         title: "Property Management | Adonai Estate Limited",
         description: "Let us help you protect and grow the value of your real estate assets through professional management.",
-        image: "/logo.jpg",
+        image: "/logo.webp",
     },
     "/services/brokerage": {
         title: "Real Estate Brokerage | Adonai Estate Limited",
         description: "Transparent and secure facilitation of property transactions between buyers and sellers.",
-        image: "/logo.jpg",
+        image: "/logo.webp",
     },
     // Subsidiaries
     "/subsidiaries": {
         title: "Our Subsidiaries | Adonai Group of Companies",
         description: "Discover our diverse group of companies covering education, hospitality, agriculture, and real estate services.",
-        image: "/logo.jpg",
+        image: "/logo.webp",
     },
     "/subsidiaries/golf-city-view-restaurant": {
         title: "Golf City View Restaurant | Dining with a View",
         description: "The best continental and local dishes in Ho with a stunning view of the Airport Golf City course.",
-        image: "/gcvr_aucre_logo.jpg",
+        image: "/gcvr_aucre_logo.webp",
     },
     "/subsidiaries/gcvr-aucre-gardens": {
         title: "Aucre Gardens | Premium Event Venue",
         description: "The perfect venue for weddings, corporate events, and celebrations in a serene, luxury environment.",
-        image: "/gcvr_aucre_logo.jpg",
+        image: "/gcvr_aucre_logo.webp",
     },
     "/subsidiaries/airport-golf-city-school": {
         title: "Adonai Global International School | Nurturing Leaders",
         description: "Providing world-class education for the leaders of tomorrow at Airport Golf City.",
-        image: "/agis_logo.jpg",
+        image: "/agis_logo.webp",
     },
-},
 };
 
 // Sanitize user input before embedding in GROQ queries to prevent injection
